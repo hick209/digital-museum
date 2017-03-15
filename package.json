@@ -1,0 +1,16 @@
+{
+  "name": "digital-museum",
+  "version": "0.1.0",
+  "description": "Digital Museum will present real world features through the physical web",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "physical web",
+    "react",
+    "redux"
+  ],
+  "author": "Nivaldo Bondança",
+  "license": "MIT"
+}
