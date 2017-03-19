@@ -5,6 +5,7 @@ import { blueGrey500, blueGrey700, lightGreenA200 } from 'material-ui/styles/col
 import AppBar from 'material-ui/AppBar'
 import RaisedButton from 'material-ui/RaisedButton'
 import FloatingActionButton from 'material-ui/FloatingActionButton'
+import strings from '../../strings'
 
 const muiTheme = getMuiTheme({
   palette: {
@@ -20,7 +21,7 @@ const muiTheme = getMuiTheme({
 const App = () => (
   <MuiThemeProvider muiTheme={muiTheme}>
     <div>
-      <AppBar title="Title"/>
+      <AppBar title={ strings.app.appBarTitle }/>
       <h1>This is the app</h1>
       <p>With a simple message</p>
       <RaisedButton label="Default" primary={true}/>
