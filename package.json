@@ -4,7 +4,13 @@
   "description": "Digital Museum will present real world features through the physical web",
   "main": "index.js",
   "scripts": {
+    "build:dev": "webpack-dev-server --env=dev --watch --progress --profile --colors",
+    "build:prod": "webpack --env=prod --progress --profile --colors --display-error-details",
     "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hick209/digital-museum.git"
   },
   "keywords": [
     "physical web",
@@ -12,5 +18,32 @@
     "redux"
   ],
   "author": "Nivaldo Bondança",
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "material-ui": "^0.17.1",
+    "react": "^15.4.2",
+    "react-dom": "^15.4.2",
+    "react-redux": "^5.0.3",
+    "react-tap-event-plugin": "^2.0.1",
+    "redux": "^3.6.0",
+    "redux-thunk": "^2.2.0"
+  },
+  "devDependencies": {
+    "autoprefixer-loader": "^3.2.0",
+    "babel-core": "^6.24.0",
+    "babel-loader": "^6.4.0",
+    "babel-preset-latest": "^6.24.0",
+    "babel-preset-react": "^6.23.0",
+    "css-loader": "^0.27.3",
+    "handlebars": "^4.0.6",
+    "handlebars-loader": "^1.4.0",
+    "html-webpack-plugin": "^2.28.0",
+    "json-loader": "^0.5.4",
+    "node-sass": "^4.5.0",
+    "sass-loader": "^6.0.3",
+    "style-loader": "^0.14.1",
+    "webpack": "^2.2.1",
+    "webpack-dev-server": "^2.4.2",
+    "webpack-merge": "^4.0.0"
+  }
 }
