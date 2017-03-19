@@ -29,6 +29,10 @@ module.exports = (path, outputPath) => ({
           presets: ['latest', 'react'],
         },
       },
+      {
+        test: /\.json$/,
+        loader: 'json-loader',
+      },
     ],
     // rules: [
       // {

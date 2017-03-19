@@ -1,0 +1,26 @@
+{
+  "museum": {
+    "name": "Museo da Fauna e Flora da USP São Carlos",
+    "collections": [
+      {
+        "name": "Arvores",
+        "items": [
+          {
+            "popular-name": "Ipê Amarelo",
+            "simple-description": "O Ipê Amarelo é nativo da mata atlântica e é considerada a arvore simbolo do Brasil",
+            "native": true,
+            "taxonomy": {
+              "kingdom": "Plantae",
+              "phylum": null,
+              "class": null,
+              "order": null,
+              "family": null,
+              "genus": null,
+              "species": "Tabebuia Schrysotricha",
+            },
+          },
+        ],
+      },
+    ],
+  },
+}
