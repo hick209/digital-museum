@@ -1,4 +1,4 @@
-export const constants = {
+export default {
   ADD_TREE: 'ADD_TREE',
   ADD_ANIMAL: 'ADD_ANIMAL',
 
