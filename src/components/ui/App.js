@@ -6,6 +6,18 @@ import AppBar from 'material-ui/AppBar'
 import RaisedButton from 'material-ui/RaisedButton'
 import FloatingActionButton from 'material-ui/FloatingActionButton'
 import strings from '../../strings'
+import Collections from './Collections'
+
+const collections = [
+  {
+    name: 'Flora',
+    image: 'https://www.gibraltar.gov.gi/new/images/04_Page/5_0/3_Flora_Fauna_Footer_630x300.jpg'
+  },
+  {
+    name: 'Fauna',
+    image: 'https://s-media-cache-ak0.pinimg.com/originals/cb/3d/d9/cb3dd9f36ce4ae31b20a98f7eaebd846.jpg'
+  }
+];
 
 const muiTheme = getMuiTheme({
   palette: {
@@ -16,16 +28,13 @@ const muiTheme = getMuiTheme({
     // accent2Color: grey100,
     // accent3Color: grey500,
   },
-});
+})
 
 const App = () => (
   <MuiThemeProvider muiTheme={muiTheme}>
     <div>
       <AppBar title={ strings.app.appBarTitle }/>
-      <h1>This is the app</h1>
-      <p>With a simple message</p>
-      <RaisedButton label="Default" primary={true}/>
-      <FloatingActionButton/>
+      <Collections collections={ collections }/>
     </div>
   </MuiThemeProvider>
 )
