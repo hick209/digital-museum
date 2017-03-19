@@ -4,6 +4,8 @@
   "description": "Digital Museum will present real world features through the physical web",
   "main": "index.js",
   "scripts": {
+    "build:dev": "webpack-dev-server --env=dev --watch --progress --profile --colors",
+    "build:prod": "webpack --env=prod --progress --profile --colors --display-error-details",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [
@@ -12,5 +14,21 @@
     "redux"
   ],
   "author": "Nivaldo Bondança",
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "react": "^15.4.2",
+    "react-dom": "^15.4.2"
+  },
+  "devDependencies": {
+    "babel-core": "^6.24.0",
+    "babel-loader": "^6.4.0",
+    "babel-preset-latest": "^6.24.0",
+    "babel-preset-react": "^6.23.0",
+    "handlebars": "^4.0.6",
+    "handlebars-loader": "^1.4.0",
+    "html-webpack-plugin": "^2.28.0",
+    "webpack": "^2.2.1",
+    "webpack-dev-server": "^2.4.2",
+    "webpack-merge": "^4.0.0"
+  }
 }
