@@ -1,13 +1,13 @@
 import { combineReducers } from 'redux'
-import { actions } from '../strings'
+import constants from '../constants'
 
 export const trees = (state=[], action) => {
   switch (action.type) {
-    case actions.ADD_TREE:
+    case constants.ADD_TREE:
       return [
         ...state,
         action.payload
-      ] // TODO.sort()
+      ]
 
     default:
       return state
@@ -16,7 +16,7 @@ export const trees = (state=[], action) => {
 
 export const animals = (state=[], action) => {
   switch (action.type) {
-    case actions.ADD_ANIMALS:
+    case constants.ADD_ANIMALS:
       return [
         ...state,
         action.payload
