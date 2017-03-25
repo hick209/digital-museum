@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "build:dev": "webpack-dev-server --env=dev --watch --progress --profile --colors",
-    "build:prod": "webpack --env=prod --progress --profile --colors --display-error-details",
+    "build:prod": "rm -rf ./output/prod && webpack --env=prod --progress --profile --colors --display-error-details",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -41,6 +41,7 @@
     "html-webpack-plugin": "^2.28.0",
     "json-loader": "^0.5.4",
     "node-sass": "^4.5.0",
+    "offline-plugin": "^4.6.2",
     "sass-loader": "^6.0.3",
     "style-loader": "^0.14.1",
     "webpack": "^2.2.1",
