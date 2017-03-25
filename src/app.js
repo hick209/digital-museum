@@ -1,7 +1,8 @@
 import React from 'react'
 import { render } from 'react-dom'
 import { Provider } from 'react-redux'
-import injectTapEventPlugin from 'react-tap-event-plugin';
+import injectTapEventPlugin from 'react-tap-event-plugin'
+import OfflinePluginRuntime from 'offline-plugin/runtime'
 import App from './components/App'
 import constants from './constants'
 import storeFactory from './store'
@@ -19,6 +20,9 @@ const saveState = () =>
     localStorage[constants.LOCAL_STORAGE_KEY] = JSON.stringify(store.getState())
 
 const store = storeFactory(initialState)
+
+// Install the ServiceWorker
+OfflinePluginRuntime.install()
 
 render(
   <Provider store={store}>

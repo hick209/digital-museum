@@ -1,5 +1,6 @@
 const webpack = require('webpack')
 const webpackMerge = require('webpack-merge')
+const OfflinePlugin = require('offline-plugin')
 const commonConfig = require('./base.js')
 
 module.exports = (env, path, outputPath) => webpackMerge(commonConfig(path, outputPath), {
@@ -8,11 +9,13 @@ module.exports = (env, path, outputPath) => webpackMerge(commonConfig(path, outp
     //     minimize: true,
     //     debug: false
     // }),
+
     new webpack.DefinePlugin({
       'process.env': {
         'NODE_ENV': JSON.stringify('production')
       }
     }),
+
     new webpack.optimize.UglifyJsPlugin({
       minimize: true,
       beautify: false,
@@ -26,5 +29,10 @@ module.exports = (env, path, outputPath) => webpackMerge(commonConfig(path, outp
       },
       comments: false
     }),
+
+    // According to the documentation, it's always better if OfflinePlugin is the last plugin added
+    new OfflinePlugin({
+      AppCache: false
+    })
   ]
 })

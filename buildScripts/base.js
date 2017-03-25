@@ -1,5 +1,5 @@
-const webpack = require('webpack');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
+const webpack = require('webpack')
+const HtmlWebpackPlugin = require('html-webpack-plugin')
 
 module.exports = (path, outputPath) => ({
   entry: {
@@ -7,9 +7,9 @@ module.exports = (path, outputPath) => ({
   },
   output: {
     path: outputPath,
-    filename: path.join('js', '[name].bundle.js'),
+    filename: path.join('js', '[name].[chunkhash].js'),
     // publicPath: '/',
-    sourceMapFilename: '[name].map',
+    sourceMapFilename: '[name].[chunkhash].map',
   },
   // resolve: {
   //   extensions: ['.js', '.json'],
@@ -50,9 +50,9 @@ module.exports = (path, outputPath) => ({
     }),
     new webpack.optimize.CommonsChunkPlugin({
       name: 'vendor',
-      filename: path.join('js', 'commons.bundle.js'),
+      filename: path.join('js', 'commons.[chunkhash].js'),
     }),
 
     // new ForkCheckerPlugin(),
   ]
-});
+})
