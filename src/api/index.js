@@ -1,4 +1,5 @@
 import firebase from 'firebase'
+import { Observable } from 'rxjs/Observable'
 import data from '../data'
 
 const devConfigs = {
@@ -14,16 +15,23 @@ firebase.initializeApp(devConfigs)
 
 const database = firebase.database()
 
-export const getMuseum = museumId =>
-  database.ref('museums').child(museumId).once('value')
-    .then(snapshot => {
-      const museum = snapshot.val()
-
-      return {
-        id: museum.id,
-        name: museum.name,
-      }
+export const getMuseum = museumId => Observable.create(observer => {
+  const onValueUpdated = snapshot => {
+    const museum = snapshot.val()
+    observer.next({
+      id: museum.id,
+      name: museum.name,
     })
+  }
+
+  database.ref('museums').child(museumId)
+    .on('value', onValueUpdated, error => observer.error(error))
+
+  return () => {
+    database.ref('museums').child(museumId)
+      .off(onValueUpdated)
+  }
+})
 
 const api = {
   getMuseum,

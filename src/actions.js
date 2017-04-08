@@ -11,15 +11,20 @@ export const fetchMuseumInfo = museumId => dispatch => {
   dispatch({ type: actionType.LOAD_PAGE })
 
   api.getMuseum(museumId)
-    .then(museum => {
+    .subscribe(museum => {
       dispatch({
         type: actionType.SET_MUSEUM_NAME,
         payload: museum.name,
       })
-      dispatch({ type: actionType.PAGE_LOADED })
-    })
-    .catch(error => {
-      dispatch({ type: actionType.PAGE_LOADED })
+      if (loading) {
+        loading = false
+        dispatch({ type: actionType.PAGE_LOADED })
+      }
+    }, error => {
+      if (loading) {
+        loading = false
+        dispatch({ type: actionType.PAGE_LOADED })
+      }
 
       // TODO dispatch this error
       console.error(error)
