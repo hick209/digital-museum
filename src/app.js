@@ -9,13 +9,13 @@ import storeFactory from './store'
 import initialData from './store/initialState'
 import './stylesheets/app.scss'
 
-import './database'
+import { setMuseumId, fetchMuseumInfo } from './actions'
 
 // Needed for onTouchTap
 // http://stackoverflow.com/a/34015469/988941
 injectTapEventPlugin();
 
-const storageData = localStorage[constants.LOCAL_STORAGE_KEY]
+const storageData = localStorage[ constants.LOCAL_STORAGE_KEY ]
 const initialState = (storageData) ? JSON.parse(storageData) : initialData
 
 const saveState = () =>
@@ -25,6 +25,9 @@ const store = storeFactory(initialState)
 
 // Install the ServiceWorker
 OfflinePluginRuntime.install()
+
+store.dispatch(setMuseumId('-KhEMEsIQD90VeCmiaHA'))
+store.dispatch(fetchMuseumInfo('-KhEMEsIQD90VeCmiaHA'))
 
 render(
   <Provider store={store}>
