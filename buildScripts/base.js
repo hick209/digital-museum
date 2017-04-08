@@ -1,5 +1,6 @@
 const webpack = require('webpack')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
+const CopyWebpackPlugin = require('copy-webpack-plugin')
 
 module.exports = (path, outputPath) => ({
   entry: {
@@ -48,6 +49,14 @@ module.exports = (path, outputPath) => ({
       template: 'src/index.hbs',
       chunksSortMode: 'dependency',
     }),
+    new CopyWebpackPlugin([
+      // Copy app icons
+      { from: './res/icons', to: 'icons' },
+      // Application Manifest
+      { from: './src/manifest.json' },
+      // Dynamic block for Microsoft
+      { from: './src/browserconfig.xml' },
+    ]),
     new webpack.optimize.CommonsChunkPlugin({
       name: 'vendor',
       filename: path.join('js', 'commons.[chunkhash].js'),

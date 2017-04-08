@@ -1,10 +1,10 @@
-const path = require('path');
+const path = require('path')
 
-const buildDev = require('./buildScripts/dev.js');
-const buildProd = require('./buildScripts/prod.js');
+const buildDev = require('./buildScripts/dev.js')
+const buildProd = require('./buildScripts/prod.js')
 
 module.exports = (env) => {
-  const outputPath = path.join(__dirname, `output/${env}`);
+  const outputPath = path.join(__dirname, `output/${env}`)
   switch (env) {
     case 'dev':
       return buildDev(env, path, outputPath);
@@ -15,4 +15,4 @@ module.exports = (env) => {
     default:
       throw new Error(`Bad environment! env=$env`);
   }
-};
+}
