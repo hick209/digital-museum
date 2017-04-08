@@ -12,8 +12,10 @@ const devConfigs = {
 
 firebase.initializeApp(devConfigs)
 
+const firebase.database()
+
 export const getMuseum = museumId =>
-  firebase.database().ref('museums').child(museumId).once('value')
+  database.ref('museums').child(museumId).once('value')
     .then(snapshot => {
       const museum = snapshot.val()
 
@@ -23,8 +25,8 @@ export const getMuseum = museumId =>
       }
     })
 
-const database = {
+const api = {
   getMuseum,
 }
 
-export default database
+export default api
