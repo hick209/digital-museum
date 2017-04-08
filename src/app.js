@@ -9,6 +9,8 @@ import storeFactory from './store'
 import initialData from './store/initialState'
 import './stylesheets/app.scss'
 
+import './database'
+
 // Needed for onTouchTap
 // http://stackoverflow.com/a/34015469/988941
 injectTapEventPlugin();
