@@ -12,7 +12,7 @@ const devConfigs = {
 
 firebase.initializeApp(devConfigs)
 
-const firebase.database()
+const database = firebase.database()
 
 export const getMuseum = museumId =>
   database.ref('museums').child(museumId).once('value')
