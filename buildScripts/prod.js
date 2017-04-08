@@ -33,6 +33,6 @@ module.exports = (env, path, outputPath) => webpackMerge(commonConfig(path, outp
     // According to the documentation, it's always better if OfflinePlugin is the last plugin added
     new OfflinePlugin({
       AppCache: false
-    })
-  ]
+    }),
+  ],
 })
