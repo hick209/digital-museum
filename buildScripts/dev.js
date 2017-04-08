@@ -1,4 +1,5 @@
 const webpackMerge = require('webpack-merge')
+const OfflinePlugin = require('offline-plugin')
 const commonConfig = require('./base.js')
 
 module.exports = (env, path, outputPath) => webpackMerge(commonConfig(path, outputPath), {
@@ -6,10 +7,12 @@ module.exports = (env, path, outputPath) => webpackMerge(commonConfig(path, outp
     port: 3000,
     host: 'localhost',
     inline: true,
-  //   historyApiFallback: true,
-  //   noInfo: false,
-  //   stats: 'minimal',
-  //   publicPath: '/',
     contentBase: outputPath
-  }
+  },
+  plugins: [
+    // According to the documentation, it's always better if OfflinePlugin is the last plugin added
+    new OfflinePlugin({
+      AppCache: false
+    }),
+  ],
 })
