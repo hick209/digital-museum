@@ -1,4 +1,5 @@
 import firebase from 'firebase'
+import data from '../data'
 
 const devConfigs = {
   apiKey: 'AIzaSyCRSy5EK3ihLsWict8nV2Ykyr3aMb1au9g',
@@ -10,3 +11,8 @@ const devConfigs = {
 }
 
 firebase.initializeApp(devConfigs)
+
+const database = firebase.database()
+
+// export const readMuseums = () => {
+// }
