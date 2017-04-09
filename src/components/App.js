@@ -4,7 +4,6 @@ import { connect } from 'react-redux'
 
 const mapStateToProps = (state, props) => ({
   title: state.museum.name,
-  collections: state.collections,
 })
 
 const mapDispatchToProps = dispatch => ({

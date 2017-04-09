@@ -30,8 +30,8 @@ store.dispatch(setMuseumId('-KhEMEsIQD90VeCmiaHA'))
 store.dispatch(fetchMuseum(store.getState().museum.id))
 
 render(
-  <Provider store={store}>
-    <App></App>
+  <Provider store={ store }>
+    <App/>
   </Provider>,
   document.getElementById('app')
 )

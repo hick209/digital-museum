@@ -1,7 +1,7 @@
 import 'rxjs/add/operator/take'
 import 'rxjs/add/operator/toPromise'
 import { actionType } from './constants'
-import { getCollections } from './api'
+import { getCollections, getCollectionItems } from './api'
 import api from './api'
 
 
@@ -17,13 +17,24 @@ export const setMuseumName = museumName =>
 export const setCollections = collections =>
   simpleSetter(actionType.SET_COLLECTIONS, collections)
 
+export const setCollectionItems = ({ collectionId, items }) =>
+  simpleSetter(actionType.SET_COLLECTION_ITEMS, { collectionId, items })
+
+
 export const fetchMuseum = museumId => dispatch => {
   dispatch(setPageLoading(true))
 
   api.getMuseum(museumId).take(1).toPromise()
     .then(museum => dispatch(setMuseumName(museum.name)))
     .then(() => getCollections(museumId).take(1).toPromise())
-    .then(collections => dispatch(setCollections(collections)))
+    .then(collections => {
+      dispatch(setCollections(collections))
+      return collections[0]
+    })
+    .then(collection => {
+      getCollectionItems(collection.id).take(1).toPromise()
+        .then(items => dispatch(setCollectionItems({ collectionId: collection.id, items })))
+    })
     .then(() => dispatch(setPageLoading(false)))
     .catch(error => {
       dispatch(setPageLoading(false))
