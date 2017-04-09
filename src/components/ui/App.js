@@ -1,42 +1,24 @@
 import React from 'react'
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
-import getMuiTheme from 'material-ui/styles/getMuiTheme'
-import { blueGrey500, blueGrey700, tealA400 } from 'material-ui/styles/colors'
-import AppBar from 'material-ui/AppBar'
-import RaisedButton from 'material-ui/RaisedButton'
-import FloatingActionButton from 'material-ui/FloatingActionButton'
-import strings from '../../strings'
-import Collections from './Collections'
+import { BrowserRouter as Router, Route, Switch, IndexRoute } from 'react-router-dom'
+import Theme from './Theme'
+import Toolbar from './Toolbar'
+import Collections from '../Collections'
+import CollectionItems from '../CollectionItems'
+import Whoops404 from '../Whoops404'
 
-const collections = [
-  {
-    name: 'Flora',
-    image: 'https://www.gibraltar.gov.gi/new/images/04_Page/5_0/3_Flora_Fauna_Footer_630x300.jpg'
-  },
-  {
-    name: 'Fauna',
-    image: 'https://s-media-cache-ak0.pinimg.com/originals/cb/3d/d9/cb3dd9f36ce4ae31b20a98f7eaebd846.jpg'
-  }
-];
-
-const muiTheme = getMuiTheme({
-  palette: {
-    primary1Color: blueGrey500,
-    primary2Color: blueGrey700,
-    // primary3Color: grey400,
-    accent1Color: tealA400,
-    // accent2Color: grey100,
-    // accent3Color: grey500,
-  },
-})
-
-const App = () => (
-  <MuiThemeProvider muiTheme={muiTheme}>
-    <div>
-      <AppBar title={ strings.app.appBarTitle }/>
-      <Collections collections={ collections }/>
-    </div>
-  </MuiThemeProvider>
+const App = ({ title, children }) => (
+  <Router>
+    <Theme>
+      <div>
+        <Toolbar title={ title }/>
+        <Switch>
+          <Route exact path='/' component={ Collections }/>
+          <Route path='/collections/:collectionId' component={ CollectionItems }/>
+          <Route component={ Whoops404 }/>
+        </Switch>
+      </div>
+    </Theme>
+  </Router>
 )
 
 export default App

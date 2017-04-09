@@ -1,21 +1,31 @@
 {
+  "pageLoading": false,
   "museum": {
-    "trees": [
-      {
-        "popular-name": "Ipê Amarelo",
-        "simple-description": "O Ipê Amarelo é nativo da mata atlântica e é considerada a arvore simbolo do Brasil",
-        "native": true,
-        "taxonomy": {
-          "kingdom": "plantae",
-          "phylum": null,
-          "class": null,
-          "order": null,
-          "family": null,
-          "genus": null,
-          "species": ""
+    "id": null,
+    "name": ""
+  },
+  "collections": [
+    {
+      "id": null,
+      "name": "",
+      "cover": "",
+      "itemCount": 1,
+      "items": [
+        {
+          "id": "",
+          "popularName": "Ipê Amarelo",
+          "simpleDescription": "O Ipê Amarelo é nativo da mata atlântica e é considerada a arvore simbolo do Brasil",
+          "taxonomy": {
+            "kingdom": "plantae",
+            "phylum": null,
+            "class": null,
+            "order": null,
+            "family": null,
+            "genus": null,
+            "species": ""
+          }
         }
-      }
-    ],
-    "animals": []
-  }
+      ]
+    }
+  ]
 }

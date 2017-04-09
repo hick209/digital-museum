@@ -1,18 +1,22 @@
 import React from 'react'
-import { List } from 'material-ui/List'
+import { Link } from 'react-router-dom'
 import { GridList } from 'material-ui/GridList'
 import Collection from './Collection'
+
 
 const Collections = ({ collections }) => (
   <GridList
     cellHeight={240}
     cols={1}>
     {
-      collections.map(({ name, image }) => (
+      collections.map(({ id, name, cover }) => (
+        <Link
+          key={ id }
+          to={ `collections/${id}` }>
           <Collection
-            key={ name }
             name={ name }
-            image={ image }/>
+            cover={ cover }/>
+        </Link>
       ))
     }
   </GridList>

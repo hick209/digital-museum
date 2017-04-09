@@ -2,11 +2,11 @@ import React from 'react'
 import { Card, CardMedia, CardTitle } from 'material-ui/Card'
 import { GridTile } from 'material-ui/GridList'
 
-const Collection = ({ name, image }) => (
+const Collection = ({ id, name, cover }) => (
   <GridTile
-    key={ name }
+    key={ id }
     title={ name }>
-    <img src={ image } />
+    <img src={ cover }/>
   </GridTile>
 
   // <Card>
