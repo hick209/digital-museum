@@ -1,38 +1,16 @@
 import { combineReducers } from 'redux'
 import { actionType } from '../constants'
 
-export const pageLoading = (state=true, action) => {
-  switch (action.type) {
-    case actionType.LOAD_PAGE:
-      return true
+const simpleHandling = (state, action, actionType) => (action.type === actionType) ? action.payload : state
 
-    case actionType.PAGE_LOADED:
-      return false
+export const pageLoading = (state=true, action) =>
+  simpleHandling(state, action, actionType.SET_PAGE_LOADING)
 
-    default:
-      return state
-  }
-}
+export const museumId = (state=null, action) =>
+  simpleHandling(state, action, actionType.SET_MUSEUM_ID)
 
-export const museumId = (state=null, action) => {
-  switch (action.type) {
-    case actionType.SET_MUSEUM_ID:
-      return action.payload
-
-    default:
-      return state
-  }
-}
-
-export const museumName = (state="", action) => {
-  switch (action.type) {
-    case actionType.SET_MUSEUM_NAME:
-      return action.payload
-
-    default:
-      return state
-  }
-}
+export const museumName = (state="", action) =>
+  simpleHandling(state, action, actionType.SET_MUSEUM_NAME)
 
 export const collections = (state=[], action) => {
   switch (action.type) {

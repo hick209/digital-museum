@@ -24,13 +24,10 @@ export const getMuseum = museumId => Observable.create(observer => {
     })
   }
 
-  database.ref('museums').child(museumId)
-    .on('value', onValueUpdated, error => observer.error(error))
+  const reference = database.ref('museums').child(museumId)
+  reference.on('value', onValueUpdated, error => observer.error(error))
 
-  return () => {
-    database.ref('museums').child(museumId)
-      .off(onValueUpdated)
-  }
+  return () => reference.off('value', onValueUpdated)
 })
 
 const api = {
