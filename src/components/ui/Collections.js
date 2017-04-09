@@ -3,16 +3,17 @@ import { List } from 'material-ui/List'
 import { GridList } from 'material-ui/GridList'
 import Collection from './Collection'
 
+
 const Collections = ({ collections }) => (
   <GridList
     cellHeight={240}
     cols={1}>
     {
-      collections.map(({ name, image }) => (
+      collections.map(({ id, name, cover }) => (
           <Collection
             key={ name }
             name={ name }
-            image={ image }/>
+            cover={ cover }/>
       ))
     }
   </GridList>

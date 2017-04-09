@@ -22,7 +22,7 @@ const muiTheme = getMuiTheme({
 const App = ({title, collections}) => (
   <MuiThemeProvider muiTheme={muiTheme}>
     <div>
-      <AppBar title={title}/>
+      <AppBar title={ title }/>
       <Collections collections={ collections }/>
     </div>
   </MuiThemeProvider>

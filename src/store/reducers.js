@@ -33,9 +33,9 @@ export const collections = (state=[], action) => {
     }
 
     case actionType.SET_COLLECTION_ITEMS: {
-      const collections = [ ...state ]
       const collectionId = action.payload.collectionId
       const newItems = action.payload.items
+      const collections = [ ...state ]
       for (let i = 0; i < state.length; i++) {
         const collection = collections[i]
         if (collection.id === collectionId) {
