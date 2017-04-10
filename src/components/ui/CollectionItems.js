@@ -3,18 +3,23 @@ import { GridList } from 'material-ui/GridList'
 import CollectionItem from './CollectionItem'
 
 
-const CollectionItems = ({ items }) => (
-  <GridList
-    cellHeight={240}
-    cols={2}>
-    {
-      items.map(({ id, popularName }) => (
-        <CollectionItem
-          key={ id }
-          popularName={ popularName }/>
-      ))
-    }
-  </GridList>
-)
+const CollectionItems = ({ items }) => {
+  items = items || []
+
+  return (
+    <GridList
+      cellHeight={240}
+      cols={2}>
+      {
+        items.map(({ id, popularName, cover }) => (
+          <CollectionItem
+            key={ id }
+            popularName={ popularName }
+            cover={ cover }/>
+        ))
+      }
+    </GridList>
+  )
+}
 
 export default CollectionItems

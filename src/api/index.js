@@ -27,7 +27,7 @@ export const getCollection = collectionId => read('collections', collectionId, c
   museumId: collection.museumId,
   name: collection.name,
   cover: collection.cover,
-  itemCount: Object.keys(collection.items),
+  itemCount: Object.keys(collection.items).length,
 }))
 
 export const getCollectionItem = itemId => read('collectionItems', itemId, item => {
@@ -41,6 +41,7 @@ export const getCollectionItem = itemId => read('collectionItems', itemId, item 
     collectionId: item.collectionId,
     popularName: item.popularName,
     simpleDescription: item.simpleDescription,
+    cover: item.cover,
     taxonomy,
   }
 })
