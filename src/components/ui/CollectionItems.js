@@ -1,9 +1,16 @@
 import React from 'react'
 import { GridList } from 'material-ui/GridList'
+import { Redirect } from 'react-router-dom'
 import CollectionItem from './CollectionItem'
 
 
-const CollectionItems = ({ items }) => {
+const CollectionItems = ({ items, invalidCollection }) => {
+  if (invalidCollection) {
+    return (
+      <Redirect to='/'/>
+    )
+  }
+
   items = items || []
 
   return (
