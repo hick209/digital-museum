@@ -31,10 +31,8 @@ export const fetchMuseum = museumId => dispatch => {
       dispatch(setCollections(collections))
       return collections[0]
     })
-    .then(collection => {
-      getCollectionItems(collection.id).take(1).toPromise()
-        .then(items => dispatch(setCollectionItems({ collectionId: collection.id, items })))
-    })
+    .then(collection => getCollectionItems(collection.id).take(1).toPromise())
+    .then(items => dispatch(setCollectionItems({ collectionId: items[0].collectionId, items })))
     .then(() => dispatch(setPageLoading(false)))
     .catch(error => {
       dispatch(setPageLoading(false))
@@ -46,5 +44,5 @@ export const fetchMuseum = museumId => dispatch => {
 
 
 function simpleSetter(action, payload) {
-  return { type: action, payload: payload }
+  return { type: action, payload }
 }

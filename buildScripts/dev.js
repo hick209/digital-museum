@@ -7,5 +7,6 @@ module.exports = (env, path, outputPath) => webpackMerge(commonConfig(path, outp
     host: 'localhost',
     inline: true,
     contentBase: outputPath,
+    historyApiFallback: true,
   },
 })

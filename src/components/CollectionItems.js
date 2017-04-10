@@ -13,17 +13,16 @@ const mapStateToProps = (state, props) => {
     }
   }
 
-  if (index < 0) {
-    props.history.goBack()
-    return {}
-  }
+  const invalidCollection = index < 0
 
   return {
-    items: state.collections[index].items
+    invalidCollection,
+    items: invalidCollection ? [] : state.collections[index].items
   }
 }
 
 const mapDispatchToProps = dispatch => ({
 })
+
 
 export default connect(mapStateToProps, mapDispatchToProps)(CollectionItems)
