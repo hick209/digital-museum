@@ -1,5 +1,4 @@
 output/*
-!output/prod/
 
 # Created by https://www.gitignore.io/api/node
 
