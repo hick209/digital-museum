@@ -1,5 +1,5 @@
 import React from 'react'
-import { BrowserRouter as Router, Route, Switch, IndexRoute } from 'react-router-dom'
+import { BrowserRouter as Router, Route, Redirect, Switch, IndexRoute } from 'react-router-dom'
 import Theme from './Theme'
 import Toolbar from './Toolbar'
 import Collections from '../Collections'
@@ -14,7 +14,7 @@ const App = ({ title, children }) => (
         <Switch>
           <Route exact path='/' component={ Collections }/>
           <Route path='/collections/:collectionId' component={ CollectionItems }/>
-          <Route component={ Whoops404 }/>
+          <Redirect to='/'/>
         </Switch>
       </div>
     </Theme>
