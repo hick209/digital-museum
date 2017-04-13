@@ -21,6 +21,7 @@
   "author": "Nivaldo Bondança",
   "license": "MIT",
   "dependencies": {
+    "body-parser": "^1.17.1",
     "express": "^4.15.2",
     "firebase": "^3.7.5",
     "material-ui": "^0.17.1",
