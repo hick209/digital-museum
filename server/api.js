@@ -13,6 +13,7 @@ const error = require('../src/errors')
 firebase.initializeApp({
   credential: firebase.credential.cert(serviceAccount),
   databaseURL: 'https://digital-museum-5d606.firebaseio.com/',
+  databaseAuthVariableOverride: { uid: 'api' },
 })
 
 
