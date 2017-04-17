@@ -9,6 +9,10 @@
     "build:prod": "rm -rf ./output/prod && webpack --env=prod --progress --profile --colors --display-error-details",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
+  "homepage": "https://digital-museum.herokuapp.com/",
+  "contributors": [
+    "Nivaldo Bondança <hick209@gmail.com>"
+  ],
   "repository": {
     "type": "git",
     "url": "git+https://github.com/hick209/digital-museum.git"
@@ -19,11 +23,18 @@
     "redux"
   ],
   "author": "Nivaldo Bondança",
+  "bugs": {
+    "email": "hick209@gmail.com"
+  },
   "license": "MIT",
+  "engines": {
+    "node": "6.9.3"
+  },
   "dependencies": {
     "body-parser": "^1.17.1",
     "express": "^4.15.2",
     "firebase": "^3.7.5",
+    "firebase-admin": "^4.2.1",
     "material-ui": "^0.17.1",
     "react": "^15.4.2",
     "react-dom": "^15.4.2",
