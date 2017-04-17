@@ -1,8 +1,8 @@
 import firebase from 'firebase'
+import fetch from 'whatwg-fetch'
 import { Observable } from 'rxjs/Observable'
 import 'rxjs/add/operator/take'
 import 'rxjs/add/operator/toPromise'
-import data from '../data'
 
 const devConfigs = {
   apiKey: 'AIzaSyCRSy5EK3ihLsWict8nV2Ykyr3aMb1au9g',
@@ -16,6 +16,54 @@ const devConfigs = {
 firebase.initializeApp(devConfigs)
 
 const database = firebase.database()
+const auth = firebase.auth()
+
+export const signInWithEmail = (email, password) => Observable.create(observer => {
+  auth.signInWithEmailAndPassword(email, password)
+    .then(user => ({ user, credential: firebase.auth.EmailAuthProvider.credential(email, password) }))
+    .then(handleSignInResult(observer))
+    .catch(handleSignInError(observer))
+})
+
+export const signInWithFacebook = () => Observable.create(observer => {
+  const provider = new firebase.auth.FacebookAuthProvider()
+  // Required permissions
+  provider.addScope('email')
+  provider.addScope('public_profile')
+
+  auth.signInWithPopup(provider)
+    .then(handleSignInResult(observer))
+    .catch(handleSignInError(observer))
+})
+
+export const signInWithGitHub = () => Observable.create(observer => {
+  const provider = new firebase.auth.GithubAuthProvider()
+  // Required permissions
+  provider.addScope('user:email')
+
+  auth.signInWithPopup(provider)
+    .then(handleSignInResult(observer))
+    .catch(handleSignInError(observer))
+})
+
+export const signInWithGoogle = () => Observable.create(observer => {
+  const provider = new firebase.auth.GoogleAuthProvider()
+  // Required permissions
+  provider.addScope('email')
+  provider.addScope('profile')
+
+  auth.signInWithPopup(provider)
+    .then(handleSignInResult(observer))
+    .catch(handleSignInError(observer))
+})
+
+export const signInWithTwitter = () => Observable.create(observer => {
+  const provider = new firebase.auth.TwitterAuthProvider()
+
+  auth.signInWithPopup(provider)
+    .then(handleSignInResult(observer))
+    .catch(handleSignInError(observer))
+})
 
 export const getMuseum = museumId => read('museums', museumId, museum => ({
   id: museum.id,
@@ -33,7 +81,7 @@ export const getCollection = collectionId => read('collections', collectionId, c
 export const getCollectionItem = itemId => read('collectionItems', itemId, item => {
   const taxonomy = {}
   const taxonomyKeys = [ 'kingdom', 'phylum', 'class', 'order', 'family', 'genus', 'species' ]
-  const taxonomyValues = item.taxonomy.split(/\|/).map(/* Remove empty strings */ s => !!s ? s : null)
+  const taxonomyValues = item.taxonomy.split(/\|/).map(/* Remove empty strings */ s => s || null)
   taxonomyKeys.forEach((key, i) => taxonomy[key] = taxonomyValues[i])
 
   return {
@@ -51,6 +99,12 @@ export const getCollections = museumId => getChildren('museums', museumId, 'coll
 export const getCollectionItems = collectionId => getChildren('collections', collectionId, 'items', getCollectionItem)
 
 const api = {
+  signInWithEmail,
+  signInWithFacebook,
+  signInWithGitHub,
+  signInWithGoogle,
+  signInWithTwitter,
+
   getMuseum,
   getCollection,
   getCollectionItem,
@@ -58,6 +112,107 @@ const api = {
 
 export default api
 
+
+function handleSignInResult(observer) {
+  return result => {
+    const info = {
+      firebaseId: result.user.uid,
+      email: result.user.email,
+      userName: result.user.displayName,
+      userPicture: result.user.photoUrl,
+      facebookToken: (result.credential.providerId === firebase.auth.FacebookAuthProvider.PROVIDER_ID ? info.facebookToken = result.credential.authToken : null),
+      gitHubToken: (result.credential.providerId === firebase.auth.GithubAuthProvider.PROVIDER_ID ? info.gitHubToken = result.credential.authToken : null),
+      googleToken: (result.credential.providerId === firebase.auth.GoogleAuthProvider.PROVIDER_ID ? info.googleToken = result.credential.authToken : null),
+      twitterToken: (result.credential.providerId === firebase.auth.TwitterAuthProvider.PROVIDER_ID ? info.twitterToken = result.credential.authToken : null),
+      twitterSecret: (result.credential.providerId === firebase.auth.TwitterAuthProvider.PROVIDER_ID ? info.twitterToken = result.credential.secret : null),
+    }
+
+    const options = {
+      body: JSON.stringfy(info),
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    }
+
+    fetch.get('/api/session', options)
+      .then(session => {
+        observer.next(session)
+        observer.complete()
+      })
+      .catch(error => observer.error(error))
+  }
+}
+
+function handleSignInError(observer) {
+  return error => {
+    var errorCode = error.code
+    var errorMessage = error.message
+
+    switch (errorCode) {
+      case 'auth/account-exists-with-different-credential':
+        auth.fetchProvidersForEmail(error.email)
+          .then(providers => {
+            alert(`Please sign in using one of this providers:\n\t${providers.join('\n\t')}`)
+            observer.complete()
+          })
+          .catch(handleSignInError(observer))
+        break
+
+      case 'auth/auth/credential-already-in-use':
+        console.info(`Credential already in use, email: '${error.email}'. Trying to recover...`)
+        auth.signInWithCredential(error.credential)
+          .then(handleSignInResult(observer))
+          .catch(handleSignInError(observer))
+        break
+
+      case 'auth/email-already-in-use':
+        auth.fetchProvidersForEmail(error.email)
+          .then(providers => alert(`Please sign in using one of this providers:\n\t${providers.join('\n\t')}`))
+          .catch(handleSignInError(observer))
+        break
+
+      case 'auth/invalid-email':
+      case 'auth/user-disabled':
+      case 'auth/user-not-found':
+      case 'auth/wrong-password':
+        console.error(error)
+        observer.error(error)
+        break
+
+      case 'auth/popup-blocked':
+        console.error('Pop-up blocked')
+        observer.error(error)
+        break
+
+      case 'auth/cancelled-popup-request':
+      case 'auth/popup-closed-by-user':
+        observer.complete()
+        break
+
+      case 'auth/auth-domain-config-required':
+      case 'auth/unauthorized-domain':
+        console.error('No Auth configured for this project!')
+        observer.error(error)
+        break
+      case 'auth/operation-not-allowed':
+        console.error('This sign in option is not enabled!')
+        observer.error(error)
+        break
+      case 'auth/operation-not-supported-in-this-environment':
+        console.error('Should be using HTTP or HTTPS')
+        observer.error(error)
+        break
+      case 'auth/timeout':
+        console.error('Timeout! This type of auth is probably not authorized')
+        observer.error(error)
+        break
+
+      default:
+        observer.error(error)
+        break
+    }
+  }
+}
 
 function read(parentPath, id, parser) {
   return Observable.create(observer => {
