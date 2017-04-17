@@ -1,0 +1,12 @@
+{
+  "type": "service_account",
+  "project_id": "digital-museum-5d606",
+  "private_key_id": "a45d68b275cd5cf70c427a27d5d7e36129dfab19",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvwIBADANBgkqhkiG9w0BAQEFAASCBKkwggSlAgEAAoIBAQD7SLQYqMskuavD\nY5I4xXqgLTXvnA83dTRBDivCnbeZ+Ds36jNtSC3roJFpaa5ApIGmDjaqjgiSAyUp\nANEsKre1h/cRPPKIemYEuXXZKgTIuyYY+HOijzriS9P/5BpP/JwQ/JCfUkgzUwdB\nNW0NPKG/rv9e7VxqAOJQp3yyTyD7f7G7sBh9DaWBb0JNDxvYfcaWVQhCS/UEvaqg\nIO8u6fapgLxV1XCEgbgOvOLAc2hFQCg3Loo4/UqW9HxTLkI1Cw9ssdm4oI2C8bNy\nDVfhtQGbp7Fz9cIb/q/8GUv5NqMBfIuZzwiSWrlXke9gP4x2E7wc8qtV7VArF0Mo\n3nCYjIhfAgMBAAECggEBAL5ICLCfqOzPeITFsqUwzTHb6nreJxussfwNWg/OVIjQ\nUy99NqIrRTKnbVVwhFZI/DAdlUHDujOvFAWfq8WRN3nMUsgH6fR1EynCsr3Wtra2\nGRxRj2bqpQFVwFyGg3JMbHXkezNaIHhVCCpV5ZVfc3BueMyOWyueLcI7gg6YIvat\n9GsFBXjxDVp+u9SOsvRMgoh432aFTy9nxSEMTXVEilFqGaK7xrFIGtolyC6w2IaW\n/uf6HQGAAHTUflJxPp4jF1SQ0d64tPsfoBevsJ9TFAPWWVENc5iCdnEGjg3HLuPn\nKwvucw3l//gX4F7zqsBvtu6kO5Aqh4i3WUc4ynBI9pkCgYEA/6JM60lAFM/W4JzO\nS6bepg2+txhkxamPZw7V+M2L1sqRXgcWkOITmKhSJpMMuMelY3xGqj7YeOmvPjrv\nzwjFhO68fsXeNN1FVkhfSKikjFEVSOKWCeMndmv9Oms8AhSDveVHyxiivSEIQP4K\ncI9QHUcRLmNX0UNk1nNxjavG/IUCgYEA+6TPAHU3CgdaxFpwaG5UUdP95RYXQNRV\nQ7PeLtJOt970GTSXCExrLn9lbN+htoEBqDGKWgoENRTnlus/rWO8tbd62XEZBUgk\nSDPJWKNrE1Jj6g3UIgXQDgh7m8D4KiFq+frck7VAoQFkCY+I654UJxxEd81ylFpP\nCUQECB396JMCgYEAw0CrMbeES6EoRe1fIKd3PiwXdHAcYGGPl67cPip5WfjlKYWO\ndeFICHzgKnh86hILwD4nF1fjLg+He6e2jVLs0wkqTkZB3+z2Td3/cVbmQAqakE4J\nPcoT1T7MbzeC4S/cJEohGP5bJsw5KrMfNDQyg/pJJD5a0AqC1c3deNEwrqUCgYB2\n0+1X1wHlf3GSFO7NsYOpnERhQBw85cdZj/8T9wVq+CImINpM9eEK9OeNENEJIEQL\nC1G8kMxJ0JRHhNDt7JH48SpWsXxSLS3M1n92lryCRD6gEGWip0IGzmSoOOg25M7i\nOl6cdVOOc9ysUxYhxOTZTxTZya8YdMirpG2O87KpdwKBgQDSTkcLr+r2fB+Kp03f\nwlQB2mU+4D4+2HTsxWDHxiwq/8viGPIi4h2fh7F6Yz1KkFIfs6eNc6En3no1XhJo\n61VxEyz2WMfykE5KACwKOq4RgUF4nEa+NvH0Tf0PKEFSnFen25p/Ltw7rX2Nh+0T\nWdnPoQ1a5kIPOm2A9nBKSyXnbA==\n-----END PRIVATE KEY-----\n",
+  "client_email": "api-184@digital-museum-5d606.iam.gserviceaccount.com",
+  "client_id": "111548063807214483244",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://accounts.google.com/o/oauth2/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/api-184%40digital-museum-5d606.iam.gserviceaccount.com"
+}
