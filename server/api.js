@@ -1,37 +1,28 @@
 /* eslint-disable no-console */
-const path = require('path')
-
-const webpack = require('webpack')
-const webpackConfigs = require('./webpack.config')
-
-const express = require('express')
-const app = express()
+const router = require('express').Router()
 const bodyParser = require('body-parser')
+// const firebase = require('firebase')
+const firebase = require("firebase-admin");
+// const admin = require("firebase-admin");
+const serviceAccount = require('./firebase-key.json')
 
-const firebase = require('firebase')
+const error = require('../src/errors')
 
-const { error } = require('./src/constants')
 
 // Init Firebase
 firebase.initializeApp({
-  serviceAccount: './firebase-key.json',
+  credential: firebase.credential.cert(serviceAccount),
   databaseURL: 'https://digital-museum-5d606.firebaseio.com/',
 })
 
-// Build the project
-const buildConfig = process.env.NODE_ENV === 'production' ? 'prod' : 'dev'
-console.log(`Building project with '${buildConfig}' configuration`)
-webpack(webpackConfigs(buildConfig), () => console.info('Finished building project with WebPack'))
 
-// configure app to use bodyParser()
+// configure router to use bodyParser()
 // this will let us get the data from a POST
-app.use(bodyParser.urlencoded({ extended: true }))
-app.use(bodyParser.json())
+router.use(bodyParser.urlencoded({ extended: true }))
+router.use(bodyParser.json())
 
-// Setup paths
-app.use('/', express.static('output/prod/'))
 
-app.get('/api/session', (request, response) => {
+router.get('/session', (request, response) => {
   // const info = {
   //   firebaseId: '',
   //   email: '',
@@ -203,11 +194,5 @@ app.get('/api/session', (request, response) => {
     })
 })
 
-app.get('*', (request, response) => {
-  response.sendFile(path.join(__dirname, 'output/prod/index.html'))
-})
 
-// Start the server
-const listener = app.listen(process.env.PORT || 80, () => {
-  console.info(`Server started on port ${listener.address().port}!`)
-})
+module.exports = router
