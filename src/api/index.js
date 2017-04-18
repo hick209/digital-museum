@@ -1,5 +1,5 @@
 import firebase from 'firebase'
-import fetch from 'whatwg-fetch'
+import 'whatwg-fetch'
 import { Observable } from 'rxjs/Observable'
 import 'rxjs/add/operator/take'
 import 'rxjs/add/operator/toPromise'
@@ -120,21 +120,22 @@ function handleSignInResult(observer) {
       email: result.user.email,
       userName: result.user.displayName,
       userPicture: result.user.photoUrl,
-      facebookToken: (result.credential.providerId === firebase.auth.FacebookAuthProvider.PROVIDER_ID ? info.facebookToken = result.credential.authToken : null),
-      gitHubToken: (result.credential.providerId === firebase.auth.GithubAuthProvider.PROVIDER_ID ? info.gitHubToken = result.credential.authToken : null),
-      googleToken: (result.credential.providerId === firebase.auth.GoogleAuthProvider.PROVIDER_ID ? info.googleToken = result.credential.authToken : null),
-      twitterToken: (result.credential.providerId === firebase.auth.TwitterAuthProvider.PROVIDER_ID ? info.twitterToken = result.credential.authToken : null),
-      twitterSecret: (result.credential.providerId === firebase.auth.TwitterAuthProvider.PROVIDER_ID ? info.twitterToken = result.credential.secret : null),
+      facebookToken: (result.credential.providerId === firebase.auth.FacebookAuthProvider.PROVIDER_ID ? result.credential.authToken : null),
+      gitHubToken: (result.credential.providerId === firebase.auth.GithubAuthProvider.PROVIDER_ID ? result.credential.authToken : null),
+      googleToken: (result.credential.providerId === firebase.auth.GoogleAuthProvider.PROVIDER_ID ? result.credential.authToken : null),
+      twitterToken: (result.credential.providerId === firebase.auth.TwitterAuthProvider.PROVIDER_ID ? result.credential.authToken : null),
+      twitterSecret: (result.credential.providerId === firebase.auth.TwitterAuthProvider.PROVIDER_ID ? result.credential.secret : null),
     }
 
     const options = {
-      body: JSON.stringfy(info),
+      method: 'POST',
+      body: JSON.stringify(info),
       headers: {
         'Content-Type': 'application/json',
       },
     }
 
-    fetch.get('/api/session', options)
+    fetch('/api/session', options)
       .then(session => {
         observer.next(session)
         observer.complete()
@@ -145,6 +146,7 @@ function handleSignInResult(observer) {
 
 function handleSignInError(observer) {
   return error => {
+    console.log(error);
     var errorCode = error.code
     var errorMessage = error.message
 
@@ -184,6 +186,7 @@ function handleSignInError(observer) {
         observer.error(error)
         break
 
+      case 'auth/user-cancelled':
       case 'auth/cancelled-popup-request':
       case 'auth/popup-closed-by-user':
         observer.complete()
