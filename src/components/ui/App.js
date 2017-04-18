@@ -11,7 +11,7 @@ const App = ({ title, pageLoading, children }) => (
   <Router>
     <Theme>
       <div>
-        <Toolbar title={ title }/>
+        <Toolbar title={ title } signedIn={ false }/>
         {
           pageLoading ? (
             <div className='centerGravity'>
