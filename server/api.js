@@ -23,7 +23,7 @@ router.use(bodyParser.urlencoded({ extended: true }))
 router.use(bodyParser.json())
 
 
-router.get('/session', (request, response) => {
+router.post('/session', (request, response) => {
   // const info = {
   //   firebaseId: '',
   //   email: '',

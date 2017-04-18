@@ -10,7 +10,7 @@ const build = () => {
 
   console.log(`Building project with '${buildConfig}' configuration`)
   webpack(webpackConfigs(buildConfig), () => console.info('Finished building project with WebPack'))
-  return path.join('../output', buildConfig)
+  return path.join(__dirname, '../output', buildConfig)
 }
 
 

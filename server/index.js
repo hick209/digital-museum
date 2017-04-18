@@ -14,7 +14,7 @@ app.use('/', express.static(outputFolder))
 app.use('/api', api)
 
 app.get('*', (request, response) => {
-  response.sendFile(path.join(__dirname, outputFolder, 'index.html'))
+  response.sendFile(path.join(outputFolder, 'index.html'))
 })
 
 // Start the server
