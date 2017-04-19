@@ -136,6 +136,7 @@ function handleSignInResult(observer) {
     }
 
     fetch('/api/session', options)
+      .then(response => response.json())
       .then(session => {
         observer.next(session)
         observer.complete()
@@ -154,7 +155,7 @@ function handleSignInError(observer) {
       case 'auth/account-exists-with-different-credential':
         auth.fetchProvidersForEmail(error.email)
           .then(providers => {
-            alert(`Please sign in using one of this providers:\n\t${providers.join('\n\t')}`)
+            alert(`Please sign in using one of this providers:\n - ${providers.join('\n - ')}`)
             observer.complete()
           })
           .catch(handleSignInError(observer))
