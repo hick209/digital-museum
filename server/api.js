@@ -22,11 +22,12 @@ firebase.initializeApp({
 router.use(bodyParser.urlencoded({ extended: true }))
 router.use(bodyParser.json())
 
-
 router.post('/session', (request, response) => {
   // const info = {
   //   firebaseId: '',
   //   email: '',
+  //   userName: '',
+  //   userPicture: '',
   //   facebookToken: '',
   //   gitHubToken: '',
   //   googleToken: '',
@@ -34,47 +35,74 @@ router.post('/session', (request, response) => {
   //   twitterSecret: '',
   // }
   const info = request.body
+  // Can't have undefined values
+  info.firebaseId = info.firebaseId || null
+  info.userName = info.userName || null
+  info.userPicture = info.userPicture || null
+  info.email = info.email || null
+  info.facebookToken = info.facebookToken || null
+  info.gitHubToken = info.gitHubToken || null
+  info.googleToken = info.googleToken || null
+  info.twitterToken = info.twitterToken || null
+  info.twitterSecret = info.twitterSecret || null
 
-  if (!info.email) {
-    response.status(400)
-      .sent(error.EMAIL_REQUIRED)
-      .type('json')
-      .json({
-        error: {
-          code: error.EMAIL_REQUIRED,
-          message: 'User email is required to obtain a session, but it is missing',
-        },
-      })
-    return
-  }
+  new Promise(resolve => resolve(info))
+    .then(info => {
+      if (!info.email) {
+        throw {
+          statusCode: 400,
+          error: {
+            code: error.EMAIL_REQUIRED,
+            message: 'User email is required to obtain a session, but it is missing',
+          }
+        }
+      }
 
-  const keys = [ info.firebaseId ]
-  if (info.googleToken) {
-    keys.push(`gg-${info.googleToken}`)
-  }
-  if (info.email) {
-    keys.push(`em-${Buffer.from(info.email, 'ascii').toString('base64')}`)
-  }
-  if (info.facebookToken) {
-    keys.push(`fb-${info.facebookToken}`)
-  }
-  if (info.gitHubToken) {
-    keys.push(`gh-${info.gitHubToken}`)
-  }
-  if (info.twitterToken) {
-    keys.push(`tt-${info.twitterToken}`)
-  }
-  if (info.twitterSecret) {
-    keys.push(`ts-${info.twitterSecret}`)
-  }
+      if (!info.firebaseId) {
+        throw {
+          statusCode: 400,
+          error: {
+            code: error.FIREBASE_ID_REQUIRED,
+            message: 'Firebase ID is required to obtain a session, but it is missing',
+          },
+        }
+      }
 
-  const getUserRequests = []
-  for (let key of keys) {
-    getUserRequests.push(firebase.database().ref('keys').child(key).once('value').then(snapshot => snapshot.val()))
-  }
+      return info
+    })
+    .then(info => {
+      const keys = []
+      if (info.firebaseId) {
+        keys.push(`gf-${info.firebaseId}`)
+      }
+      if (info.googleToken) {
+        keys.push(`gg-${info.googleToken}`)
+      }
+      if (info.email) {
+        keys.push(`em-${Buffer.from(info.email, 'ascii').toString('base64')}`)
+      }
+      if (info.facebookToken) {
+        keys.push(`fb-${info.facebookToken}`)
+      }
+      if (info.gitHubToken) {
+        keys.push(`gh-${info.gitHubToken}`)
+      }
+      if (info.twitterToken) {
+        keys.push(`tt-${info.twitterToken}`)
+      }
+      if (info.twitterSecret) {
+        keys.push(`ts-${info.twitterSecret}`)
+      }
 
-  Promise.all(getUserRequests)
-    .then(results => {
+      const getUserRequests = []
+      for (let key of keys) {
+        getUserRequests.push(firebase.database().ref('keys').child(key).once('value').then(snapshot => snapshot.val()))
+      }
+
+      return Promise.all(getUserRequests)
+        .then(results => ({ info, results, keys }))
+    })
+    .then(({ info, results, keys }) => {
       let userId = null
       let newUser = true
       const userIds = []
@@ -100,18 +128,18 @@ router.post('/session', (request, response) => {
         }
       }
 
-      return { userId, newUser }
+      return { info, keys, userId, newUser }
     })
-    .then(({ userId, newUser }) => {
+    .then(({ info, keys, userId, newUser }) => {
       // Save all 'keys'
       const saveTask = []
       for (let key of keys) {
         saveTask.push(firebase.database().ref('keys').child(key).set(userId))
       }
       return Promise.all(saveTask)
-        .then(() => ({ userId, newUser }))
+        .then(() => ({ info, keys, userId, newUser }))
     })
-    .then(({ userId, newUser }) => {
+    .then(({ info, keys, userId, newUser }) => {
       if (newUser) {
         return firebase.database().ref('users').child(userId).set({
           id: userId,
@@ -124,7 +152,7 @@ router.post('/session', (request, response) => {
           name: info.userName,
           picture: info.userPicture,
         })
-        .then(() => { userId, newUser })
+        .then(() => ({ userId, newUser }))
       }
       else {
         return firebase.database().ref('users').child(userId).once('value')
@@ -179,27 +207,35 @@ router.post('/session', (request, response) => {
 
             return Promise.all(updateUser)
           })
-          .then(() => { userId, newUser })
+          .then(() => ({ userId, newUser }))
       }
     })
-    .then(({ userId, newUser }) => response.sendStatus(200).json({ userId, newUser }))
+    .then(({ userId, newUser }) => response.type('json').status(200).json({ userId, newUser }))
     .catch(err => {
       const statusCode = err.statusCode || 520 // Unknown
       const data = err.error || {
         statusCode: statusCode,
         error: {
           code: error.UNKNOWN,
-          message: 'Unknown error. See error.payload for more details',
+          message: "Unknown error. See 'error.payload' for more details",
           payload: err,
         },
       }
 
-      response.status(statusCode)
-        .send(data.error.code)
-        .type('json')
+      console.error('\n\nAPI error:\n')
+      console.error(data)
+      console.error('\n\n')
+
+      response.type('json')
+        .status(statusCode)
         .json(data)
     })
 })
 
+// Method not implemented!
+router.get('*', (request, response) => response.sendStatus(405))
+router.post('*', (request, response) => response.sendStatus(405))
+router.put('*', (request, response) => response.sendStatus(405))
+router.delete('*', (request, response) => response.sendStatus(405))
 
 module.exports = router
