@@ -36,12 +36,15 @@ router.post('/session', (request, response) => {
   const info = request.body
 
   if (!info.email) {
-    response.status(400).json({
-      error: {
-        code: error.EMAIL_REQUIRED,
-        message: 'User email is required to obtain a session, but it is missing',
-      },
-    })
+    response.status(400)
+      .sent(error.EMAIL_REQUIRED)
+      .type('json')
+      .json({
+        error: {
+          code: error.EMAIL_REQUIRED,
+          message: 'User email is required to obtain a session, but it is missing',
+        },
+      })
     return
   }
 
@@ -179,7 +182,7 @@ router.post('/session', (request, response) => {
           .then(() => { userId, newUser })
       }
     })
-    .then(({ userId, newUser }) => response.status(200).json({ userId, newUser }))
+    .then(({ userId, newUser }) => response.sendStatus(200).json({ userId, newUser }))
     .catch(err => {
       const statusCode = err.statusCode || 520 // Unknown
       const data = err.error || {
@@ -191,7 +194,10 @@ router.post('/session', (request, response) => {
         },
       }
 
-      response.status(statusCode).json(data)
+      response.status(statusCode)
+        .send(data.error.code)
+        .type('json')
+        .json(data)
     })
 })
 
