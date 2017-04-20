@@ -3,9 +3,8 @@ import CircularProgress from 'material-ui/CircularProgress'
 import { BrowserRouter as Router, Route, Redirect, Switch, IndexRoute } from 'react-router-dom'
 import Theme from './Theme'
 import Toolbar from './Toolbar'
-import Collections from '../Collections'
-import CollectionItems from '../CollectionItems'
-import Whoops404 from '../Whoops404'
+import Collections from '../container/Collections'
+import CollectionItems from '../container/CollectionItems'
 
 const App = ({ title, pageLoading, children }) => (
   <Router>
