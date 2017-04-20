@@ -3,16 +3,16 @@ import CircularProgress from 'material-ui/CircularProgress'
 import { BrowserRouter as Router, Route, Redirect, Switch } from 'react-router-dom'
 import Theme from './Theme'
 import Authentication from '../container/Authentication'
-import Toolbar from './Toolbar'
+import Toolbar from '../container/Toolbar'
 import Collections from '../container/Collections'
 import CollectionItems from '../container/CollectionItems'
 import LoadingIndicator from './LoadingIndicator'
 
-const App = ({ title, pageLoading, signedIn }) => (
+const App = ({ title, pageLoading }) => (
   <Router>
     <Theme>
       <div>
-        <Toolbar title={ title } signedIn={ signedIn }/>
+        <Toolbar title={ title }/>
         {
           pageLoading ? (
             <LoadingIndicator/>

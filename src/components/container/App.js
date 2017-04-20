@@ -3,7 +3,6 @@ import { connect } from 'react-redux'
 
 
 const mapStateToProps = (state, props) => ({
-  signedIn: state.user && state.user.id,
   title: state.museum.name,
   pageLoading: state.pageLoading,
 })

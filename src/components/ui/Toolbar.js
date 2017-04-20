@@ -19,7 +19,7 @@ const SignedInActions = ({ optionsHandler }) => (
   </IconMenu>
 )
 
-const Toolbar = ({ title, signedIn, history, location }) => {
+const Toolbar = ({ title, signedIn, history }) => {
   const optionsHandler = (event, target) => {
     switch (target.key) {
       case 'sign-out':
