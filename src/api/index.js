@@ -112,6 +112,7 @@ const api = {
   signInWithGoogle,
   signInWithTwitter,
 
+  getUser,
   getMuseum,
   getCollection,
   getCollectionItem,

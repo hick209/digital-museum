@@ -6,6 +6,9 @@ const simpleHandling = (state, action, actionType) => (action.type === actionTyp
 export const pageLoading = (state=true, action) =>
   simpleHandling(state, action, actionType.SET_PAGE_LOADING)
 
+export const user = (state=null, action) =>
+  simpleHandling(state, action, actionType.SET_USER)
+
 export const museumId = (state=null, action) =>
   simpleHandling(state, action, actionType.SET_MUSEUM_ID)
 
@@ -53,9 +56,10 @@ export const collections = (state=[], action) => {
 
 export default combineReducers({
   pageLoading,
+  user,
   museum: combineReducers({
     id: museumId,
     name: museumName,
   }),
-  collections: collections
+  collections
 })

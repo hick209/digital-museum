@@ -5,6 +5,8 @@ export const error = errors
 export const actionType = {
   SET_PAGE_LOADING: 'SET_PAGE_LOADING',
 
+  SET_USER: 'SET_USER',
+
   SET_MUSEUM_ID: 'SET_MUSEUM_ID',
   SET_MUSEUM_NAME: 'SET_MUSEUM_NAME',
 

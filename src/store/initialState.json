@@ -1,5 +1,10 @@
 {
   "pageLoading": false,
+  "user": {
+    "id": null,
+    "name": null,
+    "picture": null
+  },
   "museum": {
     "id": null,
     "name": ""
