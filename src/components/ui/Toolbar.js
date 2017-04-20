@@ -19,41 +19,26 @@ const SignedInActions = ({ optionsHandler }) => (
   </IconMenu>
 )
 
-class Toolbar extends React.Component {
-  constructor(props) {
-    super(props)
-    // this.state = {
-    //   signedIn: props.signedIn,
-    // }
-
-    // this.signInWithEmail = this.signInWithEmail.bind(this)
-    // this.signInWithGoogle = this.signInWithGoogle.bind(this)
-    // this.signInWithFacebook = this.signInWithFacebook.bind(this)
-    //
-    // this.handleSignInRequest = this.handleSignInRequest.bind(this)
-  }
-
-  render() {
-    const { title, signedIn, history } = this.props
-
-    const optionsHandler = (event, target) => {
-      switch (target.key) {
-        case 'sign-out':
-          // TODO
-          break;
-      }
+const Toolbar = ({ title, signedIn, history, location }) => {
+  const optionsHandler = (event, target) => {
+    switch (target.key) {
+      case 'sign-out':
+        // TODO
+        break;
     }
-
-    const actions = signedIn ?
-      <SignedInActions optionsHandler={ optionsHandler }/> :
-      <FlatButton
-        label={ strings.auth.action.signIn }
-        onTouchTap={ () => history.replace({ pathname: '/auth' }) }/>
-
-    return (
-      <AppBar title={ title } iconElementRight={ actions }/>
-    )
   }
+
+  let actions = signedIn ? (
+    <SignedInActions optionsHandler={ optionsHandler }/>
+  ) : (
+    <FlatButton
+      label={ strings.auth.action.signIn }
+      onTouchTap={ () => history.push({ pathname: '/auth' }) }/>
+  )
+
+  return (
+    <AppBar title={ title } iconElementRight={ actions }/>
+  )
 }
 
 export default withRouter(Toolbar)
