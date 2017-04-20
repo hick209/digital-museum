@@ -3,7 +3,7 @@ import { render } from 'react-dom'
 import { Provider } from 'react-redux'
 import injectTapEventPlugin from 'react-tap-event-plugin'
 import OfflinePluginRuntime from 'offline-plugin/runtime'
-import App from './components/App'
+import App from './components/container/App'
 import constants from './constants'
 import storeFactory from './store'
 import initialData from './store/initialState'
@@ -40,11 +40,13 @@ function setupDatastore() {
   return store
 }
 
+
 function uiSetup() {
   // Needed for onTouchTap
   // http://stackoverflow.com/a/34015469/988941
   injectTapEventPlugin()
 }
+
 
 function offlineSetup() {
   // Install the ServiceWorker

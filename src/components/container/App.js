@@ -1,4 +1,4 @@
-import App from './ui/App'
+import App from '../ui/App'
 import { connect } from 'react-redux'
 
 
