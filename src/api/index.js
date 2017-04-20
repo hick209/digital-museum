@@ -65,6 +65,13 @@ export const signInWithTwitter = () => Observable.create(observer => {
     .catch(handleSignInError(observer))
 })
 
+export const getUser = userId => read('users', userId, user => ({
+  id: user.id,
+  name: user.name,
+  picture: user.picture,
+  firebaseId: user.firebaseId,
+}))
+
 export const getMuseum = museumId => read('museums', museumId, museum => ({
   id: museum.id,
   name: museum.name,
