@@ -1,24 +1,25 @@
 import React from 'react'
 import CircularProgress from 'material-ui/CircularProgress'
-import { BrowserRouter as Router, Route, Redirect, Switch, IndexRoute } from 'react-router-dom'
+import { BrowserRouter as Router, Route, Redirect, Switch } from 'react-router-dom'
 import Theme from './Theme'
+import Authentication from '../container/Authentication'
 import Toolbar from './Toolbar'
 import Collections from '../container/Collections'
 import CollectionItems from '../container/CollectionItems'
+import LoadingIndicator from './LoadingIndicator'
 
-const App = ({ title, pageLoading, children }) => (
+const App = ({ title, pageLoading, signedIn }) => (
   <Router>
     <Theme>
       <div>
-        <Toolbar title={ title } signedIn={ false }/>
+        <Toolbar title={ title } signedIn={ signedIn }/>
         {
           pageLoading ? (
-            <div className='centerGravity'>
-              <CircularProgress style={{ margin: 32 }}/>
-            </div>
+            <LoadingIndicator/>
           ) : (
             <Switch>
               <Route exact path='/' component={ Collections }/>
+              <Route exact path='/auth' component={ Authentication }/>
               <Route path='/collections/:collectionId' component={ CollectionItems }/>
               <Redirect to='/'/>
             </Switch>

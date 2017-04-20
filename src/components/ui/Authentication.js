@@ -11,12 +11,6 @@ class Authentication extends React.Component {
       working: false,
       redirectToReferrer: false,
     }
-
-    this.signInWithEmail = this.signInWithEmail.bind(this)
-    this.signInWithGoogle = this.signInWithGoogle.bind(this)
-    this.signInWithFacebook = this.signInWithFacebook.bind(this)
-
-    this.handleSignInRequest = this.handleSignInRequest.bind(this)
   }
 
   singInWithEmail(email, password) {
@@ -27,26 +21,28 @@ class Authentication extends React.Component {
     this.handleSignInRequest(api.signInWithFacebook())
   }
 
+  signInWithGitHub() {
+    this.handleSignInRequest(api.signInWithGitHub())
+  }
+
   signInWithGoogle() {
     this.handleSignInRequest(api.signInWithGoogle())
   }
 
+  signInWithTwitter() {
+    this.handleSignInRequest(api.signInWithTwitter())
+  }
+
   handleSignInRequest(observable) {
+    const onNewSession = this.props.onNewSession || (() => { throw new Error("Not defined") })
     this.setState({ working: true })
-    observable.subscribe(session => {
-      // const { store } = this.props
-
-      // TODO add userId to store
-      console.log(session)
-
-      this.setState({
-        working: false,
-        redirectToReferrer: true,
+    observable.toPromise()
+      .then(session => onNewSession(session))
+      .then(() => this.setState({ redirectToReferrer: true }))
+      .catch(error => {
+        console.error(error)
+        this.setState({ working: false })
       })
-    }, error => {
-      this.setState({ working: false })
-      console.error(error)
-    })
   }
 
   render() {
@@ -65,10 +61,14 @@ class Authentication extends React.Component {
     }
 
     return (
-      <Paper zDepth={ 2 } style={{ padding: 32 }}>
-        <RaisedButton label={ 'Google' } primary={ true } fullWidth={ true } onTouchTap={ this.signInWithGoogle }/>
-        <RaisedButton label={ 'Facebook' } primary={ true } fullWidth={ true } onTouchTap={ this.signInWithFacebook }/>
-      </Paper>
+      <div className='centerGravity'>
+        <Paper zDepth={ 2 } style={{ padding: 32 }}>
+          <RaisedButton label={ 'Google' } primary={ true } fullWidth={ true } onTouchTap={ () => this.signInWithGoogle() }/>
+          <RaisedButton label={ 'Facebook' } primary={ true } fullWidth={ true } onTouchTap={ () => this.signInWithFacebook() }/>
+          <RaisedButton label={ 'GitHub' } primary={ true } fullWidth={ true } onTouchTap={ () => this.signInWithGitHub() }/>
+          <RaisedButton label={ 'Twitter' } primary={ true } fullWidth={ true } onTouchTap={ () => this.signInWithTwitter() }/>
+        </Paper>
+      </div>
     )
   }
 }
