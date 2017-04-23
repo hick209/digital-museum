@@ -5,7 +5,7 @@ import Authentication from '../container/Authentication'
 import CollectionsScreen from '../CollectionsScreen'
 import CollectionItems from '../container/CollectionItems'
 
-const App = ({ title, pageLoading }) => (
+const App = () => (
   <Router>
     <Theme>
       <Switch>

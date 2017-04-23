@@ -1,8 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import LoadingIndicator from './ui/LoadingIndicator'
 import Collections from './container/Collections'
-import Toolbar from './container/Toolbar'
+import AppShell from './AppShell'
 
 const mapStateToProps = (state, props) => ({
   title: state.museum.name,
@@ -13,16 +12,9 @@ const mapDispatchToProps = dispatch => ({
 })
 
 const CollectionsScreen = ({ title, pageLoading }) => (
-  <div>
-    <Toolbar title={ title }/>
-    {
-      pageLoading ? (
-        <LoadingIndicator/>
-      ) : (
-        <Collections/>
-      )
-    }
-  </div>
+  <AppShell title={ title } pageLoading={ pageLoading }>
+    <Collections/>
+  </AppShell>
 )
 
 export default connect(mapStateToProps, mapDispatchToProps)(CollectionsScreen)
