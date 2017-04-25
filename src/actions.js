@@ -47,9 +47,6 @@ export const setLoadingCollections = loading =>
 export const setLoadingCollectionItems = (collectionId, loading) =>
   simpleSetter(actionType.SET_LOADING_COLLECTION_ITEMS, { collectionId, loading })
 
-export const setPageLoading = loading =>
-  simpleSetter(actionType.SET_PAGE_LOADING, !!loading)
-
 export const setMuseumId = museumId =>
   simpleSetter(actionType.SET_MUSEUM_ID, museumId)
 

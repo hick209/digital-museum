@@ -3,9 +3,6 @@ import { actionType } from '../constants'
 
 const simpleHandling = (state, action, actionType) => (action.type === actionType) ? action.payload : state
 
-export const pageLoading = (state=true, action) =>
-  simpleHandling(state, action, actionType.SET_PAGE_LOADING)
-
 export const loadingUser = (state=true, action) =>
   simpleHandling(state, action, actionType.SET_LOADING_USER)
 
@@ -83,7 +80,6 @@ export default combineReducers({
     collections: loadingCollections,
     collectionItems: loadingCollectionItems,
   }),
-  pageLoading,
   user,
   museum: combineReducers({
     id: museumId,

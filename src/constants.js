@@ -3,7 +3,6 @@ import errors from './errors'
 export const error = errors
 
 export const actionType = {
-  SET_PAGE_LOADING: 'SET_PAGE_LOADING',
   SET_LOADING_USER: 'SET_LOADING_USER',
   SET_LOADING_MUSEUM: 'SET_LOADING_MUSEUM',
   SET_LOADING_COLLECTIONS: 'SET_LOADING_COLLECTIONS',

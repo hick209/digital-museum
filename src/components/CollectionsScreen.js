@@ -5,14 +5,14 @@ import AppShell from './AppShell'
 
 const mapStateToProps = (state, props) => ({
   title: state.museum.name,
-  pageLoading: state.pageLoading,
+  loading: state.loading.collections,
 })
 
 const mapDispatchToProps = dispatch => ({
 })
 
-const CollectionsScreen = ({ title, pageLoading }) => (
-  <AppShell title={ title } pageLoading={ pageLoading }>
+const CollectionsScreen = ({ title, loading }) => (
+  <AppShell title={ title } loading={ loading }>
     <Collections/>
   </AppShell>
 )

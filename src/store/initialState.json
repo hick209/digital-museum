@@ -7,7 +7,6 @@
       "<collection-id>": true
     }
   },
-  "pageLoading": false,
   "user": {
     "id": null,
     "name": null,

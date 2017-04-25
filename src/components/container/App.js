@@ -4,8 +4,6 @@ import { startUserSession, endUserSession } from '../../actions'
 
 
 const mapStateToProps = (state, props) => ({
-  title: state.museum.name,
-  pageLoading: state.pageLoading,
 })
 
 const mapDispatchToProps = dispatch => ({
