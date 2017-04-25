@@ -8,7 +8,10 @@ export const ptBr = {
       signIn: 'Entrar',
       signOut: 'Sair',
     },
-  }
+  },
+  toolbar: {
+    loadingTitle: 'Carregando…',
+  },
 }
 
 const strings = ptBr

@@ -18,7 +18,9 @@ const SignedInActions = ({ optionsHandler }) => (
   </IconMenu>
 )
 
-const Toolbar = ({ title, signedIn, signOut, history }) => {
+const Toolbar = ({ title, loading, signedIn, signOut, history }) => {
+  title = loading.museum ? strings.toolbar.loadingTitle  : title
+
   const optionsHandler = (event, target) => {
     switch (target.key) {
       case 'sign-out':
@@ -34,6 +36,8 @@ const Toolbar = ({ title, signedIn, signOut, history }) => {
       label={ strings.auth.action.signIn }
       onTouchTap={ () => history.push({ pathname: '/auth' }) }/>
   )
+
+  actions = loading.user ? null : actions
 
   return (
     <AppBar title={ title } iconElementRight={ actions }/>

@@ -5,10 +5,10 @@ import { startUserSession, endUserSession } from '../../actions'
 
 const mapStateToProps = (state, props) => ({
   signedIn: state.user && state.user.id,
+  loading: state.loading
 })
 
 const mapDispatchToProps = dispatch => ({
-	onNewSession: ({ userId }) => dispatch(startUserSession(userId)),
   signOut: () => dispatch(endUserSession())
 })
 
