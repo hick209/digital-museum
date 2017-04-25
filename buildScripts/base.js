@@ -58,7 +58,7 @@ module.exports = (path, outputPath) => ({
       { from: './src/browserconfig.xml' },
     ]),
     new webpack.optimize.CommonsChunkPlugin({
-      name: 'vendor',
+      name: 'commons',
       filename: path.join('js', 'commons.[chunkhash].js'),
     }),
 

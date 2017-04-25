@@ -1,5 +1,6 @@
-import CollectionItems from './ui/CollectionItems'
 import { connect } from 'react-redux'
+import { withRouter } from 'react-router'
+import CollectionItems from '../ui/CollectionItems'
 
 
 const mapStateToProps = (state, props) => {
@@ -25,4 +26,4 @@ const mapDispatchToProps = dispatch => ({
 })
 
 
-export default connect(mapStateToProps, mapDispatchToProps)(CollectionItems)
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(CollectionItems))
