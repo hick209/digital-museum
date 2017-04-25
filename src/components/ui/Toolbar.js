@@ -6,7 +6,6 @@ import IconMenu from 'material-ui/IconMenu'
 import MenuItem from 'material-ui/MenuItem'
 import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert'
 import { withRouter } from 'react-router'
-import { Link } from 'react-router-dom'
 import strings from '../../strings'
 
 const SignedInActions = ({ optionsHandler }) => (

@@ -1,4 +1,12 @@
 {
+  "loading": {
+    "user": true,
+    "museum": true,
+    "collections": true,
+    "collectionItems": {
+      "<collection-id>": true
+    }
+  },
   "pageLoading": false,
   "user": {
     "id": null,

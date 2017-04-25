@@ -6,6 +6,25 @@ const simpleHandling = (state, action, actionType) => (action.type === actionTyp
 export const pageLoading = (state=true, action) =>
   simpleHandling(state, action, actionType.SET_PAGE_LOADING)
 
+export const loadingUser = (state=true, action) =>
+  simpleHandling(state, action, actionType.SET_LOADING_USER)
+
+export const loadingMuseum = (state=true, action) =>
+  simpleHandling(state, action, actionType.SET_LOADING_MUSEUM)
+
+export const loadingCollections = (state=true, action) =>
+  simpleHandling(state, action, actionType.SET_LOADING_COLLECTIONS)
+
+export const loadingCollectionItems = (state={}, action) => {
+  if (action.type === actionType.SET_LOADING_COLLECTION_ITEMS) {
+    const newState = JSON.parse(JSON.stringify(state))
+    newState[action.payload.collectionId] = action.payload.loading
+
+    return newState
+  }
+  else return state
+}
+
 export const user = (state=null, action) =>
   simpleHandling(state, action, actionType.SET_USER)
 
@@ -55,6 +74,12 @@ export const collections = (state=[], action) => {
 }
 
 export default combineReducers({
+  loading: combineReducers({
+    user: loadingUser,
+    museum: loadingMuseum,
+    collections: loadingCollections,
+    collectionItems: loadingCollectionItems,
+  }),
   pageLoading,
   user,
   museum: combineReducers({
