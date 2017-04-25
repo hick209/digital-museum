@@ -3,7 +3,7 @@ import { render } from 'react-dom'
 import { Provider } from 'react-redux'
 import injectTapEventPlugin from 'react-tap-event-plugin'
 import OfflinePluginRuntime from 'offline-plugin/runtime'
-import App from './components/App'
+import App from './components/container/App'
 import constants from './constants'
 import storeFactory from './store'
 import initialData from './store/initialState'
@@ -11,23 +11,11 @@ import './stylesheets/app.scss'
 
 import { setMuseumId, fetchMuseum } from './actions'
 
-// Needed for onTouchTap
-// http://stackoverflow.com/a/34015469/988941
-injectTapEventPlugin()
+uiSetup()
 
-const storageData = localStorage[ constants.LOCAL_STORAGE_KEY ]
-const initialState = (storageData) ? JSON.parse(storageData) : initialData
+const store = setupDatastore()
 
-const saveState = () =>
-    localStorage[constants.LOCAL_STORAGE_KEY] = JSON.stringify(store.getState())
-
-const store = storeFactory(initialState)
-
-// Install the ServiceWorker
-OfflinePluginRuntime.install()
-
-store.dispatch(setMuseumId('-KhEMEsIQD90VeCmiaHA'))
-store.dispatch(fetchMuseum(store.getState().museum.id))
+offlineSetup()
 
 render(
   <Provider store={ store }>
@@ -35,3 +23,32 @@ render(
   </Provider>,
   document.getElementById('app')
 )
+
+
+function setupDatastore() {
+  const storageData = localStorage[ constants.LOCAL_STORAGE_KEY ]
+  const initialState = (storageData) ? JSON.parse(storageData) : initialData
+
+  const saveState = () =>
+      localStorage[constants.LOCAL_STORAGE_KEY] = JSON.stringify(store.getState())
+
+  const store = storeFactory(initialState)
+
+  store.dispatch(setMuseumId('-KhEMEsIQD90VeCmiaHA'))
+  store.dispatch(fetchMuseum(store.getState().museum.id))
+
+  return store
+}
+
+
+function uiSetup() {
+  // Needed for onTouchTap
+  // http://stackoverflow.com/a/34015469/988941
+  injectTapEventPlugin()
+}
+
+
+function offlineSetup() {
+  // Install the ServiceWorker
+  OfflinePluginRuntime.install()
+}

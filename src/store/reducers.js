@@ -3,8 +3,30 @@ import { actionType } from '../constants'
 
 const simpleHandling = (state, action, actionType) => (action.type === actionType) ? action.payload : state
 
-export const pageLoading = (state=true, action) =>
-  simpleHandling(state, action, actionType.SET_PAGE_LOADING)
+export const loadingUser = (state=true, action) =>
+  simpleHandling(state, action, actionType.SET_LOADING_USER)
+
+export const loadingMuseum = (state=true, action) =>
+  simpleHandling(state, action, actionType.SET_LOADING_MUSEUM)
+
+export const loadingCollections = (state=true, action) =>
+  simpleHandling(state, action, actionType.SET_LOADING_COLLECTIONS)
+
+export const loadingCollectionItems = (state={}, action) => {
+  if (action.type === actionType.SET_LOADING_COLLECTION_ITEMS && action.payload.collectionId) {
+    // Clone the object
+    const newState = JSON.parse(JSON.stringify(state))
+
+    // Set the new state
+    newState[action.payload.collectionId] = action.payload.loading
+
+    return newState
+  }
+  else return state
+}
+
+export const user = (state=null, action) =>
+  simpleHandling(state, action, actionType.SET_USER)
 
 export const museumId = (state=null, action) =>
   simpleHandling(state, action, actionType.SET_MUSEUM_ID)
@@ -52,10 +74,16 @@ export const collections = (state=[], action) => {
 }
 
 export default combineReducers({
-  pageLoading,
+  loading: combineReducers({
+    user: loadingUser,
+    museum: loadingMuseum,
+    collections: loadingCollections,
+    collectionItems: loadingCollectionItems,
+  }),
+  user,
   museum: combineReducers({
     id: museumId,
     name: museumName,
   }),
-  collections: collections
+  collections
 })

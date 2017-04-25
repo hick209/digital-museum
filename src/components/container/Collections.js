@@ -1,5 +1,5 @@
-import Collections from './ui/Collections'
 import { connect } from 'react-redux'
+import Collections from '../ui/Collections'
 
 
 const mapStateToProps = (state, props) => ({

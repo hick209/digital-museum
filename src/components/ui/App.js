@@ -1,33 +1,41 @@
 import React from 'react'
-import CircularProgress from 'material-ui/CircularProgress'
-import { BrowserRouter as Router, Route, Redirect, Switch, IndexRoute } from 'react-router-dom'
+import { BrowserRouter as Router, Route, Redirect, Switch } from 'react-router-dom'
 import Theme from './Theme'
-import Toolbar from './Toolbar'
-import Collections from '../Collections'
-import CollectionItems from '../CollectionItems'
-import Whoops404 from '../Whoops404'
+import Authentication from '../container/Authentication'
+import CollectionsScreen from '../CollectionsScreen'
+import CollectionItems from '../container/CollectionItems'
+import { getUserSession } from '../../api'
 
-const App = ({ title, pageLoading, children }) => (
-  <Router>
-    <Theme>
-      <div>
-        <Toolbar title={ title }/>
-        {
-          pageLoading ? (
-            <div className='centerGravity'>
-              <CircularProgress style={{ margin: 32 }}/>
-            </div>
-          ) : (
-            <Switch>
-              <Route exact path='/' component={ Collections }/>
-              <Route path='/collections/:collectionId' component={ CollectionItems }/>
-              <Redirect to='/'/>
-            </Switch>
-          )
-        }
-      </div>
-    </Theme>
-  </Router>
-)
+class App extends React.Component {
+  constructor(props) {
+    super(props)
+    this.sessionObserver = null
+  }
+
+  componentWillMount() {
+    this.sessionObserver = getUserSession().subscribe(session => this.props.onSession(session))
+  }
+
+  componentWillUnmount() {
+    if (this.sessionsObserver) {
+      this.sessionsObserver.unsubscribe()
+    }
+  }
+
+  render() {
+    return (
+      <Router>
+        <Theme>
+          <Switch>
+            <Route exact path='/' component={ CollectionsScreen }/>
+            <Route exact path='/auth' component={ Authentication }/>
+            <Route path='/collections/:collectionId' component={ CollectionItems }/>
+            <Redirect to='/'/>
+          </Switch>
+        </Theme>
+      </Router>
+    )
+  }
+}
 
 export default App
