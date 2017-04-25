@@ -7,6 +7,7 @@ import MenuItem from 'material-ui/MenuItem'
 import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert'
 import { withRouter } from 'react-router'
 import strings from '../../strings'
+import { getMuseum } from '../../api'
 
 const SignedInActions = ({ optionsHandler }) => (
   <IconMenu
@@ -18,30 +19,60 @@ const SignedInActions = ({ optionsHandler }) => (
   </IconMenu>
 )
 
-const Toolbar = ({ title, loading, signedIn, signOut, history }) => {
-  title = loading.museum ? strings.toolbar.loadingTitle  : title
+class Toolbar extends React.Component {
+  constructor(props) {
+    super(props)
+    this.museumSubscription = null
+  }
 
-  const optionsHandler = (event, target) => {
-    switch (target.key) {
-      case 'sign-out':
-        signOut()
-        break;
+  componentWillMount() {
+    const { museumId } = this.props
+    this.museumSubscription = getMuseum(museumId).subscribe(museum => this.props.onMuseum(museum))
+  }
+
+  componentWillReceiveProps(nextProps) {
+    const oldMuseumId = this.props.museumId
+    const newMuseumId = nextProps.museumId
+
+    if (oldMuseumId !== newMuseumId) {
+      if (this.museumSubscription) this.museumSubscription.unsubscribe()
+      this.museumSubscription = getMuseum(newMuseumId).subscribe(museum => this.props.onMuseum(museum))
     }
   }
 
-  let actions = signedIn ? (
-    <SignedInActions optionsHandler={ optionsHandler }/>
-  ) : (
-    <FlatButton
-      label={ strings.auth.action.signIn }
-      onTouchTap={ () => history.push({ pathname: '/auth' }) }/>
-  )
+  componentWillUnmount() {
+    if (this.museumSubscription) {
+      this.museumSubscription.unsubscribe()
+      this.museumSubscription = null
+    }
+  }
 
-  actions = loading.user ? null : actions
+  render() {
+    const { loading, signedIn, signOut, history } = this.props
+    const title = loading.museum ? strings.toolbar.loadingTitle : this.props.title
 
-  return (
-    <AppBar title={ title } iconElementRight={ actions }/>
-  )
+    const optionsHandler = (event, target) => {
+      switch (target.key) {
+        case 'sign-out':
+          signOut()
+          break;
+      }
+    }
+
+    let actions = signedIn ? (
+      <SignedInActions optionsHandler={ optionsHandler }/>
+    ) : (
+      <FlatButton
+        label={ strings.auth.action.signIn }
+        onTouchTap={ () => history.push({ pathname: '/auth' }) }/>
+    )
+
+    actions = loading.user ? null : actions
+
+    return (
+      <AppBar title={ title } iconElementRight={ actions }/>
+    )
+  }
 }
 
 export default withRouter(Toolbar)

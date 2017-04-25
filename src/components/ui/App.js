@@ -4,7 +4,7 @@ import Theme from './Theme'
 import Authentication from '../container/Authentication'
 import CollectionsScreen from '../CollectionsScreen'
 import CollectionItems from '../container/CollectionItems'
-import api from '../../api'
+import { getUserSession } from '../../api'
 
 class App extends React.Component {
   constructor(props) {
@@ -13,10 +13,7 @@ class App extends React.Component {
   }
 
   componentWillMount() {
-    const { onSession } = this.props
-    this.sessionObserver = api.getUserSession().subscribe(session => {
-      onSession(session)
-    })
+    this.sessionObserver = getUserSession().subscribe(session => this.props.onSession(session))
   }
 
   componentWillUnmount() {

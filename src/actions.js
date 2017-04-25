@@ -61,13 +61,9 @@ export const setCollectionItems = ({ collectionId, items }) =>
 
 
 export const fetchMuseum = museumId => dispatch => {
-  dispatch(setLoadingMuseum(true))
   dispatch(setLoadingCollections(true))
 
-  api.getMuseum(museumId).take(1).toPromise()
-    .then(museum => dispatch(setMuseumName(museum.name)))
-    .then(() => dispatch(setLoadingMuseum(false)))
-    .then(() => getCollections(museumId).take(1).toPromise())
+  getCollections(museumId).take(1).toPromise()
     .then(collections => {
       dispatch(setCollections(collections))
       return collections[0]
@@ -84,7 +80,6 @@ export const fetchMuseum = museumId => dispatch => {
     })
     .then(collectionId => dispatch(setLoadingCollectionItems(collectionId, false)))
     .catch(error => {
-      dispatch(setLoadingMuseum(false))
       dispatch(setLoadingCollections(false))
 
       // TODO dispatch this error
