@@ -21,8 +21,19 @@ export const startUserSession = userId => dispatch => {
 export const updateUser = user =>
   simpleSetter(actionType.SET_USER, user)
 
-export const closeUserSession = () =>
-  simpleSetter(actionType.SET_USER, null)
+export const endUserSession = () => dispatch => {
+  dispatch(setPageLoading(true))
+
+  api.signOut()
+    .then(() => dispatch(updateUser(null)))
+    .then(() => dispatch(setPageLoading(false)))
+    .catch(error => {
+      dispatch(setPageLoading(false))
+
+      // TODO dispatch this error
+      console.error(error)
+    })
+}
 
 export const setPageLoading = loading =>
   simpleSetter(actionType.SET_PAGE_LOADING, !!loading)

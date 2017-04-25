@@ -1,7 +1,7 @@
 import { connect } from 'react-redux'
 import { withRouter } from 'react-router'
 import Toolbar from '../ui/Toolbar'
-import { startUserSession } from '../../actions'
+import { startUserSession, endUserSession } from '../../actions'
 
 const mapStateToProps = (state, props) => ({
   signedIn: state.user && state.user.id,
@@ -9,6 +9,7 @@ const mapStateToProps = (state, props) => ({
 
 const mapDispatchToProps = dispatch => ({
 	onNewSession: ({ userId }) => dispatch(startUserSession(userId)),
+  signOut: () => dispatch(endUserSession())
 })
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Toolbar))

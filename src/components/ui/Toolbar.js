@@ -15,15 +15,15 @@ const SignedInActions = ({ optionsHandler }) => (
     targetOrigin={{horizontal: 'right', vertical: 'top'}}
     anchorOrigin={{horizontal: 'right', vertical: 'top'}}
     onItemTouchTap={ optionsHandler }>
-    <MenuItem key="sign-out" primaryText={ strings.auth.action.signOut }/>
+    <MenuItem key='sign-out' primaryText={ strings.auth.action.signOut }/>
   </IconMenu>
 )
 
-const Toolbar = ({ title, signedIn, history }) => {
+const Toolbar = ({ title, signedIn, signOut, history }) => {
   const optionsHandler = (event, target) => {
     switch (target.key) {
       case 'sign-out':
-        // TODO
+        signOut()
         break;
     }
   }

@@ -18,6 +18,8 @@ firebase.initializeApp(devConfigs)
 const database = firebase.database()
 const auth = firebase.auth()
 
+export const signOut = () => auth.signOut()
+
 export const signInWithEmail = (email, password) => Observable.create(observer => {
   auth.signInWithEmailAndPassword(email, password)
     .then(user => ({ user, credential: firebase.auth.EmailAuthProvider.credential(email, password) }))
@@ -111,6 +113,7 @@ const api = {
   signInWithGitHub,
   signInWithGoogle,
   signInWithTwitter,
+  signOut,
 
   getUser,
   getMuseum,

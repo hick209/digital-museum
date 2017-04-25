@@ -2,6 +2,7 @@ import React from 'react'
 import Paper from 'material-ui/Paper'
 import RaisedButton from 'material-ui/RaisedButton'
 import LoadingIndicator from './LoadingIndicator'
+import { Redirect } from 'react-router-dom'
 import api from '../../api'
 
 class Authentication extends React.Component {
@@ -9,7 +10,7 @@ class Authentication extends React.Component {
     super(props)
     this.state = {
       working: false,
-      redirectToReferrer: false,
+      redirectToReferrer: !!props.signedIn,
     }
   }
 
@@ -48,16 +49,12 @@ class Authentication extends React.Component {
   render() {
     const { from } = this.props.location.state || { from: { pathname: '/' } }
 
-    if (this.state.working) {
-      return (
-        <LoadingIndicator/>
-      )
+    if (this.state.redirectToReferrer) {
+      return <Redirect to={ from }/>
     }
 
-    if (this.state.redirectToReferrer) {
-      return (
-        <Redirect to={ from }/>
-      )
+    if (this.state.working) {
+      return <LoadingIndicator/>
     }
 
     return (
