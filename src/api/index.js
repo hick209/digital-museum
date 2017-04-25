@@ -67,6 +67,34 @@ export const signInWithTwitter = () => Observable.create(observer => {
     .catch(handleSignInError(observer))
 })
 
+export const getUserSession = () => Observable.create(observer => {
+  return auth.onAuthStateChanged((user) => {
+    if (user) {
+      const info = {
+        firebaseId: user.uid,
+        email: user.email,
+        userName: user.displayName,
+        userPicture: user.photoUrl,
+      }
+
+      const options = {
+        method: 'POST',
+        body: JSON.stringify(info),
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      }
+
+      fetch('/api/session', options)
+        .then(response => response.json())
+        .then(session => observer.next(session))
+        .catch(error => observer.error(error))
+    } else {
+      observer.next({ user: null })
+    }
+  })
+})
+
 export const getUser = userId => read('users', userId, user => ({
   id: user.id,
   name: user.name,
@@ -114,6 +142,8 @@ const api = {
   signInWithGoogle,
   signInWithTwitter,
   signOut,
+
+  getUserSession,
 
   getUser,
   getMuseum,
