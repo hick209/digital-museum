@@ -35,6 +35,18 @@ export const endUserSession = () => dispatch => {
     })
 }
 
+export const setLoadingUser = loading =>
+  simpleSetter(actionType.SET_LOADING_USER, !!loading)
+
+export const setLoadingMuseum = loading =>
+  simpleSetter(actionType.SET_LOADING_MUSEUM, !!loading)
+
+export const setLoadingCollections = loading =>
+  simpleSetter(actionType.SET_LOADING_COLLECTIONS, !!loading)
+
+export const setLoadingCollectionItems = (collectionId, loading) =>
+  simpleSetter(actionType.SET_LOADING_COLLECTION_ITEMS, { collectionId, loading })
+
 export const setPageLoading = loading =>
   simpleSetter(actionType.SET_PAGE_LOADING, !!loading)
 
