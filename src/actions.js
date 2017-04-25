@@ -5,13 +5,13 @@ import { getCollections, getCollectionItems } from './api'
 import api from './api'
 
 export const startUserSession = userId => dispatch => {
-  dispatch(setPageLoading(true))
+  dispatch(setLoadingUser(true))
 
   api.getUser(userId).take(1).toPromise()
     .then(user => dispatch(updateUser(user)))
-    .then(() => dispatch(setPageLoading(false)))
+    .then(() => dispatch(setLoadingUser(false)))
     .catch(error => {
-      dispatch(setPageLoading(false))
+      dispatch(setLoadingUser(false))
 
       // TODO dispatch this error
       console.error(error)
@@ -22,13 +22,13 @@ export const updateUser = user =>
   simpleSetter(actionType.SET_USER, user)
 
 export const endUserSession = () => dispatch => {
-  dispatch(setPageLoading(true))
+  dispatch(setLoadingUser(true))
 
   api.signOut()
     .then(() => dispatch(updateUser(null)))
-    .then(() => dispatch(setPageLoading(false)))
+    .then(() => dispatch(setLoadingUser(false)))
     .catch(error => {
-      dispatch(setPageLoading(false))
+      dispatch(setLoadingUser(false))
 
       // TODO dispatch this error
       console.error(error)
@@ -64,20 +64,31 @@ export const setCollectionItems = ({ collectionId, items }) =>
 
 
 export const fetchMuseum = museumId => dispatch => {
-  dispatch(setPageLoading(true))
+  dispatch(setLoadingMuseum(true))
+  dispatch(setLoadingCollections(true))
 
   api.getMuseum(museumId).take(1).toPromise()
     .then(museum => dispatch(setMuseumName(museum.name)))
+    .then(() => dispatch(setLoadingMuseum(false)))
     .then(() => getCollections(museumId).take(1).toPromise())
     .then(collections => {
       dispatch(setCollections(collections))
       return collections[0]
     })
+    .then(collection => {
+      dispatch(setLoadingCollections(false))
+      dispatch(setLoadingCollectionItems(collection.id, true))
+      return collection
+    })
     .then(collection => getCollectionItems(collection.id).take(1).toPromise())
-    .then(items => dispatch(setCollectionItems({ collectionId: items[0].collectionId, items })))
-    .then(() => dispatch(setPageLoading(false)))
+    .then(items => {
+      dispatch(setCollectionItems({ collectionId: items[0].collectionId, items }))
+      return items[0].collectionId
+    })
+    .then(collectionId => dispatch(setLoadingCollectionItems(collectionId, false)))
     .catch(error => {
-      dispatch(setPageLoading(false))
+      dispatch(setLoadingMuseum(false))
+      dispatch(setLoadingCollections(false))
 
       // TODO dispatch this error
       console.error(error)
