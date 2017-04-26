@@ -5,21 +5,21 @@ import Collection from './Collection'
 
 
 const Collections = ({ collections }) => (
-  <GridList
-    cellHeight={240}
-    cols={1}>
-    {
-      collections.map(({ id, name, cover }) => (
-        <Link
-          key={ id }
-          to={ `collections/${id}` }>
-          <Collection
-            name={ name }
-            cover={ cover }/>
-        </Link>
-      ))
-    }
-  </GridList>
+		<GridList
+				cellHeight={240}
+				cols={1}>
+			{
+				collections.map(({ id, name, cover }) => (
+						<Link
+								key={ id }
+								to={ `collections/${id}` }>
+							<Collection
+									name={ name }
+									cover={ cover }/>
+						</Link>
+				))
+			}
+		</GridList>
 )
 
 export default Collections

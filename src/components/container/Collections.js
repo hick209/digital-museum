@@ -3,7 +3,7 @@ import Collections from '../ui/Collections'
 
 
 const mapStateToProps = (state, props) => ({
-  collections: state.collections,
+	collections: Object.keys(state.collections).map(key => state.collections[key]),
 })
 
 const mapDispatchToProps = dispatch => ({

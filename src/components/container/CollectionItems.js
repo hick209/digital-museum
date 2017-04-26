@@ -1,26 +1,12 @@
 import { connect } from 'react-redux'
-import { withRouter } from 'react-router'
+import { withRouter } from 'react-router-dom'
 import CollectionItems from '../ui/CollectionItems'
 
 
-const mapStateToProps = (state, props) => {
-  const collectionId = props.match.params.collectionId
-
-  let index = -1
-  for (let i = 0; i < state.collections.length; i++) {
-    if (state.collections[i].id === collectionId) {
-      index = i
-      break
-    }
-  }
-
-  const invalidCollection = index < 0
-
-  return {
-    invalidCollection,
-    items: invalidCollection ? [] : state.collections[index].items
-  }
-}
+const mapStateToProps = (state, props) => ({
+	items: Object.keys(state.collections[props.match.params.collectionId].items)
+			.map(key => state.collections[props.match.params.collectionId].items[key]),
+})
 
 const mapDispatchToProps = dispatch => ({
 })
