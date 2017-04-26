@@ -1,5 +1,6 @@
 import { connect } from 'react-redux'
 import ErrorContainer from '../ui/ErrorContainer'
+import { dismissError } from '../../actions'
 
 
 const mapStateToProps = state => ({
@@ -7,6 +8,7 @@ const mapStateToProps = state => ({
 })
 
 const mapDispatchToProps = dispatch => ({
+  dismissError: errorIndex => dispatch(dismissError(errorIndex)),
 })
 
 

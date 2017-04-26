@@ -11,8 +11,8 @@ class ErrorContainer extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    const { errors=[] } = this.props
-    const { newErrors=[] } = nextProps
+    const errors = this.props.errors || []
+    const newErrors = nextProps.errors || []
     const { showSnackbar } = this.state
 
     const errorCount = errors.length
@@ -24,6 +24,9 @@ class ErrorContainer extends React.Component {
   }
 
   snackbarAction() {
+    if (this.props.errors.length === 1) {
+      this.props.dismissError(0)
+    }
     this.setState({ showSnackbar: false })
   }
 
