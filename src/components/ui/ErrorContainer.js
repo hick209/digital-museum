@@ -19,7 +19,6 @@ class ErrorContainer extends React.Component {
     const newErrorCount = newErrors.length
 
     this.setState({
-      errorCount: newErrorCount,
       showSnackbar: showSnackbar || (newErrorCount > errorCount),
     })
   }

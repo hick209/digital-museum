@@ -25,6 +25,29 @@ export const loadingCollectionItems = (state={}, action) => {
   else return state
 }
 
+export const errors = (state=[], action) => {
+  switch (action.type) {
+    case actionType.ADD_ERROR: {
+      const { message, error } = action.payload
+      if (message && error) {
+        return [
+          ...state,
+          { message, error },
+        ]
+      }
+      return state
+    }
+
+    case actionType.DISMISS_ERROR: {
+      const errorIndex = action.payload
+      return state.filter((error, index) => index !== errorIndex)
+    }
+
+    default:
+      return state
+  }
+}
+
 export const user = (state=null, action) =>
   simpleHandling(state, action, actionType.SET_USER)
 
@@ -80,6 +103,7 @@ export default combineReducers({
     collections: loadingCollections,
     collectionItems: loadingCollectionItems,
   }),
+  errors,
   user,
   museum: combineReducers({
     id: museumId,

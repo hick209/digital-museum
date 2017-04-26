@@ -1,7 +1,8 @@
 import { connect } from 'react-redux'
 import ErrorContainer from '../ui/ErrorContainer'
 
-const mapStateToProps = (state, props) => ({
+
+const mapStateToProps = state => ({
   errors: state.errors,
 })
 
