@@ -2,7 +2,7 @@ import locales from './locales'
 
 const fallbackLanguage = 'pt-BR'
 
-let translations = locales[navigator.language]
+let translations = locales[navigator.language || navigator.userLanguage]
 
 if (!translations) {
   const languages = navigator.languages
