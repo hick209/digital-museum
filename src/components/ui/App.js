@@ -4,6 +4,7 @@ import Theme from './Theme'
 import Authentication from '../container/Authentication'
 import CollectionsScreen from '../CollectionsScreen'
 import CollectionItems from '../container/CollectionItems'
+import strings from '../../strings'
 import { getUserSession } from '../../api'
 
 class App extends React.Component {
@@ -13,7 +14,12 @@ class App extends React.Component {
   }
 
   componentWillMount() {
-    this.sessionObserver = getUserSession().subscribe(session => this.props.onSession(session))
+    this.sessionObserver = getUserSession().subscribe(
+        session => this.props.onSession(session),
+        error => {
+          const { name, message, description, number, fileName, lineNumber, columnNumber, stack } = error
+          this.props.onError(strings.error.critical, { name, message, description, number, fileName, lineNumber, columnNumber, stack })
+        })
   }
 
   componentWillUnmount() {

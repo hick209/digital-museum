@@ -23,6 +23,10 @@ class ErrorContainer extends React.Component {
     })
   }
 
+  snackbarAction() {
+    this.setState({ showSnackbar: false })
+  }
+
   render() {
     const { errors=[] } = this.props
     const { showSnackbar } = this.state
@@ -45,7 +49,7 @@ class ErrorContainer extends React.Component {
         message={ message }
         autoHideDuration={ 0 }
         action={ 'OK' /* TODO This is a temporary action */ }
-        onActionTouchTap={ () => this.setState({ showSnackbar: false }) }
+        onActionTouchTap={ () => this.snackbarAction() }
         onRequestClose={ () => {} }/>
     )
   }

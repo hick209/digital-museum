@@ -17,7 +17,10 @@ export const ptBr = {
     errorMessage: 'Erro: {1}',
     errorMessageCount: '{1} erros!',
 
+    critical: 'Erro crítico! Verifique sua conexão e atualize o app',
+
     generic: {
+      connection: 'Verifique sua conexão',
       startUserSession: 'Erro ao terminar a sessão',
       endUserSession: 'Erro ao iniciar a sessão',
     },
