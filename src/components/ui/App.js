@@ -1,5 +1,5 @@
 import React from 'react'
-import { BrowserRouter as Router, Route, Redirect, Switch } from 'react-router-dom'
+import { BrowserRouter as Router, Redirect, Route, Switch } from 'react-router-dom'
 import Theme from './Theme'
 import Authentication from '../container/Authentication'
 import CollectionsScreen from '../CollectionsScreen'
@@ -8,40 +8,41 @@ import strings from '../../strings'
 import { getUserSession } from '../../api'
 
 class App extends React.Component {
-  constructor(props) {
-    super(props)
-    this.sessionObserver = null
-  }
+	constructor(props) {
+		super(props)
+		this.sessionObserver = null
+	}
 
-  componentWillMount() {
-    this.sessionObserver = getUserSession().subscribe(
-        session => this.props.onSession(session),
-        error => {
-          const { name, message, description, number, fileName, lineNumber, columnNumber, stack } = error
-          this.props.onError(strings.error.critical, { name, message, description, number, fileName, lineNumber, columnNumber, stack })
-        })
-  }
+	componentWillMount() {
+		this.sessionObserver = getUserSession().subscribe(
+				session => this.props.onSession(session),
+				error => {
+					const { name, message, description, number, fileName, lineNumber, columnNumber, stack } = error
+					const payload = { name, message, description, number, fileName, lineNumber, columnNumber, stack }
+					this.props.onError(strings.error.critical, payload)
+				})
+	}
 
-  componentWillUnmount() {
-    if (this.sessionsObserver) {
-      this.sessionsObserver.unsubscribe()
-    }
-  }
+	componentWillUnmount() {
+		if (this.sessionsObserver) {
+			this.sessionsObserver.unsubscribe()
+		}
+	}
 
-  render() {
-    return (
-      <Router>
-        <Theme>
-          <Switch>
-            <Route exact path='/' component={ CollectionsScreen }/>
-            <Route exact path='/auth' component={ Authentication }/>
-            <Route path='/collections/:collectionId' component={ CollectionItemsScreen }/>
-            <Redirect to='/'/>
-          </Switch>
-        </Theme>
-      </Router>
-    )
-  }
+	render() {
+		return (
+				<Router>
+					<Theme>
+						<Switch>
+							<Route exact path='/' component={ CollectionsScreen }/>
+							<Route exact path='/auth' component={ Authentication }/>
+							<Route path='/collections/:collectionId' component={ CollectionItemsScreen }/>
+							<Redirect to='/'/>
+						</Switch>
+					</Theme>
+				</Router>
+		)
+	}
 }
 
 export default App
