@@ -28,11 +28,11 @@ render(
 
 
 function setupDatastore() {
-	const storageData = localStorage[ constants.LOCAL_STORAGE_KEY ]
+	const storageData = localStorage[constants.LOCAL_STORAGE_KEY]
 	const initialState = (storageData) ? JSON.parse(storageData) : initialData
 
 	const saveState = () =>
-			localStorage[ constants.LOCAL_STORAGE_KEY ] = JSON.stringify(store.getState())
+			localStorage[constants.LOCAL_STORAGE_KEY] = JSON.stringify(store.getState())
 
 	const store = storeFactory(initialState)
 	store.dispatch(setMuseumId('-KhEMEsIQD90VeCmiaHA'))
