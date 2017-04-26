@@ -1,5 +1,5 @@
 const database = require('./firebase').database
-const errors = require('../../src/errors')
+const errors = require('../../src/constants/errors')
 
 const post = (request, response) => {
 	// const info = {
