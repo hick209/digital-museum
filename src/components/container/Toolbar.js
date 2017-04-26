@@ -3,10 +3,10 @@ import { withRouter } from 'react-router'
 import Toolbar from '../ui/Toolbar'
 import { setMuseumName, setLoadingMuseum, endUserSession } from '../../actions'
 
-const mapStateToProps = (state, props) => ({
+const mapStateToProps = state => ({
   museumId: state.museum.id,
   signedIn: state.user && state.user.id,
-  loading: state.loading
+  loading: state.loading,
 })
 
 const mapDispatchToProps = dispatch => ({

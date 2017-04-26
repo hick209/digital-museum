@@ -10,8 +10,9 @@ module.exports = (path, outputPath) => ({
     path: outputPath,
     filename: path.join('js', '[name].[chunkhash].js'),
     // publicPath: '/',
-    sourceMapFilename: '[name].[chunkhash].map',
+    sourceMapFilename: path.join('js', '[name].[chunkhash].map'),
   },
+  devtool: 'source-map',
   // resolve: {
   //   extensions: ['.js', '.json'],
   //   modules: [ path.join(__dirname, 'src'), 'node_modules' ]
