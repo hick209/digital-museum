@@ -12,6 +12,11 @@ export const ptBr = {
   toolbar: {
     loadingTitle: 'Carregando…',
   },
+  error: {
+    noErrors: 'Tudo certo 😊',
+    errorMessage: 'Erro: {1}',
+    errorMessageCount: '{1} erros!',
+  },
 }
 
 const strings = ptBr
