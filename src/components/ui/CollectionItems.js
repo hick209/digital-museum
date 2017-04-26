@@ -4,13 +4,7 @@ import { Redirect } from 'react-router-dom'
 import CollectionItem from './CollectionItem'
 
 
-const CollectionItems = ({ items, invalidCollection }) => {
-  if (invalidCollection) {
-    return (
-      <Redirect to='/'/>
-    )
-  }
-
+const CollectionItems = ({ items }) => {
   items = items || []
 
   return (

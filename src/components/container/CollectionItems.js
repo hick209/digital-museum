@@ -5,7 +5,6 @@ import CollectionItems from '../ui/CollectionItems'
 
 const mapStateToProps = (state, props) => {
   const collectionId = props.match.params.collectionId
-
   let index = -1
   for (let i = 0; i < state.collections.length; i++) {
     if (state.collections[i].id === collectionId) {
@@ -14,11 +13,10 @@ const mapStateToProps = (state, props) => {
     }
   }
 
-  const invalidCollection = index < 0
+  const collection = state.collections[index]
 
   return {
-    invalidCollection,
-    items: invalidCollection ? [] : state.collections[index].items
+    items: collection.items
   }
 }
 

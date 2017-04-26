@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Route, Redirect, Switch } from 'react-router-d
 import Theme from './Theme'
 import Authentication from '../container/Authentication'
 import CollectionsScreen from '../CollectionsScreen'
-import CollectionItems from '../container/CollectionItems'
+import CollectionItemsScreen from '../CollectionItemsScreen'
 import strings from '../../strings'
 import { getUserSession } from '../../api'
 
@@ -35,7 +35,7 @@ class App extends React.Component {
           <Switch>
             <Route exact path='/' component={ CollectionsScreen }/>
             <Route exact path='/auth' component={ Authentication }/>
-            <Route path='/collections/:collectionId' component={ CollectionItems }/>
+            <Route path='/collections/:collectionId' component={ CollectionItemsScreen }/>
             <Redirect to='/'/>
           </Switch>
         </Theme>
