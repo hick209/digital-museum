@@ -1,4 +1,4 @@
-export const ptBr = {
+const ptBr = {
   app: {
     title: 'Museu da Fauna e Flora - USP São Carlos',
     appBarTitle: 'Museu da Fauna e Flora'
@@ -20,13 +20,10 @@ export const ptBr = {
     critical: 'Erro crítico! Verifique sua conexão e atualize o app',
 
     generic: {
-      connection: 'Verifique sua conexão',
       startUserSession: 'Erro ao terminar a sessão',
       endUserSession: 'Erro ao iniciar a sessão',
     },
   },
 }
 
-const strings = ptBr
-
-export default strings
+export default ptBr
