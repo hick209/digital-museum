@@ -18,6 +18,7 @@ const en = {
     generic: {
       startUserSession: 'Error while starting the session',
       endUserSession: 'Error while ending the session',
+      collectionLoad: 'Failed to load collection',
     },
   },
 }

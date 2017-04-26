@@ -45,6 +45,7 @@
 				{
 					"id": "item id",
 					"popularName": "Item",
+					"cover": "http://api.picture.com/item.jpeg",
 					"simpleDescription": "This is a collection item",
 					"taxonomy": {
 						"kingdom": "k",

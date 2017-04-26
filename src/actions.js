@@ -53,7 +53,10 @@ export const setMuseumName = museumName =>
 export const setCollections = collections =>
   simpleSetter(actionType.SET_COLLECTIONS, collections || [])
 
-export const setCollectionItems = ({ collectionId, items }) =>
+export const updateCollection = collection =>
+  simpleSetter(actionType.UPDATE_COLLECTION, collection)
+
+export const setCollectionItems = (collectionId, items) =>
   simpleSetter(actionType.SET_COLLECTION_ITEMS, { collectionId, items })
 
 

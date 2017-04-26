@@ -13,16 +13,21 @@ export const loadingCollections = (state = true, action) =>
 		simpleHandling(state, action, actionType.SET_LOADING_COLLECTIONS)
 
 export const loadingCollectionItems = (state = {}, action) => {
-	if (action.type === actionType.SET_LOADING_COLLECTION_ITEMS && action.payload.collectionId) {
-		// Clone the object
-		const newState = JSON.parse(JSON.stringify(state))
+	switch (action.type) {
+		case actionType.SET_LOADING_COLLECTION_ITEMS: {
+			// Clone the object
+			const loadingItems = {}
+			Object.assign(loadingItems, state)
 
-		// Set the new state
-		newState[action.payload.collectionId] = action.payload.loading
+			// Set the new state
+			loadingItems[action.payload.collectionId] = action.payload.loading
 
-		return newState
+			return loadingItems
+		}
+
+		default:
+			return state
 	}
-	else return state
 }
 
 export const errors = (state = [], action) => {
@@ -86,9 +91,7 @@ export const collections = (state = {}, action) => {
 			Object.assign(collections, state)
 
 			const collectionId = action.payload.collectionId
-			const newItems = action.payload.items
-
-			collections[collectionId].items = newItems
+			collections[collectionId].items = action.payload.items
 
 			return collections
 		}

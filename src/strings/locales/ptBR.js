@@ -18,6 +18,7 @@ const ptBR = {
     generic: {
       startUserSession: 'Erro ao terminar a sessão',
       endUserSession: 'Erro ao iniciar a sessão',
+      collectionLoad: 'Falha ao carregar coleção',
     },
   },
 }
