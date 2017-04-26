@@ -68,7 +68,7 @@ export const signInWithTwitter = () => Observable.create(observer => {
 })
 
 export const getUserSession = () => Observable.create(observer => {
-  return auth.onAuthStateChanged((user) => {
+  return auth.onAuthStateChanged(user => {
     if (user) {
       const info = {
         firebaseId: user.uid,
@@ -86,6 +86,10 @@ export const getUserSession = () => Observable.create(observer => {
       }
 
       fetch('/api/session', options)
+        .then(response => {
+          if (!response.ok) throw Error(`Failed to connect to the internal API. ${response.statusText}`, 'src/api/index.js', 90)
+          return response
+        })
         .then(response => response.json())
         .then(session => observer.next(session))
         .catch(error => observer.error(error))
@@ -177,6 +181,10 @@ function handleSignInResult(observer) {
     }
 
     fetch('/api/session', options)
+      .then(response => {
+        if (!response.ok) throw Error(`Failed to connect to the internal API. ${response.statusText}`, 'src/api/index.js', 185)
+        return response
+      })
       .then(response => response.json())
       .then(session => {
         observer.next(session)

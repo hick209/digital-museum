@@ -1,6 +1,5 @@
 import { createStore, applyMiddleware } from 'redux'
 import thunk from 'redux-thunk'
-import { actions } from '../strings'
 import appReducer from './reducers'
 
 const consoleMessages = store => next => action => {
