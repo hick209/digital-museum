@@ -70,7 +70,10 @@ class Toolbar extends React.Component {
     actions = loading.user ? null : actions
 
     return (
-      <AppBar title={ title } iconElementRight={ actions }/>
+      <AppBar
+        title={ title }
+        iconElementRight={ actions }
+        showMenuIconButton={ false }/>
     )
   }
 }
