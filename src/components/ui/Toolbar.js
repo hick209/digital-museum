@@ -27,6 +27,7 @@ class Toolbar extends React.Component {
     const newMuseumId = nextProps.museumId
 
     if (oldMuseumId !== newMuseumId) {
+      nextProps.onMuseumUpdated()
       if (this.museumSubscription) this.museumSubscription.unsubscribe()
       this.museumSubscription = getMuseum(newMuseumId).subscribe(museum => this.props.onMuseum(museum))
     }
@@ -64,7 +65,7 @@ class Toolbar extends React.Component {
     )
     const signedInActions = (
       <IconMenu
-        iconButtonElement={<IconButton><MoreVertIcon/></IconButton>}
+        iconButtonElement={ <IconButton><MoreVertIcon/></IconButton> }
         targetOrigin={{horizontal: 'right', vertical: 'top'}}
         anchorOrigin={{horizontal: 'right', vertical: 'top'}}
         onItemTouchTap={ optionsHandler }>

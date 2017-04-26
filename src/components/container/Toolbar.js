@@ -11,6 +11,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   signOut: () => dispatch(endUserSession()),
+  onMuseumUpdated: () => dispatch(setLoadingMuseum(true)),
   onMuseum: museum => {
     dispatch(setMuseumName(museum.name))
     dispatch(setLoadingMuseum(false))

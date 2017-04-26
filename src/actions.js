@@ -65,30 +65,28 @@ export const dismissError = (errorIndex) =>
 
 
 export const fetchMuseum = museumId => dispatch => {
-  dispatch(setLoadingCollections(true))
-
-  getCollections(museumId).take(1).toPromise()
-    .then(collections => {
-      dispatch(setCollections(collections))
-      return collections[0]
-    })
-    .then(collection => {
-      dispatch(setLoadingCollections(false))
-      dispatch(setLoadingCollectionItems(collection.id, true))
-      return collection
-    })
-    .then(collection => getCollectionItems(collection.id).take(1).toPromise())
-    .then(items => {
-      dispatch(setCollectionItems({ collectionId: items[0].collectionId, items }))
-      return items[0].collectionId
-    })
-    .then(collectionId => dispatch(setLoadingCollectionItems(collectionId, false)))
-    .catch(error => {
-      dispatch(setLoadingCollections(false))
-
-      // TODO dispatch this error
-      console.error(error)
-    })
+  // getCollections(museumId).take(1).toPromise()
+  //   .then(collections => {
+  //     dispatch(setCollections(collections))
+  //     return collections[0]
+  //   })
+  //   .then(collection => {
+  //     dispatch(setLoadingCollections(false))
+  //     dispatch(setLoadingCollectionItems(collection.id, true))
+  //     return collection
+  //   })
+  //   .then(collection => getCollectionItems(collection.id).take(1).toPromise())
+  //   .then(items => {
+  //     dispatch(setCollectionItems({ collectionId: items[0].collectionId, items }))
+  //     return items[0].collectionId
+  //   })
+  //   .then(collectionId => dispatch(setLoadingCollectionItems(collectionId, false)))
+  //   .catch(error => {
+  //     dispatch(setLoadingCollections(false))
+  //
+  //     // TODO dispatch this error
+  //     console.error(error)
+  //   })
 }
 
 
