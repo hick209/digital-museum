@@ -209,6 +209,8 @@ rules:
   radix: 'off'
   require-await: error
   require-jsdoc: 'off'
+  react/jsx-uses-react: 'error'
+  react/jsx-uses-vars: 'error'
   rest-spread-spacing:
     - error
     - never
