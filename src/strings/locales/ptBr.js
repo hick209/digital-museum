@@ -1,8 +1,4 @@
-const ptBr = {
-  app: {
-    title: 'Museu da Fauna e Flora - USP São Carlos',
-    appBarTitle: 'Museu da Fauna e Flora'
-  },
+const ptBR = {
   auth: {
     action: {
       signIn: 'Entrar',
@@ -26,4 +22,4 @@ const ptBr = {
   },
 }
 
-export default ptBr
+export default ptBR
