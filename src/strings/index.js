@@ -1,8 +1,20 @@
 import locales from './locales'
 
 const fallbackLanguage = 'pt-BR'
-const currentLanguage = navigator.language
 
-const strings = locales[currentLanguage] || locales[fallbackLanguage]
+let translations = locales[navigator.language]
+
+if (!translations) {
+  const languages = navigator.languages
+  for (let i = 0; i < languages.length; i++) {
+    translations = locales[languages[i]]
+    if (translations) break
+  }
+}
+
+translations = translations || locales[fallbackLanguage]
+
+
+const strings = translations
 
 export default strings
