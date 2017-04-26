@@ -27,7 +27,8 @@ module.exports = (env, path, outputPath) => webpackMerge(commonConfig(path, outp
         screw_ie8: true,
         warnings: false
       },
-      comments: false
+      comments: false,
+      sourceMap: true,
     }),
 
     // According to the documentation, it's always better if OfflinePlugin is the last plugin added
