@@ -1,44 +1,86 @@
 import React from 'react'
 import { connect } from 'react-redux'
+import { Redirect } from 'react-router-dom'
 import CollectionItems from './container/CollectionItems'
 import AppShell from './AppShell'
+import strings from '../strings'
+import { getCollection, getCollectionItems } from '../api'
+import { setLoadingCollectionItems, setCollectionItems, updateCollection, addError } from '../actions'
 
 const mapStateToProps = (state, props) => {
-  const collectionId = props.match.params.collectionId
-  let index = -1
-  for (let i = 0; i < state.collections.length; i++) {
-    if (state.collections[i].id === collectionId) {
-      index = i
-      break
-    }
-  }
+	const collectionId = props.match.params.collectionId
+	const collection = state.collections[collectionId]
+	const missingCollection = !collection
+	const loading = state.loading.collectionItems[collectionId]
 
-  const invalidCollection = index < 0
-  if (invalidCollection) {
-    return {}
-  }
-  const collection = state.collections[index]
-
-  return {
-    title: collection.name,
-    loading: state.loading.collectionItems[collectionId],
-    invalidCollection
-  }
+	return {
+		collectionId,
+		missingCollection,
+		title: missingCollection ? strings.toolbar.loadingTitle : collection.name,
+		items: missingCollection ? null : Object.keys(collection.items || {}).map(key => collection.items[key]),
+		loading: typeof loading === 'boolean' ? loading : true,
+	}
 }
 
 const mapDispatchToProps = dispatch => ({
+	onError: (message, error) => dispatch(addError(message, error)),
+	onLoad: collectionId => dispatch(setLoadingCollectionItems(collectionId, true)),
+	onCollectionItems: (collectionId, items) => {
+		dispatch(setCollectionItems(collectionId, items))
+		dispatch(setLoadingCollectionItems(collectionId, false))
+	},
+	onCollection: (collection) => {
+		dispatch(updateCollection(collection))
+	},
 })
 
-const CollectionItemsScreen = ({ title, loading, invalidCollection }) => {
-  if (invalidCollection) {
-    return <Redirect to='/'/>
-  }
+class CollectionItemsScreen extends React.Component {
+	constructor(props) {
+		super(props)
+		this.collectionItemsSubscription = null
+		this.state = {
+			invalidCollection: false,
+		}
+	}
 
-  return (
-    <AppShell title={ title } loading={ loading }>
-      <CollectionItems/>
-    </AppShell>
-  )
+	componentWillMount() {
+		const { collectionId, items, onLoad, onError, onCollection, missingCollection } = this.props
+		if (!items) onLoad(collectionId)
+
+		if (missingCollection) {
+			getCollection(collectionId).take(1).toPromise()
+					.then(collection => onCollection(collection))
+					.catch(error => {
+						this.setState({ invalidCollection: true })
+						onError(strings.error.generic.collectionLoad, error)
+					})
+		}
+
+		this.collectionItemsSubscription = getCollectionItems(collectionId)
+				.subscribe(collections => this.props.onCollectionItems(collectionId, collections))
+	}
+
+	componentWillUnmount() {
+		if (this.collectionItemsSubscription) {
+			this.collectionItemsSubscription.unsubscribe()
+			this.collectionItemsSubscription = null
+		}
+	}
+
+	render() {
+		const { title, loading } = this.props
+		const { invalidCollection } = this.state
+
+		if (invalidCollection) {
+			return <Redirect to='/'/>
+		}
+
+		return (
+				<AppShell title={ title } loading={ loading }>
+					<CollectionItems/>
+				</AppShell>
+		)
+	}
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(CollectionItemsScreen)

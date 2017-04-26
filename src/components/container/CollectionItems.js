@@ -4,7 +4,8 @@ import CollectionItems from '../ui/CollectionItems'
 
 
 const mapStateToProps = (state, props) => ({
-	items: state.collections[props.match.params.collectionId].items
+	items: Object.keys(state.collections[props.match.params.collectionId].items)
+			.map(key => state.collections[props.match.params.collectionId].items[key]),
 })
 
 const mapDispatchToProps = dispatch => ({
