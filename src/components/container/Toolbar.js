@@ -6,7 +6,7 @@ import { setMuseumName, setLoadingMuseum, endUserSession } from '../../actions'
 const mapStateToProps = (state, props) => ({
   museumId: state.museum.id,
   signedIn: state.user && state.user.id,
-  loading: state.loading
+  loading: state.loading,
 })
 
 const mapDispatchToProps = dispatch => ({
