@@ -87,7 +87,7 @@ export const getUserSession = () => Observable.create(observer => {
 
       fetch('/api/session', options)
         .then(response => {
-          if (!response.ok) throw Error(response.statusText)
+          if (!response.ok) throw Error(`Failed to connect to the internal API. ${response.statusText}`, 'src/api/index.js', 90)
           return response
         })
         .then(response => response.json())
@@ -182,7 +182,7 @@ function handleSignInResult(observer) {
 
     fetch('/api/session', options)
       .then(response => {
-        if (!response.ok) throw Error(response.statusText)
+        if (!response.ok) throw Error(`Failed to connect to the internal API. ${response.statusText}`, 'src/api/index.js', 185)
         return response
       })
       .then(response => response.json())
