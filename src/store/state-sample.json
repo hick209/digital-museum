@@ -1,0 +1,62 @@
+{
+	"loading": {
+		"user": true,
+		"museum": true,
+		"collections": true,
+		"collectionItems": {
+			"-collection-id-1": true,
+			"-collection-id-2": true
+		}
+	},
+	"errors": [
+		{
+			"message": "Error 1",
+			"error": {}
+		},
+		{
+			"message": "Error 2",
+			"error": {
+				"description": "payload",
+				"other": "more info here"
+			}
+		},
+		{
+			"message": "Error 3",
+			"error": {
+				"payload": "this is a big error!"
+			}
+		}
+	],
+	"user": {
+		"id": "unique user id",
+		"name": "Joe Doe",
+		"picture": "http://api.picture.com/joedoe.jpeg"
+	},
+	"museum": {
+		"id": "museum id",
+		"name": "Cool Museum"
+	},
+	"collections": [
+		{
+			"id": "collection id",
+			"name": "My only collection",
+			"cover": "http://api.picture.com/collecion.jpeg",
+			"items": [
+				{
+					"id": "item id",
+					"popularName": "Item",
+					"simpleDescription": "This is a collection item",
+					"taxonomy": {
+						"kingdom": "k",
+						"phylum": "p",
+						"class": "c",
+						"order": "o",
+						"family": "f",
+						"genus": "g",
+						"species": "s"
+					}
+				}
+			]
+		}
+	]
+}
