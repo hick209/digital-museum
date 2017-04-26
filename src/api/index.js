@@ -116,7 +116,6 @@ export const getCollection = collectionId => read('collections', collectionId, c
   museumId: collection.museumId,
   name: collection.name,
   cover: collection.cover,
-  itemCount: Object.keys(collection.items).length,
 }))
 
 export const getCollectionItem = itemId => read('collectionItems', itemId, item => {
@@ -290,12 +289,12 @@ function getChildren(parentPath, parentId, childrenPath, getChildRequest) {
         return Object.keys(parent[childrenPath])
       })
       .then(ids => {
-        const children = []
+        const children = {}
         const requests = []
 
         ids.forEach(childId => {
           const promise = getChildRequest(childId).take(1).toPromise()
-          requests.push(promise.then(child => children.push(child)))
+          requests.push(promise.then(child => children[childId] = child))
         })
 
         return Promise.all(requests).then(() => observer.next(children))

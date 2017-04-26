@@ -36,13 +36,13 @@
 		"id": "museum id",
 		"name": "Cool Museum"
 	},
-	"collections": [
-		{
+	"collections": {
+		"collection id": {
 			"id": "collection id",
 			"name": "My only collection",
 			"cover": "http://api.picture.com/collecion.jpeg",
-			"items": [
-				{
+			"items": {
+				"item id": {
 					"id": "item id",
 					"popularName": "Item",
 					"cover": "http://api.picture.com/item.jpeg",
@@ -57,7 +57,7 @@
 						"species": "s"
 					}
 				}
-			]
+			}
 		}
-	]
+	}
 }

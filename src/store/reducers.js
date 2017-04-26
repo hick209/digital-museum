@@ -64,8 +64,20 @@ export const museumName = (state = "", action) =>
 
 export const collections = (state = {}, action) => {
 	switch (action.type) {
-		case actionType.SET_COLLECTIONS:
-			return action.payload
+		case actionType.SET_COLLECTIONS: {
+			const oldCollections = state
+			const collections = action.payload
+
+			// Make sure we don't lose data
+			Object.keys(collections).forEach(collectionId => {
+				const oldCollection = oldCollections[collectionId]
+				if (oldCollection) {
+					collections[collectionId].items = collections[collectionId].items || oldCollection.items
+				}
+			})
+
+			return collections
+		}
 
 		case actionType.UPDATE_COLLECTION: {
 			const collections = {}
@@ -76,10 +88,10 @@ export const collections = (state = {}, action) => {
 			const collection = collections[collectionId]
 			if (!collection) {
 				collections[collectionId] = {}
-				collections[collectionId].id = collectionId
-				collections[collectionId].items = []
+				collections[collectionId].items = {}
 			}
 
+			collections[collectionId].id = collectionId
 			collections[collectionId].name = updatedCollection.name || collection.name
 			collections[collectionId].cover = updatedCollection.cover || collection.cover
 
