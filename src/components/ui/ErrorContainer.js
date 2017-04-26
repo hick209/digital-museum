@@ -6,7 +6,7 @@ class ErrorContainer extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      showSnackbar: true,
+      showSnackbar: false,
     }
   }
 

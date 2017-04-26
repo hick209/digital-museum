@@ -9,11 +9,13 @@ import storeFactory from './store'
 import initialData from './store/initialState'
 import './stylesheets/app.scss'
 
-import { setMuseumId, fetchMuseum } from './actions'
+import { setMuseumId, fetchMuseum, addError } from './actions'
 
 uiSetup()
 
 const store = setupDatastore()
+
+setupErrorHandler(store)
 
 offlineSetup()
 
@@ -47,6 +49,11 @@ function uiSetup() {
   injectTapEventPlugin()
 }
 
+function setupErrorHandler(store) {
+  const handleError = error => {store.dispatch(addError(error.message, error))}
+  // window.addEventListener('error', handleError)
+  // window.onerror = handleError
+}
 
 function offlineSetup() {
   // Install the ServiceWorker
