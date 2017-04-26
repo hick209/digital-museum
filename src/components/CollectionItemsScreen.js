@@ -51,13 +51,16 @@ class CollectionItemsScreen extends React.Component {
 			getCollection(collectionId).take(1).toPromise()
 					.then(collection => onCollection(collection))
 					.catch(error => {
-						this.setState({ invalidCollection: true })
 						onError(strings.error.generic.collectionLoad, error)
+						this.setState({ invalidCollection: true })
 					})
 		}
 
 		this.collectionItemsSubscription = getCollectionItems(collectionId)
-				.subscribe(collections => this.props.onCollectionItems(collectionId, collections))
+				.subscribe(collections => this.props.onCollectionItems(collectionId, collections), error => {
+					onError(strings.error.generic.collectionLoad, error)
+					this.setState({ invalidCollection: true })
+				})
 	}
 
 	componentWillUnmount() {
