@@ -16,6 +16,11 @@ export const ptBr = {
     noErrors: 'Tudo certo 😊',
     errorMessage: 'Erro: {1}',
     errorMessageCount: '{1} erros!',
+
+    generic: {
+      startUserSession: 'Erro ao terminar a sessão',
+      endUserSession: 'Erro ao iniciar a sessão',
+    },
   },
 }
 

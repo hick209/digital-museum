@@ -3,6 +3,7 @@ import 'rxjs/add/operator/toPromise'
 import { actionType } from './constants'
 import { getCollections, getCollectionItems } from './api'
 import api from './api'
+import strings from './strings'
 
 export const startUserSession = userId => dispatch => {
   dispatch(setLoadingUser(true))
@@ -12,9 +13,7 @@ export const startUserSession = userId => dispatch => {
     .then(() => dispatch(setLoadingUser(false)))
     .catch(error => {
       dispatch(setLoadingUser(false))
-
-      // TODO dispatch this error
-      console.error(error)
+      dispatch(addError(strings.error.generic.startUserSession, error))
     })
 }
 
@@ -29,9 +28,7 @@ export const endUserSession = () => dispatch => {
     .then(() => dispatch(setLoadingUser(false)))
     .catch(error => {
       dispatch(setLoadingUser(false))
-
-      // TODO dispatch this error
-      console.error(error)
+      dispatch(addError(strings.error.generic.endUserSession, error))
     })
 }
 
@@ -58,6 +55,13 @@ export const setCollections = collections =>
 
 export const setCollectionItems = ({ collectionId, items }) =>
   simpleSetter(actionType.SET_COLLECTION_ITEMS, { collectionId, items })
+
+
+export const addError = (message, error) =>
+  simpleSetter(actionType.ADD_ERROR, { message, error })
+
+export const dismissError = (errorIndex) =>
+  simpleSetter(actionType.DISMISS_ERROR, errorIndex)
 
 
 export const fetchMuseum = museumId => dispatch => {
