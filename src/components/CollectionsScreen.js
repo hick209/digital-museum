@@ -5,6 +5,7 @@ import AppShell from './AppShell'
 import { getCollections } from '../api'
 import { setLoadingCollections, setCollections } from '../actions'
 
+
 const mapStateToProps = (state, props) => ({
 	museumId: state.museum.id,
 	title: state.museum.name,
@@ -19,6 +20,7 @@ const mapDispatchToProps = dispatch => ({
 		dispatch(setLoadingCollections(false))
 	},
 })
+
 
 class CollectionsScreen extends React.Component {
 	constructor(props) {
@@ -64,5 +66,6 @@ class CollectionsScreen extends React.Component {
 		)
 	}
 }
+
 
 export default connect(mapStateToProps, mapDispatchToProps)(CollectionsScreen)

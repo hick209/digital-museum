@@ -7,7 +7,8 @@ import CollectionItemsScreen from '../CollectionItemsScreen'
 import strings from '../../strings'
 import { getUserSession } from '../../api'
 
-class App extends React.Component {
+
+export default class App extends React.Component {
 	constructor(props) {
 		super(props)
 		this.sessionObserver = null
@@ -44,5 +45,3 @@ class App extends React.Component {
 		)
 	}
 }
-
-export default App

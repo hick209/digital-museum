@@ -28,6 +28,8 @@ export const setupStore = () => {
 
 	const store = storeFactory(initialState)
 	store.subscribe(saveState)
+
+	return store
 }
 
 export default setupStore

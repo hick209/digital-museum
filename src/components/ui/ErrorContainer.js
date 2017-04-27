@@ -2,60 +2,45 @@ import React from 'react'
 import Snackbar from 'material-ui/Snackbar'
 import strings from '../../strings'
 
-class ErrorContainer extends React.Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-      showSnackbar: false,
-    }
-  }
+export default class ErrorContainer extends React.Component {
+	constructor(props) {
+		super(props)
+		this.state = {
+			showSnackbar: (props.errors || []).length > 0,
+		}
+	}
 
-  componentWillReceiveProps(nextProps) {
-    const errors = this.props.errors || []
-    const newErrors = nextProps.errors || []
-    const { showSnackbar } = this.state
+	componentWillReceiveProps(nextProps) {
+		const errorCount = (nextProps.errors || []).length
+		this.setState({
+			showSnackbar: errorCount > 0,
+		})
+	}
 
-    const errorCount = errors.length
-    const newErrorCount = newErrors.length
+	snackbarAction() {
+		this.props.dismissError(0)
+	}
 
-    this.setState({
-      showSnackbar: showSnackbar || (newErrorCount > errorCount),
-    })
-  }
+	render() {
+		const { errors = [] } = this.props
+		const { showSnackbar } = this.state
+		const errorCount = errors.length
 
-  snackbarAction() {
-    if (this.props.errors.length === 1) {
-      this.props.dismissError(0)
-    }
-    this.setState({ showSnackbar: false })
-  }
+		let message
+		if (errorCount === 0) {
+			message = strings.error.noErrors
+		} else {
+			message = strings.error.errorMessage.replace('{1}', errors[0].message)
+		}
 
-  render() {
-    const { errors=[] } = this.props
-    const { showSnackbar } = this.state
-    const errorCount = errors.length
-
-    let message
-    if (errorCount === 0) {
-      message = strings.error.noErrors
-    }
-    else if (errorCount === 1) {
-      message = strings.error.errorMessage.replace('{1}', errors[0].message)
-    }
-    else {
-      message = strings.error.errorMessageCount.replace('{1}', errorCount)
-    }
-
-    return (
-      <Snackbar
-        open={ showSnackbar }
-        message={ message }
-        autoHideDuration={ 0 }
-        action={ 'OK' /* TODO This is a temporary action */ }
-        onActionTouchTap={ () => this.snackbarAction() }
-        onRequestClose={ () => {} }/>
-    )
-  }
+		return (
+				<Snackbar
+						open={ showSnackbar }
+						message={ message }
+						autoHideDuration={ 0 }
+						action={ strings.error.action.dismiss }
+						onActionTouchTap={ () => this.snackbarAction() }
+						onRequestClose={ () => {} }/>
+		)
+	}
 }
-
-export default ErrorContainer

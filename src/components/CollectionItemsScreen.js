@@ -7,6 +7,7 @@ import strings from '../strings'
 import { getCollection, getCollectionItems } from '../api'
 import { setLoadingCollectionItems, setCollectionItems, updateCollection, addError } from '../actions'
 
+
 const mapStateToProps = (state, props) => {
 	const collectionId = props.match.params.collectionId
 	const collection = state.collections[collectionId]
@@ -34,6 +35,7 @@ const mapDispatchToProps = dispatch => ({
 	},
 })
 
+
 class CollectionItemsScreen extends React.Component {
 	constructor(props) {
 		super(props)
@@ -44,21 +46,21 @@ class CollectionItemsScreen extends React.Component {
 	}
 
 	componentWillMount() {
-		const { collectionId, items, onLoad, onError, onCollection, missingCollection } = this.props
+		const { collectionId, items, onLoad, missingCollection } = this.props
 		if (!items) onLoad(collectionId)
 
 		if (missingCollection) {
 			getCollection(collectionId).take(1).toPromise()
-					.then(collection => onCollection(collection))
+					.then(collection => this.props.onCollection(collection))
 					.catch(error => {
-						onError(strings.error.generic.collectionLoad, error)
+						this.props.onError(strings.error.generic.collectionLoad, error)
 						this.setState({ invalidCollection: true })
 					})
 		}
 
 		this.collectionItemsSubscription = getCollectionItems(collectionId)
 				.subscribe(collections => this.props.onCollectionItems(collectionId, collections), error => {
-					onError(strings.error.generic.collectionLoad, error)
+					this.props.onError(strings.error.generic.collectionLoad, error)
 					this.setState({ invalidCollection: true })
 				})
 	}
@@ -85,5 +87,6 @@ class CollectionItemsScreen extends React.Component {
 		)
 	}
 }
+
 
 export default connect(mapStateToProps, mapDispatchToProps)(CollectionItemsScreen)

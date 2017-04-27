@@ -15,10 +15,15 @@ const ptBR = {
 
 		critical: 'Erro crítico! Verifique sua conexão e atualize o app',
 
+		action: {
+			dismiss: 'OK',
+		},
+
 		generic: {
-			startUserSession: 'Erro ao terminar a sessão',
-			endUserSession: 'Erro ao iniciar a sessão',
+			startUserSession: 'Erro ao iniciar a sessão',
+			endUserSession: 'Erro ao terminar a sessão',
 			collectionLoad: 'Falha ao carregar coleção',
+			signIn: 'Falhar no login',
 		},
 	},
 }

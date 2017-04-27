@@ -4,11 +4,11 @@ import { dismissError } from '../../actions'
 
 
 const mapStateToProps = state => ({
-  errors: state.errors,
+	errors: state.errors,
 })
 
 const mapDispatchToProps = dispatch => ({
-  dismissError: errorIndex => dispatch(dismissError(errorIndex)),
+	dismissError: errorIndex => dispatch(dismissError(errorIndex)),
 })
 
 
