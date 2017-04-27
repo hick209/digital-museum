@@ -30,7 +30,13 @@
 	"user": {
 		"id": "unique user id",
 		"name": "Joe Doe",
-		"picture": "http://api.picture.com/joedoe.jpeg"
+		"picture": "http://api.picture.com/joedoe.jpeg",
+		"firebaseId": "firebase uid",
+		"permission": {
+			"destroySystem": false,
+			"seeErrorDetails": true,
+			"updateCollections": true
+		}
 	},
 	"museum": {
 		"id": "museum id",

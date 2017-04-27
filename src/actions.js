@@ -32,13 +32,13 @@ export const endUserSession = () => dispatch => {
 }
 
 export const setLoadingUser = loading =>
-		simpleSetter(actionType.SET_LOADING_USER, !!loading)
+		simpleSetter(actionType.SET_LOADING_USER, loading)
 
 export const setLoadingMuseum = loading =>
-		simpleSetter(actionType.SET_LOADING_MUSEUM, !!loading)
+		simpleSetter(actionType.SET_LOADING_MUSEUM, loading)
 
 export const setLoadingCollections = loading =>
-		simpleSetter(actionType.SET_LOADING_COLLECTIONS, !!loading)
+		simpleSetter(actionType.SET_LOADING_COLLECTIONS, loading)
 
 export const setLoadingCollectionItems = (collectionId, loading) =>
 		simpleSetter(actionType.SET_LOADING_COLLECTION_ITEMS, { collectionId, loading })
@@ -50,7 +50,7 @@ export const setMuseumName = museumName =>
 		simpleSetter(actionType.SET_MUSEUM_NAME, museumName)
 
 export const setCollections = collections =>
-		simpleSetter(actionType.SET_COLLECTIONS, collections || [])
+		simpleSetter(actionType.SET_COLLECTIONS, collections)
 
 export const updateCollection = collection =>
 		simpleSetter(actionType.UPDATE_COLLECTION, collection)
@@ -64,6 +64,9 @@ export const addError = (message, error) =>
 
 export const dismissError = (errorIndex) =>
 		simpleSetter(actionType.DISMISS_ERROR, errorIndex)
+
+export const dismissAllErrors = () =>
+		simpleSetter(actionType.DISMISS_ALL_ERRORS, {})
 
 
 function simpleSetter(action, payload) {
