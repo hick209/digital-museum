@@ -104,7 +104,7 @@ export const getUser = userId => read('users', userId, user => ({
 	name: user.name,
 	picture: user.picture,
 	firebaseId: user.firebaseId,
-	permission: user.permission,
+	permission: user.permission || {},
 }))
 
 export const getMuseum = museumId => read('museums', museumId, museum => ({
@@ -300,7 +300,7 @@ function getChildren(parentPath, parentId, childrenPath, getChildRequest) {
 
 					ids.forEach(childId => {
 						const promise = getChildRequest(childId).take(1).toPromise()
-						requests.push(promise.then(child => children[childId] = child))
+						requests.push(promise.then(child => { children[childId] = child }))
 					})
 
 					return Promise.all(requests).then(() => observer.next(children))

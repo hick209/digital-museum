@@ -68,7 +68,8 @@ export const museumName = (state = '', action) =>
 export const collections = (state = {}, action) => {
 	switch (action.type) {
 		case actionType.SET_COLLECTIONS: {
-			const oldCollections = state
+
+			const oldCollections = state || {}
 			const collections = action.payload
 
 			// Make sure we don't lose data

@@ -6,10 +6,10 @@
 		"collectionItems": {}
 	},
 	"errors": [],
-	"user": {},
+	"user": null,
 	"museum": {
 		"id": "-KhEMEsIQD90VeCmiaHA",
 		"name": null
 	},
-	"collections": {}
+	"collections": null
 }
