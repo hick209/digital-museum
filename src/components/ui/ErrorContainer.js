@@ -1,5 +1,6 @@
 import React from 'react'
 import Dialog from 'material-ui/Dialog'
+import Divider from 'material-ui/Divider'
 import FlatButton from 'material-ui/FlatButton'
 import IconButton from 'material-ui/IconButton'
 import { List, ListItem } from 'material-ui/List'
@@ -26,7 +27,7 @@ export default class ErrorContainer extends React.Component {
 		if (errorCount === 1) {
 			this.dismiss(0)
 		} else {
-			this.setState({ showDetails: true })
+			this.setState({ showDetails: true, showSnackbar: false })
 		}
 	}
 
@@ -40,14 +41,11 @@ export default class ErrorContainer extends React.Component {
 	}
 
 	close() {
-		this.setState({
-			showDetails: false,
-			showSnackbar: false
-		})
+		this.setState({ showDetails: false })
 	}
 
 	render() {
-		const { errors = [] } = this.props
+		const { errors = [], showErrorDetails = false } = this.props
 		const { showSnackbar } = this.state
 
 		const errorCount = errors.length
@@ -81,20 +79,40 @@ export default class ErrorContainer extends React.Component {
 					message={ message }
 					autoHideDuration={ 0 }
 					action={ action }
-					onActionTouchTap={ () => this.snackbarAction() }/>
+					onActionTouchTap={ () => this.snackbarAction() }
+					onRequestClose={ () => {
+					} }/>
 			<Dialog
 					title={ errorCountMessage }
 					actions={ detailActions }
 					autoScrollBodyContent={ true }
+					repositionOnUpdate={ true }
 					open={ this.state.showDetails }
 					onRequestClose={ () => this.close() }>
 				<List>
 					{
 						errors.map((error, index) => (
-								<ListItem
-										key={ index }
-										primaryText={ error.message }
-										rightIconButton={ <IconButton><DeleteIcon onTouchTap={ () => this.dismiss(index) }/></IconButton> }/>
+								<div key={ index }>
+									<ListItem
+											primaryText={ error.message }
+											primaryTogglesNestedList={ true }
+											rightIconButton={
+												<IconButton>
+													<DeleteIcon onTouchTap={ () => this.dismiss(index) }/>
+												</IconButton>
+											}
+											nestedItems={
+												showErrorDetails ? Object.keys(error.error).map(errorKey => (
+														<ListItem
+																key={ errorKey }
+																disabled={ true }
+																primaryText={ errorKey }
+																secondaryText={ JSON.stringify(error.error[errorKey]) }
+																secondaryTextLines={ 2 }/>
+												)) : []
+											}/>
+									<Divider/>
+								</div>
 						))
 					}
 				</List>

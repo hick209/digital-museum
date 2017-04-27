@@ -5,6 +5,7 @@ import { dismissAllErrors, dismissError } from '../../actions'
 
 const mapStateToProps = state => ({
 	errors: state.errors,
+	showErrorDetails: true /*state.user.permission.developer || state.user.permission.admin*/,
 })
 
 const mapDispatchToProps = dispatch => ({
