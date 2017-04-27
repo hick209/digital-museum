@@ -65,6 +65,9 @@ export const addError = (message, error) =>
 export const dismissError = (errorIndex) =>
 		simpleSetter(actionType.DISMISS_ERROR, errorIndex)
 
+export const dismissAllErrors = () =>
+		simpleSetter(actionType.DISMISS_ALL_ERRORS, {})
+
 
 function simpleSetter(action, payload) {
 	return { type: action, payload }

@@ -1,13 +1,19 @@
 const en = {
+	action: {
+		ok: 'OK',
+	},
+
 	auth: {
 		action: {
 			signIn: 'Sign In',
 			signOut: 'Sign Out',
 		},
 	},
+
 	toolbar: {
 		loadingTitle: 'Loading…',
 	},
+
 	error: {
 		noErrors: 'Everything is fine 😊',
 		errorMessage: 'Error: {1}',
@@ -17,6 +23,8 @@ const en = {
 
 		action: {
 			dismiss: 'Dismiss',
+			dismissAll: 'Dismiss all',
+			more: 'More',
 		},
 
 		generic: {

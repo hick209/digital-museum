@@ -1,13 +1,19 @@
 const ptBR = {
+	action: {
+		ok: 'OK',
+	},
+
 	auth: {
 		action: {
 			signIn: 'Entrar',
 			signOut: 'Sair',
 		},
 	},
+
 	toolbar: {
 		loadingTitle: 'Carregando…',
 	},
+
 	error: {
 		noErrors: 'Tudo certo 😊',
 		errorMessage: 'Erro: {1}',
@@ -17,6 +23,8 @@ const ptBR = {
 
 		action: {
 			dismiss: 'OK',
+			dismissAll: 'Limpar tudo',
+			more: 'Mais',
 		},
 
 		generic: {
