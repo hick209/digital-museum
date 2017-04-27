@@ -1,14 +1,16 @@
 import { connect } from 'react-redux'
 import ErrorContainer from '../ui/ErrorContainer'
-import { dismissError } from '../../actions'
+import { dismissAllErrors, dismissError } from '../../actions'
 
 
 const mapStateToProps = state => ({
-  errors: state.errors,
+	errors: state.errors,
+	showErrorDetails: state.user && state.user.permission.seeErrorDetails,
 })
 
 const mapDispatchToProps = dispatch => ({
-  dismissError: errorIndex => dispatch(dismissError(errorIndex)),
+	dismissError: errorIndex => dispatch(dismissError(errorIndex)),
+	dismissAllErrors: () => dispatch(dismissAllErrors())
 })
 
 

@@ -48,6 +48,9 @@ export const errors = (state = [], action) => {
 			return state.filter((error, index) => index !== errorIndex)
 		}
 
+		case actionType.DISMISS_ALL_ERRORS:
+			return []
+
 		default:
 			return state
 	}
@@ -59,7 +62,7 @@ export const user = (state = null, action) =>
 export const museumId = (state = null, action) =>
 		simpleHandling(state, action, actionType.SET_MUSEUM_ID)
 
-export const museumName = (state = "", action) =>
+export const museumName = (state = '', action) =>
 		simpleHandling(state, action, actionType.SET_MUSEUM_NAME)
 
 export const collections = (state = {}, action) => {
@@ -126,5 +129,5 @@ export default combineReducers({
 		id: museumId,
 		name: museumName,
 	}),
-	collections
+	collections,
 })

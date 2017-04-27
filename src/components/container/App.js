@@ -7,15 +7,15 @@ const mapStateToProps = (state, props) => ({
 })
 
 const mapDispatchToProps = dispatch => ({
-  onSession: ({ userId }) => {
-    if (userId) {
-      dispatch(startUserSession(userId))
-    }
-    else {
-      dispatch(endUserSession())
-    }
-  },
-  onError: (message, error) => dispatch(addError(message, error))
+	onSession: ({ userId }) => {
+		if (userId) {
+			dispatch(startUserSession(userId))
+		}
+		else {
+			dispatch(endUserSession())
+		}
+	},
+	onError: (message, error) => dispatch(addError(message, error)),
 })
 
 
