@@ -143,6 +143,7 @@ const sessionUserPipeline = {
 						twitterSecret: info.twitterSecret,
 						name: info.userName,
 						picture: info.userPicture,
+						permission: {},
 					})
 					.then(() => ({ userId, newUser }))
 		} else {

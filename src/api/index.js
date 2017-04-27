@@ -104,6 +104,7 @@ export const getUser = userId => read('users', userId, user => ({
 	name: user.name,
 	picture: user.picture,
 	firebaseId: user.firebaseId,
+	permission: user.permission,
 }))
 
 export const getMuseum = museumId => read('museums', museumId, museum => ({
