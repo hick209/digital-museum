@@ -17,7 +17,7 @@ const en = {
 	error: {
 		noErrors: 'Everything is fine 😊',
 		errorMessage: 'Error: {1}',
-		errorMessageCount: '{1} errors!',
+		errorMessageCount: '{1} error(s)!',
 
 		critical: 'Critical error! Check your connection and refresh the app',
 

@@ -17,7 +17,7 @@ const ptBR = {
 	error: {
 		noErrors: 'Tudo certo 😊',
 		errorMessage: 'Erro: {1}',
-		errorMessageCount: '{1} erros!',
+		errorMessageCount: '{1} erro(s)!',
 
 		critical: 'Erro crítico! Verifique sua conexão e atualize o app',
 
