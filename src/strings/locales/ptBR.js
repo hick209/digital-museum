@@ -10,6 +10,11 @@ const ptBR = {
 		},
 	},
 
+	collectionItem: {
+		newItem: 'Novo item',
+		updateItem: 'Atualizar item',
+	},
+
 	toolbar: {
 		loadingTitle: 'Carregando…',
 	},
@@ -31,6 +36,7 @@ const ptBR = {
 			startUserSession: 'Erro ao iniciar a sessão',
 			endUserSession: 'Erro ao terminar a sessão',
 			collectionLoad: 'Falha ao carregar coleção',
+			collectionItemLoad: 'Falha ao carregar item da coleção',
 			signIn: 'Falhar no login',
 		},
 	},

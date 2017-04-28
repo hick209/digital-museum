@@ -68,7 +68,8 @@ export const museumName = (state = '', action) =>
 export const collections = (state = {}, action) => {
 	switch (action.type) {
 		case actionType.SET_COLLECTIONS: {
-			const oldCollections = state
+
+			const oldCollections = state || {}
 			const collections = action.payload
 
 			// Make sure we don't lose data
@@ -107,6 +108,17 @@ export const collections = (state = {}, action) => {
 
 			const collectionId = action.payload.collectionId
 			collections[collectionId].items = action.payload.items
+
+			return collections
+		}
+
+		case actionType.UPDATE_COLLECTION_ITEM: {
+			const collections = {}
+			Object.assign(collections, state)
+
+			const collectionId = action.payload.collectionId
+			const itemId = action.payload.itemId
+			collections[collectionId].items[itemId] = action.payload.item
 
 			return collections
 		}

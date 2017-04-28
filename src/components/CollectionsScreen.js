@@ -32,8 +32,11 @@ class CollectionsScreen extends React.Component {
 		const { museumId, collections, onLoad } = this.props
 		if (!collections) onLoad()
 
-		this.collectionsSubscription = getCollections(museumId)
-				.subscribe(collections => this.props.onMuseumCollections(museumId, collections))
+		this.loadCollections(museumId)
+	}
+
+	componentWillUnmount() {
+		this.releaseCollectionsSubscription()
 	}
 
 	componentWillReceiveProps(nextProps) {
@@ -43,13 +46,17 @@ class CollectionsScreen extends React.Component {
 		if (oldMuseumId !== newMuseumId) {
 			this.props.onLoad()
 
-			if (this.collectionsSubscription) this.collectionsSubscription.unsubscribe()
-			this.collectionsSubscription = getCollections(newMuseumId)
-					.subscribe(collections => this.props.onMuseumCollections(newMuseumId, collections))
+			this.releaseCollectionsSubscription()
+			this.loadCollections(newMuseumId)
 		}
 	}
 
-	componentWillUnmount() {
+	loadCollections(museumId) {
+		this.collectionsSubscription = getCollections(museumId)
+				.subscribe(collections => this.props.onMuseumCollections(museumId, collections))
+	}
+
+	releaseCollectionsSubscription() {
 		if (this.collectionsSubscription) {
 			this.collectionsSubscription.unsubscribe()
 			this.collectionsSubscription = null
