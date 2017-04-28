@@ -10,6 +10,11 @@ const en = {
 		},
 	},
 
+	collectionItem: {
+		newItem: 'New collection item',
+		updateItem: 'Update collection item',
+	},
+
 	toolbar: {
 		loadingTitle: 'Loading…',
 	},
@@ -31,6 +36,7 @@ const en = {
 			startUserSession: 'Error while starting the session',
 			endUserSession: 'Error while ending the session',
 			collectionLoad: 'Failed to load collection',
+			collectionItemLoad: 'Failed to load collection item',
 			signIn: 'Failed to sign in',
 		},
 	},
