@@ -58,6 +58,8 @@ export const updateCollection = collection =>
 export const setCollectionItems = (collectionId, items) =>
 		simpleSetter(actionType.SET_COLLECTION_ITEMS, { collectionId, items })
 
+export const updateCollectionItem = (collectionId, itemId, item) =>
+		simpleSetter(actionType.UPDATE_COLLECTION_ITEM, { collectionId, itemId, item })
 
 export const addError = (message, error) =>
 		simpleSetter(actionType.ADD_ERROR, { message, error })

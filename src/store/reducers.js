@@ -112,6 +112,17 @@ export const collections = (state = {}, action) => {
 			return collections
 		}
 
+		case actionType.UPDATE_COLLECTION_ITEM: {
+			const collections = {}
+			Object.assign(collections, state)
+
+			const collectionId = action.payload.collectionId
+			const itemId = action.payload.itemId
+			collections[collectionId].items[itemId] = action.payload.item
+
+			return collections
+		}
+
 		default:
 			return state
 	}
