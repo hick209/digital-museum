@@ -6,6 +6,7 @@ import CollectionsScreen from '../CollectionsScreen'
 import CollectionItemsScreen from '../CollectionItemsScreen'
 import strings from '../../strings'
 import { getUserSession } from '../../api'
+import UpdateCollectionItemScreen from '../UpdateCollectionItemScreen'
 
 
 export default class App extends React.Component {
@@ -38,7 +39,7 @@ export default class App extends React.Component {
 							<Route exact path='/' component={ CollectionsScreen }/>
 							<Route exact path='/auth' component={ Authentication }/>
 							<Route exact path='/collections/:collectionId' component={ CollectionItemsScreen }/>
-							<Route exact path='/collections/:collectionId/new' component={ CollectionItemsScreen }/>
+							<Route exact path='/collections/:collectionId/new' component={ UpdateCollectionItemScreen }/>
 							<Redirect to='/'/>
 						</Switch>
 					</Theme>

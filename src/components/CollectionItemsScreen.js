@@ -30,9 +30,7 @@ const mapDispatchToProps = dispatch => ({
 		dispatch(setCollectionItems(collectionId, items))
 		dispatch(setLoadingCollectionItems(collectionId, false))
 	},
-	onCollection: (collection) => {
-		dispatch(updateCollection(collection))
-	},
+	onCollection: collection => dispatch(updateCollection(collection)),
 })
 
 
