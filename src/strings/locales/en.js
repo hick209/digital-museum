@@ -11,8 +11,31 @@ const en = {
 	},
 
 	collectionItem: {
-		newItem: 'New collection item',
-		updateItem: 'Update collection item',
+		title: {
+			newItem: 'New collection item',
+			updateItem: 'Update collection item',
+			taxonomy: 'Taxonomy',
+		},
+
+		hint: {
+			popularName: 'Popular name',
+			simpleDescription: 'Simple description',
+			taxonomy: {
+				kingdom: 'Kingdom',
+				phylum: 'Phylum',
+				class: 'Class',
+				order: 'Order',
+				family: 'Family',
+				genus: 'Genus',
+				species: 'Species',
+			},
+		},
+
+
+		action: {
+			save: 'Save',
+			cancel: 'Cancel',
+		},
 	},
 
 	toolbar: {

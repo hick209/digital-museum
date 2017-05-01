@@ -11,8 +11,30 @@ const ptBR = {
 	},
 
 	collectionItem: {
-		newItem: 'Novo item',
-		updateItem: 'Atualizar item',
+		title: {
+			newItem: 'Novo item',
+			updateItem: 'Atualizar item',
+			taxonomy: 'Taxonomia',
+		},
+
+		hint: {
+			popularName: 'Nome popular',
+			simpleDescription: 'Descrição simples',
+			taxonomy: {
+				kingdom: 'Reino',
+				phylum: 'Filo',
+				class: 'Classe',
+				order: 'Ordem',
+				family: 'Família',
+				genus: 'Gênero',
+				species: 'Espécie',
+			},
+		},
+
+		action: {
+			save: 'Salvar',
+			cancel: 'Cancelar',
+		},
 	},
 
 	toolbar: {

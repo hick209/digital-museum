@@ -1,5 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
+import { Redirect } from 'react-router-dom'
 import AppShell from './AppShell'
 import UpdateCollectionItem from './container/UpdateCollectionItem'
 import strings from '../strings'
@@ -68,7 +69,7 @@ class UpdateCollectionItemScreen extends React.Component {
 	render() {
 		const { loading, newItem } = this.props
 		const { invalidCollection } = this.state
-		const title = newItem ? strings.collectionItem.newItem : strings.collectionItem.updateItem
+		const title = newItem ? strings.collectionItem.title.newItem : strings.collectionItem.title.updateItem
 
 		if (invalidCollection) {
 			return <Redirect to='/'/>
