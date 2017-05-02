@@ -5,8 +5,8 @@ import initialData from './initialState'
 import constants from '../constants'
 
 const consoleMessages = store => next => action => {
-  let result = next(action)
-  let state = store.getState()
+	let result = next(action)
+	let state = store.getState()
 
 	console.groupCollapsed(`[Store] Dispatching action => ${action.type}`)
 	console.log(JSON.stringify(state, null, 2))
