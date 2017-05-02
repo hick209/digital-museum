@@ -24,8 +24,11 @@ class UpdateCollectionItem extends React.Component {
 	}
 
 	onSave() {
+		const { onSave, history } = this.props
+
 		const item = {
 			id: this.props.item.id,
+			collectionId: this.props.item.collectionId,
 			popularName: this.popularName.input.value,
 			simpleDescription: this.simpleDescription.input.value,
 			cover: this.state.cover,
@@ -39,17 +42,20 @@ class UpdateCollectionItem extends React.Component {
 				species: this.taxonomy.species.input.value,
 			},
 		}
-		console.log(item)
+
+		onSave(item)
+		history.goBack()
 	}
 
 	render() {
-		const { item } = this.props
+		const { item, hasErrors } = this.props
 		this.taxonomy = this.taxonomy || {}
 
 		const cardStyle = {
 			margin: 8,
 			maxWidth: 560,
 		}
+		cardStyle.marginBottom = cardStyle.margin + (hasErrors ? 48 : 0)
 		const cardMediaStyle = {
 			height: 240,
 		}
@@ -153,8 +159,13 @@ class UpdateCollectionItem extends React.Component {
 						</div>
 
 						<CardActions>
-							<FlatButton label={ strings.collectionItem.action.cancel } onTouchTap={ this.onCancel }/>
-							<FlatButton label={ strings.collectionItem.action.save } secondary={ true } onTouchTap={ this.onSave }/>
+							<FlatButton
+									label={ strings.collectionItem.action.cancel }
+									onTouchTap={ this.onCancel }/>
+							<FlatButton
+									label={ strings.collectionItem.action.save }
+									secondary={ true }
+									onTouchTap={ this.onSave }/>
 						</CardActions>
 					</Card>
 				</div>
