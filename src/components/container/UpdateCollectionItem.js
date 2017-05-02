@@ -3,9 +3,18 @@ import { withRouter } from 'react-router-dom'
 import UpdateCollectionItem from '../ui/UpdateCollectionItem'
 
 
-const mapStateToProps = (state, props) => ({
-	item: {},
-})
+const mapStateToProps = (state, props) => {
+	const itemId = props.match.params.itemId
+	const collectionId = props.match.params.collectionId
+	let item = itemId ?
+			state.collections[collectionId].items[itemId] : {
+				taxonomy: {},
+			}
+
+	return {
+		item,
+	}
+}
 
 const mapDispatchToProps = dispatch => ({
 })
