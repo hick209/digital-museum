@@ -139,6 +139,17 @@ export const getCollections = museumId => getChildren('museums', museumId, 'coll
 
 export const getCollectionItems = collectionId => getChildren('collections', collectionId, 'items', getCollectionItem)
 
+export const newCollectionItemId = () => database.ref('collectionItems').push().key
+
+export const saveCollectionItem = item => database.ref('collectionItems').child(item.id).set({
+	id: item.id,
+	collectionId: item.collectionId,
+	popularName: item.popularName,
+	simpleDescription: item.simpleDescription,
+	taxonomy: Object.keys(item.taxonomy).map(key => item.taxonomy[key]).join('|')
+})
+
+
 const api = {
 	signInWithEmail,
 	signInWithFacebook,
@@ -153,6 +164,9 @@ const api = {
 	getMuseum,
 	getCollection,
 	getCollectionItem,
+
+	newCollectionItemId,
+	saveCollectionItem,
 }
 
 export default api
@@ -271,9 +285,11 @@ function read(parentPath, id, parser) {
 	return Observable.create(observer => {
 		const onValueUpdated = snapshot => {
 			const data = snapshot.val()
-			if (!data) throw Error('No data')
-
-			observer.next(parser(data))
+			if (data) {
+				observer.next(parser(data))
+			} else {
+				observer.error(Error('No data'))
+			}
 		}
 
 		const reference = database.ref(parentPath).child(id)
@@ -300,7 +316,7 @@ function getChildren(parentPath, parentId, childrenPath, getChildRequest) {
 
 					ids.forEach(childId => {
 						const promise = getChildRequest(childId).take(1).toPromise()
-						requests.push(promise.then(child => { children[childId] = child }))
+						requests.push(promise.then(child => children[childId] = child))
 					})
 
 					return Promise.all(requests).then(() => observer.next(children))

@@ -1,7 +1,7 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 import ContentAdd from 'material-ui/svg-icons/content/add'
-import FloatingActionButton from 'material-ui/FloatingActionButton'
-import GridList from 'material-ui/GridList'
+import { GridList, FloatingActionButton } from 'material-ui'
 import CollectionItem from './CollectionItem'
 
 const fabStyle = (hasErrors) => ({
@@ -13,17 +13,21 @@ const fabStyle = (hasErrors) => ({
 	position: 'fixed',
 })
 
-const CollectionItems = ({ items, hasErrors, canCreateCollectionItem, location, history }) => (
+const CollectionItems = ({ collectionId, items, hasErrors, canCreateCollectionItem, history }) => (
 		<div>
 			<GridList
 					cellHeight={240}
 					cols={2}>
 				{
 					items.map(({ id, popularName, cover }) => (
-							<CollectionItem
+							<Link
 									key={ id }
-									popularName={ popularName }
-									cover={ cover }/>
+									to={ `/collections/${collectionId}/items/${id}` }>
+								<CollectionItem
+										key={ id }
+										popularName={ popularName }
+										cover={ cover }/>
+							</Link>
 					))
 				}
 			</GridList>
@@ -32,7 +36,7 @@ const CollectionItems = ({ items, hasErrors, canCreateCollectionItem, location, 
 						<FloatingActionButton
 								secondary={ true }
 								style={ fabStyle(hasErrors) }
-								onTouchTap={ () => history.push({ pathname: `${location.pathname}/new` }) }>
+								onTouchTap={ () => history.push({ pathname: `/collections/${collectionId}/items/new` }) }>
 							<ContentAdd/>
 						</FloatingActionButton>
 						: null

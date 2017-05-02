@@ -1,9 +1,5 @@
 import React from 'react'
-import AppBar from 'material-ui/AppBar'
-import FlatButton from 'material-ui/FlatButton'
-import IconButton from 'material-ui/IconButton'
-import IconMenu from 'material-ui/IconMenu'
-import MenuItem from 'material-ui/MenuItem'
+import { AppBar, FlatButton, IconButton, IconMenu, MenuItem } from 'material-ui'
 import OverflowIcon from 'material-ui/svg-icons/navigation/more-vert'
 import ArrowBack from 'material-ui/svg-icons/navigation/arrow-back'
 import { withRouter } from 'react-router-dom'
@@ -41,8 +37,8 @@ class Toolbar extends React.Component {
 	}
 
 	render() {
-		const { loading, signedIn, signOut, history, location } = this.props
-		const title = loading.museum ? strings.toolbar.loadingTitle : this.props.title
+		const { loadingMuseum, loadingUser, signedIn, signOut, history, location } = this.props
+		const title = loadingMuseum ? strings.toolbar.loadingTitle : this.props.title
 		const canNavigateBack = location.pathname !== '/'
 
 		const optionsHandler = (event, target) => {
@@ -72,7 +68,7 @@ class Toolbar extends React.Component {
 					<MenuItem key='sign-out' primaryText={ strings.auth.action.signOut }/>
 				</IconMenu>
 		)
-		const toolbarActions = loading.user ? null : (signedIn ? signedInActions : signInButton)
+		const toolbarActions = loadingUser ? null : (signedIn ? signedInActions : signInButton)
 
 		return (
 				<AppBar
