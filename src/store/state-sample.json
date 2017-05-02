@@ -40,7 +40,8 @@
 		"firebaseId": "firebase uid",
 		"permission": {
 			"seeErrorDetails": true,
-			"createCollectionItem": false
+			"createCollectionItem": false,
+			"updateCollectionItem": true
 		}
 	},
 	"museum": {
