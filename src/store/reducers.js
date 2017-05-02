@@ -135,9 +135,10 @@ export const collections = (state = {}, action) => {
 			const collections = {}
 			Object.assign(collections, state)
 
-			const collectionId = action.payload.collectionId
-			const itemId = action.payload.itemId
-			collections[collectionId].items[itemId] = action.payload.item
+			const item = action.payload
+			const collectionId = item.collectionId
+			const itemId = item.id
+			collections[collectionId].items[itemId] = item
 
 			return collections
 		}
