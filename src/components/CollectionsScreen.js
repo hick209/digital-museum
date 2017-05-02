@@ -3,21 +3,25 @@ import { connect } from 'react-redux'
 import Collections from './container/Collections'
 import AppShell from './AppShell'
 import { getCollections } from '../api'
-import { setLoadingCollections, setCollections } from '../actions'
+import { setCollections, setLoadingMuseumCollections } from '../actions'
 
 
-const mapStateToProps = (state, props) => ({
-	museumId: state.museum.id,
-	title: state.museum.name,
-	loading: state.loading.collections,
-	collections: state.collections,
-})
+const mapStateToProps = (state, props) => {
+	const loading = state.loading.museum.collections
+
+	return {
+		museumId: state.museum.id,
+		title: state.museum.name,
+		loading: typeof loading === 'boolean' ? loading : true,
+		collections: state.collections,
+	}
+}
 
 const mapDispatchToProps = dispatch => ({
-	onLoad: () => dispatch(setLoadingCollections(true)),
+	onLoad: () => dispatch(setLoadingMuseumCollections(true)),
 	onMuseumCollections: (museumId, collections) => {
 		dispatch(setCollections(collections))
-		dispatch(setLoadingCollections(false))
+		dispatch(setLoadingMuseumCollections(false))
 	},
 })
 
@@ -32,8 +36,11 @@ class CollectionsScreen extends React.Component {
 		const { museumId, collections, onLoad } = this.props
 		if (!collections) onLoad()
 
-		this.collectionsSubscription = getCollections(museumId)
-				.subscribe(collections => this.props.onMuseumCollections(museumId, collections))
+		this.loadCollections(museumId)
+	}
+
+	componentWillUnmount() {
+		this.releaseCollectionsSubscription()
 	}
 
 	componentWillReceiveProps(nextProps) {
@@ -43,13 +50,17 @@ class CollectionsScreen extends React.Component {
 		if (oldMuseumId !== newMuseumId) {
 			this.props.onLoad()
 
-			if (this.collectionsSubscription) this.collectionsSubscription.unsubscribe()
-			this.collectionsSubscription = getCollections(newMuseumId)
-					.subscribe(collections => this.props.onMuseumCollections(newMuseumId, collections))
+			this.releaseCollectionsSubscription()
+			this.loadCollections(newMuseumId)
 		}
 	}
 
-	componentWillUnmount() {
+	loadCollections(museumId) {
+		this.collectionsSubscription = getCollections(museumId)
+				.subscribe(collections => this.props.onMuseumCollections(museumId, collections))
+	}
+
+	releaseCollectionsSubscription() {
 		if (this.collectionsSubscription) {
 			this.collectionsSubscription.unsubscribe()
 			this.collectionsSubscription = null

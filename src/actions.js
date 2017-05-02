@@ -34,14 +34,17 @@ export const endUserSession = () => dispatch => {
 export const setLoadingUser = loading =>
 		simpleSetter(actionType.SET_LOADING_USER, loading)
 
-export const setLoadingMuseum = loading =>
-		simpleSetter(actionType.SET_LOADING_MUSEUM, loading)
+export const setLoadingMuseumInfo = loading =>
+		simpleSetter(actionType.SET_LOADING_MUSEUM_INFO, loading)
 
-export const setLoadingCollections = loading =>
-		simpleSetter(actionType.SET_LOADING_COLLECTIONS, loading)
+export const setLoadingMuseumCollections = loading =>
+		simpleSetter(actionType.SET_LOADING_MUSEUM_COLLECTIONS, loading)
 
-export const setLoadingCollectionItems = (collectionId, loading) =>
-		simpleSetter(actionType.SET_LOADING_COLLECTION_ITEMS, { collectionId, loading })
+export const setLoadingCollection = (collectionId, loading) =>
+		simpleSetter(actionType.SET_LOADING_COLLECTION, { collectionId, loading })
+
+export const setLoadingCollectionItem = (itemId, loading) =>
+		simpleSetter(actionType.SET_LOADING_COLLECTION_ITEM, { itemId, loading })
 
 export const setMuseumId = museumId =>
 		simpleSetter(actionType.SET_MUSEUM_ID, museumId)
@@ -58,6 +61,20 @@ export const updateCollection = collection =>
 export const setCollectionItems = (collectionId, items) =>
 		simpleSetter(actionType.SET_COLLECTION_ITEMS, { collectionId, items })
 
+export const updateCollectionItem = item =>
+		simpleSetter(actionType.UPDATE_COLLECTION_ITEM, item)
+
+export const saveCollectionItem = item => dispatch => {
+	dispatch(setLoadingCollectionItem(item.id, true))
+
+	api.saveCollectionItem(item)
+			.then(() => dispatch(updateCollectionItem(item)))
+			.then(() => dispatch(setLoadingCollectionItem(item.id, false)))
+			.catch(error => {
+				dispatch(setLoadingCollectionItem(item.id, false))
+				dispatch(addError(strings.error.generic.saveCollectionItem, error))
+			})
+}
 
 export const addError = (message, error) =>
 		simpleSetter(actionType.ADD_ERROR, { message, error })

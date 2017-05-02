@@ -4,8 +4,11 @@ import CollectionItems from '../ui/CollectionItems'
 
 
 const mapStateToProps = (state, props) => ({
+	collectionId: props.match.params.collectionId,
 	items: Object.keys(state.collections[props.match.params.collectionId].items)
 			.map(key => state.collections[props.match.params.collectionId].items[key]),
+	hasErrors: state.errors.length > 0,
+	canCreateCollectionItem: state.user && state.user.permission.createCollectionItem,
 })
 
 const mapDispatchToProps = dispatch => ({

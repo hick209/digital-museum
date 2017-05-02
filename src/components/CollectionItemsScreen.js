@@ -5,14 +5,14 @@ import CollectionItems from './container/CollectionItems'
 import AppShell from './AppShell'
 import strings from '../strings'
 import { getCollection, getCollectionItems } from '../api'
-import { setLoadingCollectionItems, setCollectionItems, updateCollection, addError } from '../actions'
+import { setCollectionItems, updateCollection, addError, setLoadingCollection } from '../actions'
 
 
 const mapStateToProps = (state, props) => {
 	const collectionId = props.match.params.collectionId
 	const collection = state.collections[collectionId]
 	const missingCollection = !collection
-	const loading = state.loading.collectionItems[collectionId]
+	const loading = state.loading.collections[collectionId]
 
 	return {
 		collectionId,
@@ -25,14 +25,12 @@ const mapStateToProps = (state, props) => {
 
 const mapDispatchToProps = dispatch => ({
 	onError: (message, error) => dispatch(addError(message, error)),
-	onLoad: collectionId => dispatch(setLoadingCollectionItems(collectionId, true)),
+	onLoad: collectionId => dispatch(setLoadingCollection(collectionId, true)),
 	onCollectionItems: (collectionId, items) => {
 		dispatch(setCollectionItems(collectionId, items))
-		dispatch(setLoadingCollectionItems(collectionId, false))
+		dispatch(setLoadingCollection(collectionId, false))
 	},
-	onCollection: (collection) => {
-		dispatch(updateCollection(collection))
-	},
+	onCollection: collection => dispatch(updateCollection(collection)),
 })
 
 

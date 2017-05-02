@@ -64,7 +64,6 @@ export default class ErrorContainer extends React.Component {
 		const detailActions = [
 			<FlatButton
 					label={ strings.error.action.dismissAll }
-					primary={ true }
 					onTouchTap={ () => this.dismissAll() }/>,
 			<FlatButton
 					label={ strings.action.ok }
@@ -94,6 +93,7 @@ export default class ErrorContainer extends React.Component {
 						errors.map((error, index) => (
 								<div key={ index }>
 									<ListItem
+											disabled={ !showErrorDetails }
 											primaryText={ error.message }
 											primaryTogglesNestedList={ true }
 											rightIconButton={
