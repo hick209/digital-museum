@@ -12,7 +12,7 @@ export const loadingMuseumInfo = (state = true, action) =>
 export const loadingMuseumCollections = (state = true, action) =>
 		simpleHandling(state, action, actionType.SET_LOADING_MUSEUM_COLLECTIONS)
 
-export const loadingCollections = (state = {}, action) => {
+export const loadingCollection = (state = {}, action) => {
 	switch (action.type) {
 		case actionType.SET_LOADING_COLLECTION: {
 			// Clone the object
@@ -31,7 +31,7 @@ export const loadingCollections = (state = {}, action) => {
 }
 
 
-export const loadingCollectionItems = (state = {}, action) => {
+export const loadingCollectionItem = (state = {}, action) => {
 	switch (action.type) {
 		case actionType.SET_LOADING_COLLECTION_ITEM: {
 			// Clone the object
@@ -39,7 +39,7 @@ export const loadingCollectionItems = (state = {}, action) => {
 			Object.assign(loadingItems, state)
 
 			// Set the new state
-			loadingItems[action.payload.collectionId] = action.payload.loading
+			loadingItems[action.payload.itemId] = action.payload.loading
 
 			return loadingItems
 		}
@@ -155,8 +155,8 @@ export default combineReducers({
 			info: loadingMuseumInfo,
 			collections: loadingMuseumCollections,
 		}),
-		collections: loadingCollections,
-		collectionItems: loadingCollectionItems,
+		collections: loadingCollection,
+		collectionItems: loadingCollectionItem,
 	}),
 	errors,
 	user,
