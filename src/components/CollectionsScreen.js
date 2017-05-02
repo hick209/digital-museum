@@ -3,21 +3,25 @@ import { connect } from 'react-redux'
 import Collections from './container/Collections'
 import AppShell from './AppShell'
 import { getCollections } from '../api'
-import { setLoadingCollections, setCollections } from '../actions'
+import { setCollections, setLoadingMuseumCollections } from '../actions'
 
 
-const mapStateToProps = (state, props) => ({
-	museumId: state.museum.id,
-	title: state.museum.name,
-	loading: state.loading.collections,
-	collections: state.collections,
-})
+const mapStateToProps = (state, props) => {
+	const loading = state.loading.museum.collections
+
+	return {
+		museumId: state.museum.id,
+		title: state.museum.name,
+		loading: typeof loading === 'boolean' ? loading : true,
+		collections: state.collections,
+	}
+}
 
 const mapDispatchToProps = dispatch => ({
-	onLoad: () => dispatch(setLoadingCollections(true)),
+	onLoad: () => dispatch(setLoadingMuseumCollections(true)),
 	onMuseumCollections: (museumId, collections) => {
 		dispatch(setCollections(collections))
-		dispatch(setLoadingCollections(false))
+		dispatch(setLoadingMuseumCollections(false))
 	},
 })
 
