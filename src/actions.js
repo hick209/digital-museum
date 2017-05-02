@@ -34,14 +34,17 @@ export const endUserSession = () => dispatch => {
 export const setLoadingUser = loading =>
 		simpleSetter(actionType.SET_LOADING_USER, loading)
 
-export const setLoadingMuseum = loading =>
-		simpleSetter(actionType.SET_LOADING_MUSEUM, loading)
+export const setLoadingMuseumInfo = loading =>
+		simpleSetter(actionType.SET_LOADING_MUSEUM_INFO, loading)
 
-export const setLoadingCollections = loading =>
-		simpleSetter(actionType.SET_LOADING_COLLECTIONS, loading)
+export const setLoadingMuseumCollections = loading =>
+		simpleSetter(actionType.SET_LOADING_MUSEUM_COLLECTIONS, loading)
 
-export const setLoadingCollectionItems = (collectionId, loading) =>
-		simpleSetter(actionType.SET_LOADING_COLLECTION_ITEMS, { collectionId, loading })
+export const setLoadingCollection = (collectionId, loading) =>
+		simpleSetter(actionType.SET_LOADING_COLLECTION, { collectionId, loading })
+
+export const setLoadingCollectionItem = (itemId, loading) =>
+		simpleSetter(actionType.SET_LOADING_COLLECTION_ITEM, { itemId, loading })
 
 export const setMuseumId = museumId =>
 		simpleSetter(actionType.SET_MUSEUM_ID, museumId)
