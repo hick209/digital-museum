@@ -39,7 +39,8 @@ export default class App extends React.Component {
 							<Route exact path='/' component={ CollectionsScreen }/>
 							<Route exact path='/auth' component={ Authentication }/>
 							<Route exact path='/collections/:collectionId' component={ CollectionItemsScreen }/>
-							<Route exact path='/collections/:collectionId/new' component={ UpdateCollectionItemScreen }/>
+							<Route exact path='/collections/:collectionId/items/new' component={ UpdateCollectionItemScreen }/>
+							<Route exact path='/collections/:collectionId/items/:itemId' component={ UpdateCollectionItemScreen }/>
 							<Redirect to='/'/>
 						</Switch>
 					</Theme>
