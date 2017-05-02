@@ -1,11 +1,17 @@
 {
 	"loading": {
 		"user": true,
-		"museum": true,
-		"collections": true,
-		"collectionItems": {
+		"museum": {
+			"info": true,
+			"collections": true
+		},
+		"collections": {
 			"-collection-id-1": true,
 			"-collection-id-2": true
+		},
+		"collectionItems": {
+			"-collection-item-id-1": true,
+			"-collection-item-id-2": true
 		}
 	},
 	"errors": [

@@ -1,8 +1,11 @@
 {
 	"loading": {
 		"user": true,
-		"museum": true,
-		"collections": true,
+		"museum": {
+			"info": true,
+			"collections": true
+		},
+		"collections": {},
 		"collectionItems": {}
 	},
 	"errors": [],
