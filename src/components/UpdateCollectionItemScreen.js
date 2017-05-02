@@ -17,7 +17,7 @@ import {
 const mapStateToProps = (state, props) => {
 	const collectionId = props.match.params.collectionId
 	const itemId = props.match.params.itemId
-	const collection = state.collections[collectionId]
+	const collection = state.collections ? state.collections[collectionId] : null
 	const missingCollection = !collection
 	const loading = itemId ? state.loading.collectionItems[itemId] : missingCollection
 
@@ -26,6 +26,8 @@ const mapStateToProps = (state, props) => {
 		itemId,
 		missingCollection,
 		loading: typeof loading === 'boolean' ? loading : true,
+		canCreateCollectionItem: state.user && state.user.permission.createCollectionItem,
+		canUpdateCollectionItem: state.user && state.user.permission.updateCollectionItem,
 	}
 }
 
@@ -91,11 +93,18 @@ class UpdateCollectionItemScreen extends React.Component {
 	}
 
 	render() {
-		const { loading, collectionId, itemId } = this.props
+		const { loading, collectionId, itemId, canCreateCollectionItem, canUpdateCollectionItem, onError } = this.props
 		const { invalidCollection, invalidCollectionItem } = this.state
 		const title = itemId ? strings.collectionItem.title.updateItem : strings.collectionItem.title.newItem
 
-		if (invalidCollection || invalidCollectionItem) {
+		if (invalidCollection || invalidCollectionItem || (itemId ? !canUpdateCollectionItem : !canCreateCollectionItem)) {
+			if (invalidCollection) {
+				onError(strings.error.badCollection, {})
+			} else if (invalidCollectionItem) {
+				onError(strings.error.badCollectionItem, {})
+			} else {
+				onError(strings.error.noPermission, {})
+			}
 			return <Redirect to={ `/collections/${collectionId}` }/>
 		}
 

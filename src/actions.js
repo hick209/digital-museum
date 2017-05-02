@@ -64,6 +64,18 @@ export const setCollectionItems = (collectionId, items) =>
 export const updateCollectionItem = item =>
 		simpleSetter(actionType.UPDATE_COLLECTION_ITEM, item)
 
+export const saveCollectionItem = item => dispatch => {
+	dispatch(setLoadingCollectionItem(item.id, true))
+
+	api.saveCollectionItem(item)
+			.then(() => dispatch(updateCollectionItem(item)))
+			.then(() => dispatch(setLoadingCollectionItem(item.id, false)))
+			.catch(error => {
+				dispatch(setLoadingCollectionItem(item.id, false))
+				dispatch(addError(strings.error.generic.saveCollectionItem, error))
+			})
+}
+
 export const addError = (message, error) =>
 		simpleSetter(actionType.ADD_ERROR, { message, error })
 
