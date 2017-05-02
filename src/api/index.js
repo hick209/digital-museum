@@ -271,7 +271,7 @@ function read(parentPath, id, parser) {
 	return Observable.create(observer => {
 		const onValueUpdated = snapshot => {
 			const data = snapshot.val()
-			if (!data) throw Error('No data')
+			if (!data) observer.error(Error('No data'))
 
 			observer.next(parser(data))
 		}
@@ -289,7 +289,7 @@ function getChildren(parentPath, parentId, childrenPath, getChildRequest) {
 				.once('value')
 				.then(snapshot => {
 					const parent = snapshot.val()
-					if (!parent) throw Error('No data')
+					if (!parent) observer.error(Error('No data'))
 
 					return parent
 				})
