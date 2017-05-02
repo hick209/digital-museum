@@ -49,6 +49,10 @@ const en = {
 
 		critical: 'Critical error! Check your connection and refresh the app',
 
+		noPermission: 'No permission',
+		badCollection: 'Invalid collection',
+		badCollectionItem: 'Invalid collection item',
+
 		action: {
 			dismiss: 'Dismiss',
 			dismissAll: 'Dismiss all',
@@ -61,6 +65,7 @@ const en = {
 			collectionLoad: 'Failed to load collection',
 			collectionItemLoad: 'Failed to load collection item',
 			signIn: 'Failed to sign in',
+			saveCollectionItem: 'Error while saving item',
 		},
 	},
 }

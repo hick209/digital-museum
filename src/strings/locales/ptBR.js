@@ -43,10 +43,14 @@ const ptBR = {
 
 	error: {
 		noErrors: 'Tudo certo 😊',
-		errorMessage: 'Erro: {1}',
+		errorMessage: '{1}',
 		errorMessageCount: '{1} erro(s)!',
 
 		critical: 'Erro crítico! Verifique sua conexão e atualize o app',
+
+		noPermission: 'Sem permissão',
+		badCollection: 'Coleção inválida',
+		badCollectionItem: 'Item inválido',
 
 		action: {
 			dismiss: 'OK',
@@ -60,6 +64,7 @@ const ptBR = {
 			collectionLoad: 'Falha ao carregar coleção',
 			collectionItemLoad: 'Falha ao carregar item da coleção',
 			signIn: 'Falhar no login',
+			saveCollectionItem: 'Erro ao salvar item',
 		},
 	},
 }
