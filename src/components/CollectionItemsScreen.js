@@ -12,7 +12,7 @@ const mapStateToProps = (state, props) => {
 	const collectionId = props.match.params.collectionId
 	const collection = state.collections[collectionId]
 	const missingCollection = !collection
-	const loading = state.loading.collectionItems[collectionId]
+	const loading = state.loading.collections[collectionId]
 
 	return {
 		collectionId,
