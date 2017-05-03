@@ -141,13 +141,19 @@ export const getCollectionItems = collectionId => getChildren('collections', col
 
 export const newCollectionItemId = () => database.ref('collectionItems').push().key
 
-export const saveCollectionItem = item => database.ref('collectionItems').child(item.id).set({
-	id: item.id,
-	collectionId: item.collectionId,
-	popularName: item.popularName,
-	simpleDescription: item.simpleDescription,
-	taxonomy: Object.keys(item.taxonomy).map(key => item.taxonomy[key]).join('|')
-})
+export const saveCollectionItem = item => {
+	const saveCollectionItem = database.ref('collectionItems').child(item.id).set({
+		id: item.id,
+		collectionId: item.collectionId,
+		popularName: item.popularName,
+		simpleDescription: item.simpleDescription,
+		taxonomy: Object.keys(item.taxonomy).map(key => item.taxonomy[key]).join('|')
+	})
+	const saveItemInCollection = database.ref('collections').child(item.collectionId)
+			.child('items').child(item.id).set(item.id)
+
+	return Promise.all([ saveCollectionItem, saveItemInCollection ])
+}
 
 
 const api = {
