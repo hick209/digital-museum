@@ -59,6 +59,13 @@ class UpdateCollectionItem extends React.Component {
 		const cardMediaStyle = {
 			height: 240,
 		}
+		const cardMediaImageStyle = {
+			height: 240,
+			backgroundImage: `url(${this.state.cover})`,
+			backgroundSize: 'cover',
+			backgroundRepeat: 'no-repeat',
+			backgroundPosition: '50% 50%',
+		}
 		const placeholderStyle = {
 			height: 120,
 			paddingTop: undefined,
@@ -91,7 +98,7 @@ class UpdateCollectionItem extends React.Component {
 						<CardMedia
 								style={ cardMediaStyle }
 								overlay={ <CardTitle title={ this.state.popularName }/> }>
-							{ this.state.cover ? <img src={ this.state.cover }/> : <ImageIcon style={ placeholderStyle }/> }
+							{ this.state.cover ? <div style={ cardMediaImageStyle }/> : <ImageIcon style={ placeholderStyle }/> }
 							<IconButton style={ editCoverIconButtonStyle }>
 								<EditIcon/>
 							</IconButton>
