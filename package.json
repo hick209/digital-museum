@@ -1,6 +1,6 @@
 {
 	"name": "digital-museum",
-	"version": "0.4.1",
+	"version": "0.5.1",
 	"description": "Digital Museum will present real world features through the physical web",
 	"main": "index.js",
 	"scripts": {
