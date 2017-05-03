@@ -24,10 +24,10 @@ export default class ErrorContainer extends React.Component {
 
 	snackbarAction() {
 		const errorCount = (this.props.errors || []).length
-		if (errorCount === 1) {
-			this.dismiss(0)
+		if (errorCount === 0) {
+			this.setState({ showSnackbar: false })
 		} else {
-			this.setState({ showDetails: true, showSnackbar: false })
+			this.setState({ showDetails: true })
 		}
 	}
 
@@ -50,7 +50,7 @@ export default class ErrorContainer extends React.Component {
 
 		const errorCount = errors.length
 		const errorCountMessage = strings.error.errorMessageCount.replace('{1}', `${errorCount}`)
-		const action = errorCount === 1 ? strings.error.action.dismiss : strings.error.action.more
+		const action = errorCount === 0 ? strings.error.action.dismiss : strings.error.action.more
 
 		let message = undefined
 		if (errorCount === 0) {
