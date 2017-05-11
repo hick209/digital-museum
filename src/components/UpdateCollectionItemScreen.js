@@ -19,12 +19,14 @@ const mapStateToProps = (state, props) => {
 	const itemId = props.match.params.itemId
 	const collection = state.collections ? state.collections[collectionId] : null
 	const missingCollection = !collection
+	const missingCollectionItem = missingCollection || !state.collections[collectionId].items[itemId]
 	const loading = itemId ? state.loading.collectionItems[itemId] : missingCollection
 
 	return {
 		collectionId,
 		itemId,
 		missingCollection,
+		missingCollectionItem,
 		loading: typeof loading === 'boolean' ? loading : true,
 		canCreateCollectionItem: state.user && state.user.permission.createCollectionItem,
 		canUpdateCollectionItem: state.user && state.user.permission.updateCollectionItem,
@@ -85,9 +87,9 @@ class UpdateCollectionItemScreen extends React.Component {
 	}
 
 	componentWillReceiveProps(nextProps) {
-		const { loadingCollection, missingCollectionItem } = nextProps
+		const { loading, missingCollectionItem } = nextProps
 
-		if (!loadingCollection && missingCollectionItem) {
+		if (!loading && missingCollectionItem) {
 			this.setState({ invalidCollectionItem: true })
 		}
 	}
