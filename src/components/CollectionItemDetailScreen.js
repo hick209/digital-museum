@@ -2,7 +2,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { Redirect } from 'react-router-dom'
 import AppShell from './AppShell'
-import UpdateCollectionItem from './container/UpdateCollectionItem'
+import CollectionItemDetail from './container/CollectionItemDetail'
 import strings from '../strings'
 import { getCollection, getCollectionItem } from '../api'
 import {
@@ -19,17 +19,17 @@ const mapStateToProps = (state, props) => {
 	const itemId = props.match.params.itemId
 	const collection = state.collections ? state.collections[collectionId] : null
 	const missingCollection = !collection
-	const missingCollectionItem = missingCollection || !state.collections[collectionId].items[itemId]
-	const loading = itemId ? state.loading.collectionItems[itemId] : missingCollection
+	const item = missingCollection ? null : state.collections[collectionId].items[itemId]
+	const missingCollectionItem = !item
+	const loading = state.loading.collectionItems[itemId]
 
 	return {
 		collectionId,
 		itemId,
+		item,
 		missingCollection,
 		missingCollectionItem,
 		loading: typeof loading === 'boolean' ? loading : true,
-		canCreateCollectionItem: state.user && state.user.permission.createCollectionItem,
-		canUpdateCollectionItem: state.user && state.user.permission.updateCollectionItem,
 	}
 }
 
@@ -47,7 +47,7 @@ const mapDispatchToProps = dispatch => ({
 })
 
 
-class UpdateCollectionItemScreen extends React.Component {
+class CollectionItemDetailScreen extends React.Component {
 	constructor(props) {
 		super(props)
 		this.collectionItemSubscription = null
@@ -87,36 +87,34 @@ class UpdateCollectionItemScreen extends React.Component {
 	}
 
 	componentWillReceiveProps(nextProps) {
-		const { loading, missingCollectionItem } = nextProps
+		const { loadingCollection, missingCollectionItem } = nextProps
 
-		if (!loading && missingCollectionItem) {
+		if (!loadingCollection && missingCollectionItem) {
 			this.setState({ invalidCollectionItem: true })
 		}
 	}
 
 	render() {
-		const { loading, collectionId, itemId, canCreateCollectionItem, canUpdateCollectionItem, onError } = this.props
+		const { loading, item, collectionId, onError } = this.props
 		const { invalidCollection, invalidCollectionItem } = this.state
-		const title = itemId ? strings.collectionItem.title.updateItem : strings.collectionItem.title.newItem
+		const title = loading ? strings.toolbar.loadingTitle : item.popularName
 
-		if (invalidCollection || invalidCollectionItem || (itemId ? !canUpdateCollectionItem : !canCreateCollectionItem)) {
+		if (invalidCollection || invalidCollectionItem) {
 			if (invalidCollection) {
 				onError(strings.error.badCollection, {})
 			} else if (invalidCollectionItem) {
 				onError(strings.error.badCollectionItem, {})
-			} else {
-				onError(strings.error.noPermission, {})
 			}
 			return <Redirect to={ `/collections/${collectionId}` }/>
 		}
 
 		return (
 				<AppShell title={ title } loading={ loading }>
-					<UpdateCollectionItem/>
+					<CollectionItemDetail/>
 				</AppShell>
 		)
 	}
 }
 
 
-export default connect(mapStateToProps, mapDispatchToProps)(UpdateCollectionItemScreen)
+export default connect(mapStateToProps, mapDispatchToProps)(CollectionItemDetailScreen)

@@ -1,9 +1,10 @@
 {
 	"name": "Museu Digital",
 	"short_name": "Museu Digital",
-	"description": "",
+	"description": "Museu da Fauna e Flora da USP de São Carlos",
 	"lang": "pt",
 	"dir": "ltr",
+	"scope": "/",
 	"start_url": "/",
 	"display": "standalone",
 	"orientation": "any",
