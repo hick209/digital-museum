@@ -43,14 +43,13 @@ const CollectionItemDetailCover = props => {
 						<div style={ cardMediaImageStyle }/> :
 						<ImageIcon style={ placeholderStyle }/>
 				}
-				{
-					props.onEditCoverClick ?
-							<IconButton
-									style={ editCoverIconButtonStyle }
-									onTouchTap={ props.ononEditCoverClick }>
-								<EditIcon/>
-							</IconButton> :
-							<div/>
+				{ props.onEditCoverClick ?
+						<IconButton
+								style={ editCoverIconButtonStyle }
+								onTouchTap={ props.onEditCoverClick }>
+							<EditIcon/>
+						</IconButton> :
+						<div/>
 				}
 			</CardMedia>
 	)
