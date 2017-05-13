@@ -8,9 +8,9 @@ module.exports = (path, outputPath) => ({
 	},
 	output: {
 		path: outputPath,
-		filename: path.join('js', '[name].[chunkhash].js'),
+		filename: path.join('js', '[name].js'),
 		// publicPath: '/',
-		sourceMapFilename: path.join('js', '[name].[chunkhash].map'),
+		sourceMapFilename: path.join('js', '[name].map'),
 	},
 	devtool: 'source-map',
 	// resolve: {
@@ -60,7 +60,7 @@ module.exports = (path, outputPath) => ({
 		]),
 		new webpack.optimize.CommonsChunkPlugin({
 			name: 'commons',
-			filename: path.join('js', 'commons.[chunkhash].js'),
+			filename: path.join('js', 'commons.js'),
 		}),
 
 		// new ForkCheckerPlugin(),

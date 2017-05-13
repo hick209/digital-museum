@@ -1,8 +1,8 @@
 import React from 'react'
-import { Card, CardMedia, CardTitle } from 'material-ui/Card'
+import { Card } from 'material-ui/Card'
 import { Subheader, TextField } from 'material-ui'
-import ImageIcon from 'material-ui/svg-icons/image/image'
 import strings from '../../strings'
+import CollectionItemDetailCover from './CollectionItemDetailCover'
 
 
 export default class CollectionItemDetail extends React.Component {
@@ -14,22 +14,6 @@ export default class CollectionItemDetail extends React.Component {
 			maxWidth: 560,
 		}
 		cardStyle.marginBottom = cardStyle.margin + (hasErrors ? 48 : 0)
-		const cardMediaStyle = {
-			height: 240,
-		}
-		const cardMediaImageStyle = {
-			height: 240,
-			backgroundImage: `url(${item.cover})`,
-			backgroundSize: 'cover',
-			backgroundRepeat: 'no-repeat',
-			backgroundPosition: '50% 50%',
-		}
-		const placeholderStyle = {
-			height: 120,
-			paddingTop: undefined,
-			fillOpacity: 0.33,
-		}
-		placeholderStyle.paddingTop = (cardMediaStyle.height - placeholderStyle.height) / 2
 
 		const sectionStyle = {
 			marginBottom: 32,
@@ -46,11 +30,9 @@ export default class CollectionItemDetail extends React.Component {
 		return (
 				<div style={{ display: 'flex', justifyContent: 'center' }}>
 					<Card style={ cardStyle }>
-						<CardMedia
-								style={ cardMediaStyle }
-								overlay={ <CardTitle title={ item.popularName }/> }>
-							{ item.cover ? <div style={ cardMediaImageStyle }/> : <ImageIcon style={ placeholderStyle }/> }
-						</CardMedia>
+						<CollectionItemDetailCover
+								title={ item.popularName }
+								cover={ item.cover }/>
 
 						<div style={ sectionStyle }>
 							<TextField
