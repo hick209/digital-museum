@@ -3,6 +3,8 @@ const webpackMerge = require('webpack-merge')
 const OfflinePlugin = require('offline-plugin')
 const commonConfig = require('./base.js')
 
+const gitVersion = require('child_process').execSync('git describe --tags').toString().trim()
+
 module.exports = (env, path, outputPath) => webpackMerge(commonConfig(path, outputPath), {
 	plugins: [
 		// new webpack.LoaderOptionsPlugin({
@@ -33,7 +35,13 @@ module.exports = (env, path, outputPath) => webpackMerge(commonConfig(path, outp
 
 		// According to the documentation, it's always better if OfflinePlugin is the last plugin added
 		new OfflinePlugin({
-			AppCache: false
+			AppCache: false,
+			updateStrategy: 'all',
+			version: gitVersion,
+			externals: [
+					// The website font
+					'https://fonts.googleapis.com/css?family=Roboto:300,400,500',
+			],
 		}),
 	],
 })
