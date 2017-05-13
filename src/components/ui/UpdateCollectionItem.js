@@ -1,9 +1,8 @@
 import React from 'react'
-import { Card, CardActions, CardMedia, CardTitle } from 'material-ui/Card'
-import { TextField, Subheader, IconButton, FlatButton } from 'material-ui'
-import EditIcon from 'material-ui/svg-icons/editor/mode-edit'
-import ImageIcon from 'material-ui/svg-icons/image/image'
+import { Card, CardActions } from 'material-ui/Card'
+import { FlatButton, Subheader, TextField } from 'material-ui'
 import strings from '../../strings'
+import CollectionItemDetailCover from './CollectionItemDetailCover'
 
 
 class UpdateCollectionItem extends React.Component {
@@ -56,35 +55,9 @@ class UpdateCollectionItem extends React.Component {
 			maxWidth: 560,
 		}
 		cardStyle.marginBottom = cardStyle.margin + (hasErrors ? 48 : 0)
-		const cardMediaStyle = {
-			height: 240,
-		}
-		const cardMediaImageStyle = {
-			height: 240,
-			backgroundImage: `url(${this.state.cover})`,
-			backgroundSize: 'cover',
-			backgroundRepeat: 'no-repeat',
-			backgroundPosition: '50% 50%',
-		}
-		const placeholderStyle = {
-			height: 120,
-			paddingTop: undefined,
-			fillOpacity: 0.33,
-		}
-		placeholderStyle.paddingTop = (cardMediaStyle.height - placeholderStyle.height) / 2
 
 		const sectionStyle = {
 			marginBottom: 32,
-		}
-		const editCoverIconButtonStyle = {
-			position: 'absolute',
-			top: 0,
-			bottom: 'auto',
-			left: 'auto',
-			right: '0',
-			margin: 8,
-			minWidth: 0,
-			width: 48,
 		}
 		const inputStyle = {
 			paddingLeft: 16,
@@ -95,14 +68,10 @@ class UpdateCollectionItem extends React.Component {
 		return (
 				<div style={{ display: 'flex', justifyContent: 'center' }}>
 					<Card style={ cardStyle }>
-						<CardMedia
-								style={ cardMediaStyle }
-								overlay={ <CardTitle title={ this.state.popularName }/> }>
-							{ this.state.cover ? <div style={ cardMediaImageStyle }/> : <ImageIcon style={ placeholderStyle }/> }
-							<IconButton style={ editCoverIconButtonStyle }>
-								<EditIcon/>
-							</IconButton>
-						</CardMedia>
+						<CollectionItemDetailCover
+								title={ this.state.popularName }
+								cover={ this.state.cover }
+								onEditCoverClick={ () => { console.log('click!') } }/>
 
 						<div style={ sectionStyle }>
 							<TextField
