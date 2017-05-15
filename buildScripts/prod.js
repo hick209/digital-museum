@@ -1,9 +1,17 @@
 const webpack = require('webpack')
 const webpackMerge = require('webpack-merge')
 const OfflinePlugin = require('offline-plugin')
-const commonConfig = require('./base.js')
+const fs = require('fs')
+const commonConfig = require('./base')
 
-const gitVersion = require('child_process').execSync('git describe --tags').toString().trim()
+let version = undefined
+try {
+	version = require('child_process').execSync('git describe --tags').toString().trim()
+	console.info(`Using git version ${version}`)
+} catch (e) {
+	version = JSON.parse(fs.readFileSync('package.json')).version
+	console.info(`Using package version ${version}`)
+}
 
 module.exports = (env, path, outputPath) => webpackMerge(commonConfig(path, outputPath), {
 	plugins: [
@@ -14,8 +22,8 @@ module.exports = (env, path, outputPath) => webpackMerge(commonConfig(path, outp
 
 		new webpack.DefinePlugin({
 			'process.env': {
-				'NODE_ENV': JSON.stringify('production')
-			}
+				'NODE_ENV': JSON.stringify('production'),
+			},
 		}),
 
 		new webpack.optimize.UglifyJsPlugin({
@@ -23,11 +31,11 @@ module.exports = (env, path, outputPath) => webpackMerge(commonConfig(path, outp
 			beautify: false,
 			mangle: {
 				screw_ie8: true,
-				keep_fnames: true
+				keep_fnames: true,
 			},
 			compress: {
 				screw_ie8: true,
-				warnings: false
+				warnings: false,
 			},
 			comments: false,
 			sourceMap: true,
@@ -37,10 +45,10 @@ module.exports = (env, path, outputPath) => webpackMerge(commonConfig(path, outp
 		new OfflinePlugin({
 			AppCache: false,
 			updateStrategy: 'all',
-			version: gitVersion,
+			version,
 			externals: [
-					// The website font
-					'https://fonts.googleapis.com/css?family=Roboto:300,400,500',
+				// The website font
+				'https://fonts.googleapis.com/css?family=Roboto:300,400,500',
 			],
 		}),
 	],
