@@ -1,3 +1,4 @@
+const webpack = require('webpack')
 const webpackMerge = require('webpack-merge')
 const commonConfig = require('./base.js')
 
@@ -16,4 +17,9 @@ module.exports = (env, path, outputPath) => webpackMerge(commonConfig(path, outp
 			}
 		},
 	},
+	plugins: [
+		new webpack.DefinePlugin({
+			'__DEBUG__': true,
+		}),
+	]
 })

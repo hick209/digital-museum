@@ -1,3 +1,4 @@
+/* eslint-disable no-sync,no-console */
 const webpack = require('webpack')
 const webpackMerge = require('webpack-merge')
 const OfflinePlugin = require('offline-plugin')
@@ -24,6 +25,7 @@ module.exports = (env, path, outputPath) => webpackMerge(commonConfig(path, outp
 			'process.env': {
 				'NODE_ENV': JSON.stringify('production'),
 			},
+			'__DEBUG__': false,
 		}),
 
 		new webpack.optimize.UglifyJsPlugin({
