@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import { createStore, applyMiddleware } from 'redux'
 import thunk from 'redux-thunk'
 import appReducer from './reducers'
@@ -15,8 +16,13 @@ const consoleMessages = store => next => action => {
 	return result
 }
 
+const middleware = [thunk]
+if (__DEBUG__) {
+	middleware.push(consoleMessages)
+}
+
 export const storeFactory = (initialState = {}) => {
-	return applyMiddleware(thunk, consoleMessages)(createStore)(appReducer, initialState)
+	return applyMiddleware(...middleware)(createStore)(appReducer, initialState)
 }
 
 export const setupStore = () => {

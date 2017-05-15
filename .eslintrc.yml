@@ -3,6 +3,8 @@ env:
   es6: true
   node: true
 extends: 'eslint:recommended'
+globals:
+  __DEBUG__: false
 parserOptions:
   ecmaFeatures:
     experimentalObjectRestSpread: true
