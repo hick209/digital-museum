@@ -1,74 +1,74 @@
 {
-  "name": "digital-museum",
-  "version": "0.5.4",
-  "description": "Digital Museum will present real world features through the physical web",
-  "main": "index.js",
-  "scripts": {
-    "start": "node server",
-    "server": "webpack-dev-server --env=dev --watch --progress --profile --colors",
-    "build:dev": "rm -rf ./output/dev && webpack --env=dev --progress --profile --colors --display-error-details",
-    "build:prod": "rm -rf ./output/prod && webpack --env=prod --progress --profile --colors --display-error-details",
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "homepage": "https://digital-museum.herokuapp.com/",
-  "contributors": [
-    "Nivaldo Bondança <hick209@gmail.com>"
-  ],
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/hick209/digital-museum.git"
-  },
-  "keywords": [
-    "physical web",
-    "react",
-    "redux"
-  ],
-  "author": "Nivaldo Bondança",
-  "bugs": {
-    "email": "hick209@gmail.com"
-  },
-  "license": "MIT",
-  "engines": {
-    "node": "6.9.3"
-  },
-  "dependencies": {
-    "autoprefixer-loader": "^3.2.0",
-    "babel-core": "^6.24.1",
-    "babel-loader": "^7.0.0",
-    "babel-preset-latest": "^6.24.1",
-    "babel-preset-react": "^6.24.1",
-    "body-parser": "^1.17.1",
-    "copy-webpack-plugin": "^4.0.1",
-    "css-loader": "^0.28.0",
-    "eslint": "^3.19.0",
-    "eslint-plugin-html": "^2.0.1",
-    "eslint-plugin-react": "^6.10.3",
-    "express": "^4.15.2",
-    "file-loader": "^0.11.1",
-    "firebase": "^3.9.0",
-    "firebase-admin": "^4.2.1",
-    "handlebars": "^4.0.6",
-    "handlebars-loader": "^1.5.0",
-    "html-webpack-plugin": "^2.28.0",
-    "json-loader": "^0.5.4",
-    "material-ui": "^0.18.0",
-    "node-sass": "^4.5.2",
-    "offline-plugin": "^4.7.0",
-    "prop-types": "latest",
-    "react": "^15.5.4",
-    "react-dom": "^15.5.4",
-    "react-redux": "^5.0.4",
-    "react-router-dom": "^4.1.1",
-    "react-tap-event-plugin": "^2.0.1",
-    "redux": "^3.6.0",
-    "redux-thunk": "^2.2.0",
-    "rxjs": "^5.3.0",
-    "sass-loader": "^6.0.3",
-    "style-loader": "^0.16.1",
-    "styled-components": "^1.4.6",
-    "webpack": "^2.4.1",
-    "webpack-dev-server": "^2.4.4",
-    "webpack-merge": "^4.1.0",
-    "whatwg-fetch": "^2.0.3"
-  }
+	"name": "digital-museum",
+	"version": "0.5.5",
+	"description": "Digital Museum will present real world features through the physical web",
+	"main": "index.js",
+	"scripts": {
+		"start": "node server",
+		"server": "webpack-dev-server --env=dev --watch --progress --profile --colors",
+		"build:dev": "rm -rf ./output/dev && webpack --env=dev --progress --profile --colors --display-error-details",
+		"build:prod": "rm -rf ./output/prod && webpack --env=prod --progress --profile --colors --display-error-details",
+		"test": "echo \"Error: no test specified\" && exit 1"
+	},
+	"homepage": "https://digital-museum.herokuapp.com/",
+	"contributors": [
+		"Nivaldo Bondança <hick209@gmail.com>"
+	],
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/hick209/digital-museum.git"
+	},
+	"keywords": [
+		"physical web",
+		"react",
+		"redux"
+	],
+	"author": "Nivaldo Bondança",
+	"bugs": {
+		"email": "hick209@gmail.com"
+	},
+	"license": "MIT",
+	"engines": {
+		"node": "6.9.3"
+	},
+	"dependencies": {
+		"autoprefixer-loader": "^3.2.0",
+		"babel-core": "^6.24.1",
+		"babel-loader": "^7.0.0",
+		"babel-preset-latest": "^6.24.1",
+		"babel-preset-react": "^6.24.1",
+		"body-parser": "^1.17.1",
+		"copy-webpack-plugin": "^4.0.1",
+		"css-loader": "^0.28.0",
+		"eslint": "^3.19.0",
+		"eslint-plugin-html": "^2.0.1",
+		"eslint-plugin-react": "^6.10.3",
+		"express": "^4.15.2",
+		"file-loader": "^0.11.1",
+		"firebase": "^3.9.0",
+		"firebase-admin": "^4.2.1",
+		"handlebars": "^4.0.6",
+		"handlebars-loader": "^1.5.0",
+		"html-webpack-plugin": "^2.28.0",
+		"json-loader": "^0.5.4",
+		"material-ui": "^0.18.0",
+		"node-sass": "^4.5.2",
+		"offline-plugin": "^4.7.0",
+		"prop-types": "latest",
+		"react": "^15.5.4",
+		"react-dom": "^15.5.4",
+		"react-redux": "^5.0.4",
+		"react-router-dom": "^4.1.1",
+		"react-tap-event-plugin": "^2.0.1",
+		"redux": "^3.6.0",
+		"redux-thunk": "^2.2.0",
+		"rxjs": "^5.3.0",
+		"sass-loader": "^6.0.3",
+		"style-loader": "^0.16.1",
+		"styled-components": "^1.4.6",
+		"webpack": "^2.4.1",
+		"webpack-dev-server": "^2.4.4",
+		"webpack-merge": "^4.1.0",
+		"whatwg-fetch": "^2.0.3"
+	}
 }
