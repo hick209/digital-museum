@@ -1,6 +1,6 @@
 {
 	"name": "digital-museum",
-	"version": "0.5.7",
+	"version": "0.5.8",
 	"description": "Digital Museum will present real world features through the physical web",
 	"main": "index.js",
 	"scripts": {
@@ -28,9 +28,6 @@
 		"email": "hick209@gmail.com"
 	},
 	"license": "MIT",
-	"engines": {
-		"node": "6.9.3"
-	},
 	"dependencies": {
 		"autoprefixer-loader": "^3.2.0",
 		"babel-core": "^6.24.1",
